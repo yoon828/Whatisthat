@@ -1,6 +1,5 @@
 import React from "react";
 import "./Main.css";
-import MainBackground from "@images/MainBackground.svg";
 
 function Main() {
   return (
@@ -8,7 +7,7 @@ function Main() {
       <div className="main-background flex">
         <img
           className="main-background__img"
-          src={MainBackground}
+          src="/MainBackground.svg"
           alt="background"
         />
       </div>

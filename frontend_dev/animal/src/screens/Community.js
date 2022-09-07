@@ -13,5 +13,4 @@ function Community() {
     </div>
   );
 }
-
 export default Community;

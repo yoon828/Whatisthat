@@ -1,11 +1,7 @@
+import React from "react";
 
-
-const CommunityPage = () => {
-    return (
-        <div>
-            <p>커뮤니티</p>
-        </div>
-    )
+function Community(props) {
+  return <div></div>;
 }
 
-export default CommunityPage;
+export default Community;

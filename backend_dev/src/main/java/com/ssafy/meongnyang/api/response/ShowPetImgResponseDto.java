@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShowPetListResponseDto {
+public class ShowPetImgResponseDto {
     private Long id;
-    private String title;
-    private Long user_id;
-    private Long date;
+    private Long show_pet_id;
+    private String img_url;
 }

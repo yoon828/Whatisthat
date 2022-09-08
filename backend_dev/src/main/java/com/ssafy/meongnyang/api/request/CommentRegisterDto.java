@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CommentRegisterDto {
-    private Integer id;
+    private Long id;    // 글 id
+    private Long user_id;   // 토큰 사용하면 삭제할 변수
     private String content;
 }

@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public interface CommentService {
-    int writeComment(CommentRegisterDto commentRegisterDto);
-    int updateComment(CommentUpdateDto commentUpdateDto);
-    List<CommentResponseDto> getCommentList(int id);
-    int deleteComment(int id);
+    CommentResponseDto writeComment(CommentRegisterDto commentRegisterDto);
+    CommentResponseDto updateComment(CommentUpdateDto commentUpdateDto);
+    List<CommentResponseDto> getCommentList(long id);
+    boolean deleteComment(long id);
 }

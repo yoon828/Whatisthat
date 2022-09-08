@@ -18,32 +18,38 @@ public class ShowPetController {
 
     @PostMapping
     public ResponseEntity<?> writeShowPet(@RequestBody ShowPetRegisterDto showPetRegisterDto) {
-        return new ResponseEntity<>(new Response<>(true, 201, "자랑 글 등록 성공", showPetService.writeShowPet(showPetRegisterDto)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Response<>(true, 201, "자랑 글 등록 성공",
+                showPetService.writeShowPet(showPetRegisterDto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
     public ResponseEntity<?> getShowPetList() {
-        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 목록 조회 성공", showPetService.getShowPetList()), HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 목록 조회 성공",
+                showPetService.getShowPetList()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getShowPet(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 상세 조회 성공", showPetService.getShowPet(id)), HttpStatus.OK);
+    public ResponseEntity<?> getShowPet(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 상세 조회 성공",
+                showPetService.getShowPet(id)), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> updateShowPet(@RequestBody ShowPetUpdateDto showPetUpdateDto) {
-        return new ResponseEntity<>(new Response<>(true, 202, "자랑 글 수정 성공", showPetService.updateShowPet(showPetUpdateDto)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new Response<>(true, 202, "자랑 글 수정 성공",
+                showPetService.updateShowPet(showPetUpdateDto)), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteShowPet(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 삭제 성공", showPetService.deleteShowPet(id)), HttpStatus.OK);
+    public ResponseEntity<?> deleteShowPet(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "자랑 글 삭제 성공",
+                showPetService.deleteShowPet(id)), HttpStatus.OK);
     }
 
     // 토큰 만들기 전 임시로 id값 넘겨주기
     @GetMapping("/articles/{id}")
-    public ResponseEntity<?> getUserShowPetList(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "회원별 자랑 글 목록 조회 성공", showPetService.getUserShowPetList(id)), HttpStatus.OK);
+    public ResponseEntity<?> getUserShowPetList(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "회원별 자랑 글 목록 조회 성공",
+                showPetService.getUserShowPetList(id)), HttpStatus.OK);
     }
 }

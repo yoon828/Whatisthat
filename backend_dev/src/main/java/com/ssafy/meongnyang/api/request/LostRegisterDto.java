@@ -1,9 +1,12 @@
 package com.ssafy.meongnyang.api.request;
 
+import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -20,6 +23,8 @@ public class LostRegisterDto {
     private String phone;
     private String pay;
     private String etc;
-    private boolean isfound;
+    private Boolean is_found;
     private String name;
+    private List<String> imgs;
+    private Long user_id;   //토큰 만들면 삭제
 }

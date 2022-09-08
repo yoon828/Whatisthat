@@ -4,14 +4,16 @@ import com.ssafy.meongnyang.api.request.ShowPetRegisterDto;
 import com.ssafy.meongnyang.api.request.ShowPetUpdateDto;
 import com.ssafy.meongnyang.api.response.ShowPetDetailResponseDto;
 import com.ssafy.meongnyang.api.response.ShowPetListResponseDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface ShowPetService {
-    int writeShowPet(ShowPetRegisterDto showPetRegisterDto);
-    int updateShowPet(ShowPetUpdateDto showPetUpdateDto);
+    ShowPetDetailResponseDto writeShowPet(ShowPetRegisterDto showPetRegisterDto);
+    ShowPetDetailResponseDto updateShowPet(ShowPetUpdateDto showPetUpdateDto);
     List<ShowPetListResponseDto> getShowPetList();
-    ShowPetDetailResponseDto getShowPet(int id);
-    int deleteShowPet(int id);
-    List<ShowPetListResponseDto> getUserShowPetList(int id);
+    ShowPetDetailResponseDto getShowPet(long id);
+    boolean deleteShowPet(long id);
+    List<ShowPetListResponseDto> getUserShowPetList(long id);
 }

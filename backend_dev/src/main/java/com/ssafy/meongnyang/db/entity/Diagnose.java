@@ -14,19 +14,17 @@ public class Diagnose {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "diagnose_id")
+    private Long id;
 
     @Column(nullable = false)
-    private int species;
+    private Integer species;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String content;
-
-    @Column(nullable = false)
-    private int type;
+    private Integer type;
 
     @Column(nullable = false)
     private String code;
@@ -34,7 +32,10 @@ public class Diagnose {
     @Column(nullable = false)
     private Timestamp date;
 
+    @Column(nullable = false)
+    private String img_url;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

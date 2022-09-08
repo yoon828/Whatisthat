@@ -13,7 +13,8 @@ public class Disease {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "disease_id")
+    private Long id;
 
     @Column(nullable = false)
     private String code;

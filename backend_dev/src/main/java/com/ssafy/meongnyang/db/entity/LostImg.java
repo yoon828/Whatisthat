@@ -13,12 +13,13 @@ public class LostImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "lost_img_id")
+    private Long id;
 
     @Column(nullable = false)
     private String img_url;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "lost_id")
     private Lost lost;
 }

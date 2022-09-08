@@ -1,6 +1,8 @@
 package com.ssafy.meongnyang.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,7 +18,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "user_id")
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -30,7 +33,8 @@ public class User {
     @Column(nullable = false)
     private String profile_img;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false, columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
     private Timestamp join_date;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -16,7 +16,8 @@ public class ShowPet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "show_pet_id")
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -31,9 +32,9 @@ public class ShowPet {
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "show-pet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "showpet", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 }

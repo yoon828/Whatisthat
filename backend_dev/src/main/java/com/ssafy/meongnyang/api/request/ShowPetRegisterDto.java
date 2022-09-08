@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,5 +14,8 @@ import lombok.NoArgsConstructor;
 public class ShowPetRegisterDto {
     private String title;
     private String name;
+    private Long user_id;
     private String content;
+    private List<String> imgs;
+
 }

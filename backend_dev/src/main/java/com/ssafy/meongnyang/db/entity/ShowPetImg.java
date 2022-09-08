@@ -13,12 +13,13 @@ public class ShowPetImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "show_pet_img_id")
+    private long id;
 
     @Column(nullable = false)
     private String img_url;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private ShowPet showpet;
 }

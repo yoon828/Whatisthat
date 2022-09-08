@@ -17,22 +17,26 @@ public class DiagnoseController {
 
     @PostMapping
     public ResponseEntity<?> writeDiagnose(@RequestBody DiagnoseRegisterDto diagnoseRegisterDto) {
-        return new ResponseEntity<>(new Response<>(true, 201, "진단 내역 등록 성공", diagnoseService.writeDiagnose(diagnoseRegisterDto)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Response<>(true, 201, "진단 내역 등록 성공",
+                diagnoseService.writeDiagnose(diagnoseRegisterDto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDiagnose(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "진단 내역 상세 조회 성공", diagnoseService.getDiagnose(id)), HttpStatus.OK);
+    public ResponseEntity<?> getDiagnose(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "진단 내역 상세 조회 성공",
+                diagnoseService.getDiagnose(id)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteShowPet(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "진단 내역 삭제 성공", diagnoseService.deleteDiagnose(id)), HttpStatus.OK);
+    public ResponseEntity<?> deleteShowPet(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "진단 내역 삭제 성공",
+                diagnoseService.deleteDiagnose(id)), HttpStatus.OK);
     }
 
     // 토큰 만들기 전 임시로 id값 넘겨주기
     @GetMapping("/list/{id}")
-    public ResponseEntity<?> getDiagnoseList(@PathVariable int id) {
-        return new ResponseEntity<>(new Response<>(true, 200, "회원별 진단 내역 목록 조회 성공", diagnoseService.getDiagnoseList(id)), HttpStatus.OK);
+    public ResponseEntity<?> getDiagnoseList(@PathVariable long id) {
+        return new ResponseEntity<>(new Response<>(true, 200, "회원별 진단 내역 목록 조회 성공",
+                diagnoseService.getDiagnoseList(id)), HttpStatus.OK);
     }
 }

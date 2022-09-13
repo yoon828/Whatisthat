@@ -14,14 +14,14 @@ const DiagnosePage = () => {
 
     return (
         <div className='container'>
-            <Form onInput={(event)=>{
+            <Form style={{'width':'250px'}} onInput={(event)=>{
                 setName(event.target.value)
             }}>
                 <Form.Label htmlFor="inputPassword5">이름</Form.Label>
                 <Form.Control
                 />
                 <Form.Text id="passwordHelpBlock" muted>
-                    강아지나 고양이의 이름을 입력해주세요.
+                    반려동물 이름을 입력해주세요.
                 </Form.Text>
             </Form>
 

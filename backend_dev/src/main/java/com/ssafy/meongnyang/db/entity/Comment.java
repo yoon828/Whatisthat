@@ -1,5 +1,6 @@
 package com.ssafy.meongnyang.db.entity;
 
+import com.ssafy.meongnyang.api.request.CommentUpdateDto;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,4 +33,8 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_pet_id")
     private ShowPet showpet;
+
+    public void updateComment(CommentUpdateDto commentUpdateDto) {
+        this.content = commentUpdateDto.getContent();
+    }
 }

@@ -11,9 +11,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShowPetListResponseDto {
+public class UserResponseDto {
     private Long id;
-    private String title;
-    private String user_nickname;
-    private Timestamp date;
+    private String name;
+    private String nickname;
+    private String email;
+    private Timestamp join_date;
+    private String profile_img;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface DiagnoseService {
     DiagnoseResponseDto writeDiagnose(DiagnoseRegisterDto diagnoseRegisterDto);
-    boolean deleteDiagnose(long id);
-    List<DiagnoseListResponseDto> getDiagnoseList(long id);
-    DiagnoseResponseDto getDiagnose(long id);
+    boolean deleteDiagnose(Long id);
+    List<DiagnoseListResponseDto> getDiagnoseList(Long id);
+    DiagnoseResponseDto getDiagnose(Long id);
 }

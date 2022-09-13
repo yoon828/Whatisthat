@@ -1,6 +1,7 @@
 package com.ssafy.meongnyang.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -29,7 +30,8 @@ public class Diagnose {
     @Column(nullable = false)
     private String code;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false, columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
     private Timestamp date;
 
     @Column(nullable = false)

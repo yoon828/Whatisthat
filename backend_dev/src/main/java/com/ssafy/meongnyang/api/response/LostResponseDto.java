@@ -15,6 +15,7 @@ import java.util.List;
 public class LostResponseDto {
     private Long id;
     private String title;
+    private String user_nickname;
     private Integer gender;
     private String lost_date;
     private String age;

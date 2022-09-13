@@ -4,28 +4,34 @@ import com.ssafy.meongnyang.api.request.LostRegisterDto;
 import com.ssafy.meongnyang.api.request.LostUpdateDto;
 import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import com.ssafy.meongnyang.api.response.LostResponseDto;
-import com.ssafy.meongnyang.common.exception.handler.CustomNotFoundException;
+import com.ssafy.meongnyang.common.exception.handler.LostNotFoundException;
+import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
 import com.ssafy.meongnyang.db.entity.Lost;
 import com.ssafy.meongnyang.db.entity.LostImg;
 import com.ssafy.meongnyang.db.entity.User;
+import com.ssafy.meongnyang.db.repository.LostImgRepository;
 import com.ssafy.meongnyang.db.repository.LostRepository;
 import com.ssafy.meongnyang.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class LostServiceImpl implements LostService {
     private final LostRepository lostRepository;
+    private final LostImgRepository lostImgRepository;
     private final UserRepository userRepository;
 
     @Override
     public LostResponseDto writeLost(LostRegisterDto lostRegisterDto) {
-        User user = userRepository.findById(lostRegisterDto.getUser_id()).orElseThrow(CustomNotFoundException::new);
+        User user = userRepository.findById(lostRegisterDto.getUser_id()).orElseThrow(UserNotFoundException::new);
+
         Lost lost = Lost.builder()
                 .user(user)
                 .lost_date(lostRegisterDto.getLost_date())
@@ -39,19 +45,90 @@ public class LostServiceImpl implements LostService {
                 .name(lostRegisterDto.getName())
                 .pay(lostRegisterDto.getPay())
                 .phone(lostRegisterDto.getPhone())
+                .is_found(lostRegisterDto.getIs_found())
+                .lostImgList(new ArrayList<>())
                 .build();
 
         Lost lostResponse = lostRepository.save(lost);
+        List<LostImg> imgList = lostImgRepository.saveAll(lostRegisterDto.getImgs()
+                .stream()
+                .map(s -> LostImg.builder()
+                        .img_url(s)
+                        .lost(lost)
+                        .build()).collect(Collectors.toList()));
 
-        return null;
+        LostResponseDto lostResponseDto = LostResponseDto.builder()
+                .id(lostResponse.getId())
+                .title(lostResponse.getTitle())
+                .user_nickname(lostResponse.getUser().getNickname())
+                .gender(lostResponse.getGender())
+                .lost_date(lostResponse.getLost_date())
+                .age(lostResponse.getAge())
+                .weight(lostResponse.getWeight())
+                .kind(lostResponse.getKind())
+                .place(lostResponse.getPlace())
+                .phone(lostResponse.getPhone())
+                .pay(lostResponse.getPay())
+                .etc(lostResponse.getEtc())
+                .is_found(lostResponse.getIs_found())
+                .name(lostResponse.getName())
+                .date(lostResponse.getDate())
+                .imgs(imgList
+                        .stream()
+                        .map(lostImg -> LostImgResponseDto.builder()
+                                .id(lostImg.getId())
+                                .lost_id(lostImg.getLost().getId())
+                                .img_url(lostImg.getImg_url())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+
+        return lostResponseDto;
     }
 
     @Override
     public LostResponseDto updateLost(LostUpdateDto lostUpdateDto) {
-        return null;
+        Lost lost = lostRepository.findById(lostUpdateDto.getId()).orElseThrow(LostNotFoundException::new);
+        lostImgRepository.deleteAllByLostId(lost.getId());
+
+        lost.updateLost(lostUpdateDto);
+        List<LostImg> imgList = lostImgRepository.saveAll(lostUpdateDto.getImgs()
+                .stream()
+                .map(s -> LostImg.builder()
+                        .img_url(s)
+                        .lost(lost)
+                        .build()).collect(Collectors.toList()));
+
+        LostResponseDto lostResponseDto = LostResponseDto.builder()
+                .id(lost.getId())
+                .title(lost.getTitle())
+                .user_nickname(lost.getUser().getNickname())
+                .gender(lost.getGender())
+                .lost_date(lost.getLost_date())
+                .age(lost.getAge())
+                .weight(lost.getWeight())
+                .kind(lost.getKind())
+                .place(lost.getPlace())
+                .phone(lost.getPhone())
+                .pay(lost.getPay())
+                .etc(lost.getEtc())
+                .is_found(lost.getIs_found())
+                .name(lost.getName())
+                .date(lost.getDate())
+                .imgs(imgList
+                        .stream()
+                        .map(lostImg -> LostImgResponseDto.builder()
+                                .id(lostImg.getId())
+                                .lost_id(lostImg.getLost().getId())
+                                .img_url(lostImg.getImg_url())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+        return lostResponseDto;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<LostResponseDto> getLostList() {
         return lostRepository.findAll(Sort.by(Sort.Direction.DESC, "date"))
                 .stream()
@@ -86,14 +163,15 @@ public class LostServiceImpl implements LostService {
 
     @Override
     public boolean deleteLost(Long id) {
-        lostRepository.findById(id).orElseThrow(CustomNotFoundException::new);
+        lostRepository.findById(id).orElseThrow(LostNotFoundException::new);
         lostRepository.deleteById(id);
         return true;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<LostResponseDto> getUserLostList(Long id) {
-        return lostRepository.findAllById(id)
+        return lostRepository.findAllByUserId(id)
                 .stream()
                 .map(LostServiceImpl::apply)
                 .collect(Collectors.toList());
@@ -114,6 +192,8 @@ public class LostServiceImpl implements LostService {
                 .title(lost.getTitle())
                 .date(lost.getDate())
                 .name(lost.getName())
+                .place(lost.getPlace())
+                .user_nickname(lost.getUser().getNickname())
                 .imgs(lost.getLostImgList()
                         .stream()
                         .map(lostImg -> LostImgResponseDto.builder()

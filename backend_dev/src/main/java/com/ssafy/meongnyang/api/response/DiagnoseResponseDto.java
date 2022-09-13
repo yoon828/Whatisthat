@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DiagnoseResponseDto {
     private Long id;
-    private Long user_id;
+    private String user_name;
     private String name;
     private String img_url;
     private String disease_name;

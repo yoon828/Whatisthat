@@ -1,22 +1,23 @@
-package com.ssafy.meongnyang.api.request;
+package com.ssafy.meongnyang.api.response;
 
-import com.ssafy.meongnyang.db.entity.ShowPetImg;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShowPetUpdateDto {
-    private Long user_id;   //토큰 만들면 삭제
+public class ShowPetResponseDto {
     private Long id;
     private String title;
+    private String user_nickname;
     private String name;
     private String content;
-    private List<String> imgs;
+    private Timestamp date;
+    private List<ShowPetImgResponseDto> imgs;
 }

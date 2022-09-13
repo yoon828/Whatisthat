@@ -1,7 +1,9 @@
 package com.ssafy.meongnyang.db.entity;
 
+import com.ssafy.meongnyang.api.request.LostUpdateDto;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -35,7 +37,8 @@ public class Lost {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false, columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
     private Timestamp date;
 
     @Column
@@ -65,4 +68,19 @@ public class Lost {
 
     @OneToMany(mappedBy = "lost", cascade = CascadeType.ALL)
     private List<LostImg> lostImgList = new ArrayList<>();
+
+    public void updateLost(LostUpdateDto lostUpdateDto) {
+        this.title = lostUpdateDto.getTitle();
+        this.gender = lostUpdateDto.getGender();
+        this.lost_date = lostUpdateDto.getLost_date();
+        this.age = lostUpdateDto.getAge();
+        this.weight = lostUpdateDto.getWeight();
+        this.kind = lostUpdateDto.getKind();
+        this.place = lostUpdateDto.getPlace();
+        this.phone = lostUpdateDto.getPhone();
+        this.pay = lostUpdateDto.getPay();
+        this.etc = lostUpdateDto.getEtc();
+        this.is_found = lostUpdateDto.getIs_found();
+        this.name = lostUpdateDto.getName();
+    }
 }

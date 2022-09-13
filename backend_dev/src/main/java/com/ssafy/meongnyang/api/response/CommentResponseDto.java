@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Builder
 public class CommentResponseDto {
     private Long id;
-    private Long user_id;
+    private String user_nickname;
     private String content;
     private Timestamp date;
 }

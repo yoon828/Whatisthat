@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class LostRegisterDto {
+    private Long user_id;   //토큰 만들면 삭제
     private String title;
     private Integer gender;
     private String lost_date;
@@ -26,5 +27,4 @@ public class LostRegisterDto {
     private Boolean is_found;
     private String name;
     private List<String> imgs;
-    private Long user_id;   //토큰 만들면 삭제
 }

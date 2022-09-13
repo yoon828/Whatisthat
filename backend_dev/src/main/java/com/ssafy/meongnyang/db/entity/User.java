@@ -1,5 +1,6 @@
 package com.ssafy.meongnyang.db.entity;
 
+import com.ssafy.meongnyang.api.request.UserUpdateDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,4 +49,11 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
+
+    public void updateUser(UserUpdateDto userUpdateDto) {
+        this.name = userUpdateDto.getName();
+        this.nickname = userUpdateDto.getNickname();
+        this.email = userUpdateDto.getEmail();
+        this.profile_img = userUpdateDto.getProfile_img();
+    }
 }

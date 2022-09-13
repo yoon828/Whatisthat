@@ -12,10 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ShowPetRegisterDto {
+    private Long user_id;   //토큰 만들면 삭제
     private String title;
     private String name;
-    private Long user_id;
     private String content;
     private List<String> imgs;
-
 }

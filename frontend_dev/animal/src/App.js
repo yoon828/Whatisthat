@@ -4,7 +4,6 @@ import MainNavBar from "./components/MainNavBar";
 import CommunityPage from "./screens/Community";
 import DiagnosePage from "./screens/Diagnose";
 import FacilitiesPage from "./screens/Facilities";
-import LoginPage from "./screens/Login";
 import MainPage from "./screens/Main";
 import MyPage from "./screens/MyPage";
 import FirstAidPage from "./screens/FirstAid";
@@ -21,7 +20,6 @@ function App() {
           <Route element={<FacilitiesPage />} path="/facilities"></Route>
           <Route element={<CommunityPage />} path="/community"></Route>
           <Route element={<MyPage />} path="/mypage"></Route>
-          <Route element={<LoginPage />} path="/login"></Route>
         </Routes>
       </div>
     </>

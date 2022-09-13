@@ -1,0 +1,26 @@
+#community {
+  width: 1080px;
+}
+.banner {
+  display: flex;
+  justify-content: center;
+  width: 360px;
+}
+.banner__showpet {
+  display: flex;
+  justify-content: center;
+  width: 360px;
+}
+.banner__lost {
+  display: flex;
+  justify-content: center;
+  width: 360px;
+}
+.sort-list {
+  display: flex;
+  justify-content: left;
+  width: 360px;
+}
+.item-list {
+  width: 1080px;
+}

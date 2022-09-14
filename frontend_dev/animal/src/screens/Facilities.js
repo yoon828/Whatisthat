@@ -1,5 +1,5 @@
 /* global kakao */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const { kakao } = window;
 
@@ -30,14 +30,7 @@ const FacilitiesPage = () => {
         };
         places.keywordSearch('반려 동물', callback);
     });
-
-    return (
-        <div id='myMap' style={{
-            width: '500px', 
-            height: '500px'
-        }}></div>
-    );
-    
 }
+
 
 export default FacilitiesPage;

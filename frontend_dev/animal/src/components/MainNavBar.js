@@ -15,7 +15,7 @@ function MainNavbar() {
             <Nav.Link href="/diagnose">진단하기</Nav.Link>
             <Nav.Link href="/community">커뮤니티</Nav.Link>
             <Nav.Link href="/firstaid">응급처치 방법</Nav.Link>
-            <Nav.Link href="/facilities">주변시설</Nav.Link>
+            <Nav.Link onClick={()=>window.open('https://map.kakao.com/link/search/반려동물')}>주변시설</Nav.Link>
             <Nav.Link href="">로그인</Nav.Link>
             <Nav.Link href="">회원가입</Nav.Link>
           </Nav>

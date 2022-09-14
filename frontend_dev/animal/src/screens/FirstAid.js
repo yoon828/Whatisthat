@@ -1,9 +1,146 @@
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './FirstAid.css'
+import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react'
+import Modal from 'react-bootstrap/Modal';
+import YouTube from 'react-youtube';
 
 const FirstAidPage = () => {
+    let [show1, setShow1] = useState(false)
+    let [show2, setShow2] = useState(false)
+    let [show3, setShow3] = useState(false)
+
+    const handleClose1 = () => setShow1(false);
+    const handleClose2 = () => setShow2(false);
+    const handleClose3 = () => setShow3(false);
+
+
     return (
         <div>
-            응급처치
+            <Container>
+            <br></br>
+            <br></br>
+            <Row>
+                <Col>
+                    <div className='container text-center' id='box'>
+                        <br></br>
+                        <p style={{'fontSize':'20px'}}>의식이 없을 때</p>
+                        <img className='animalImg' src='/conciousness.jpg'></img><br></br>
+                        <Button className='mt-4' id='btn'
+                        onClick={()=>{
+                            setShow1(true)
+                        }}
+                        >대처법 보기</Button>
+                    </div>
+                </Col>
+                    
+                <Col>
+                    <div className='container text-center' id='box'>
+                        <br></br>
+                        <p style={{'fontSize':'20px'}}>기도에 이물질이 들어갔을 때</p>
+                        <img className='animalImg1' src='/airway.jpg'></img><br></br>
+                        <Button className='mt-4' id='btn'
+                        onClick={()=>{
+                            setShow2(true)
+                        }}
+                        >대처법 보기</Button>
+                    </div>
+                </Col>
+
+                <Col>
+                    <div className='container text-center' id='box'>
+                        <br></br>
+                        <p style={{'fontSize':'20px'}}>화상을 입었을 때</p>
+                        <img className='animalImg2' src='/burn.jpg'></img><br></br>
+                        <Button className='mt-4' id='btn'
+                        onClick={()=>{
+                            setShow3(true)
+                        }}
+                        >대처법 보기</Button>
+                    </div>
+                </Col>
+            </Row>
+            </Container>
+
+            <Modal className='modal' size='lg' show={show1} onHide={handleClose1}>
+                <Modal.Header closeButton>
+                <Modal.Title>의식이 없을 때 대처법</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                    <YouTube
+                    videoId="CzSy0qELgWM"
+                    opts={{
+                    width: "700",
+                    height: "400",
+                    playerVars: {
+                        autoplay: 1, //자동재생 O
+                        rel: 0, //관련 동영상 표시하지 않음 (근데 별로 쓸모 없는듯..)
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                    }}
+                    >
+                    </YouTube>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose1}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal className='modal' size='lg' show={show2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                <Modal.Title>기도에 이물질이 들어갔을 때 대처법</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                <YouTube
+                    videoId="jj3Q-ek-IuY"
+                    opts={{
+                    width: "700",
+                    height: "400",
+                    playerVars: {
+                        autoplay: 1, //자동재생 O
+                        rel: 0, //관련 동영상 표시하지 않음 (근데 별로 쓸모 없는듯..)
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                    }}
+                    >
+                    </YouTube>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose2}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal className='modal' size='lg' show={show3} onHide={handleClose3}>
+                <Modal.Header closeButton>
+                <Modal.Title>화상을 입었을 때 대처법</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                <YouTube
+                    videoId="ncJy__u9Sek"
+                    opts={{
+                    width: "700",
+                    height: "400",
+                    playerVars: {
+                        autoplay: 1, //자동재생 O
+                        rel: 0, //관련 동영상 표시하지 않음 (근데 별로 쓸모 없는듯..)
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                    }}
+                    >
+                    </YouTube>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose3}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

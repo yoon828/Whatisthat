@@ -1,6 +1,8 @@
 package com.ssafy.meongnyang.api.request;
 
 import com.ssafy.meongnyang.api.response.LostImgResponseDto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

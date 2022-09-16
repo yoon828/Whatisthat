@@ -1,6 +1,5 @@
 package com.ssafy.meongnyang.api.request;
 
-import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

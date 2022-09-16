@@ -65,10 +65,10 @@ const FirstAidPage = () => {
             </Container>
 
             <Modal className='modal' size='lg' show={show1} onHide={handleClose1}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton id='modal-header'>
                 <Modal.Title>의식이 없을 때 대처법</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='text-center'>
+                <Modal.Body className='text-center' id='modal-body'>
                     <YouTube
                     videoId="CzSy0qELgWM"
                     opts={{
@@ -83,7 +83,7 @@ const FirstAidPage = () => {
                     >
                     </YouTube>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer id='modal-footer'>
                 <Button variant="secondary" onClick={handleClose1}>
                     Close
                 </Button>
@@ -91,10 +91,10 @@ const FirstAidPage = () => {
             </Modal>
 
             <Modal className='modal' size='lg' show={show2} onHide={handleClose2}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton id='modal-header'>
                 <Modal.Title>기도에 이물질이 들어갔을 때 대처법</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='text-center'>
+                <Modal.Body className='text-center' id='modal-body'>
                 <YouTube
                     videoId="jj3Q-ek-IuY"
                     opts={{
@@ -109,7 +109,7 @@ const FirstAidPage = () => {
                     >
                     </YouTube>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer id='modal-footer'>
                 <Button variant="secondary" onClick={handleClose2}>
                     Close
                 </Button>
@@ -117,10 +117,10 @@ const FirstAidPage = () => {
             </Modal>
 
             <Modal className='modal' size='lg' show={show3} onHide={handleClose3}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton id='modal-header'>
                 <Modal.Title>화상을 입었을 때 대처법</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='text-center'>
+                <Modal.Body className='text-center' id='modal-body'>
                 <YouTube
                     videoId="ncJy__u9Sek"
                     opts={{
@@ -135,7 +135,7 @@ const FirstAidPage = () => {
                     >
                     </YouTube>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer id='modal-footer'>
                 <Button variant="secondary" onClick={handleClose3}>
                     Close
                 </Button>

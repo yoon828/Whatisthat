@@ -3,19 +3,7 @@ import CardList from "../../components/CardList";
 import "./Community.css";
 
 function Community() {
-  const [comType, setComType] = (useState < "showpet") | ("lost" > "showpet");
-  const [conditions, setConditions] = useState({
-    category: "showpet",
-    sort: "최신순",
-    keyword: null,
-  });
-  const handleConditions = () => {
-    if (type === "keyword" && value === "") {
-      setConditions({ ...conditions, [type]: null });
-    } else {
-      setConditions({ ...conditions, [type]: value });
-    }
-  };
+  const [comType, setComType] = useState("showpet");
   return (
     <div id="community">
       <div classname="banner">
@@ -41,10 +29,7 @@ function Community() {
         </button>
       </div>
       <div className="sort-list flex">
-        <select
-          className="sort-list-select"
-          onChange={(e) => handleConditions("sort", e.target.value)}
-        >
+        <select className="sort-list-select">
           <option value="최신순">최신순</option>
           <option value="조회순">조회순</option>
         </select>

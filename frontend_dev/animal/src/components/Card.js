@@ -1,17 +1,15 @@
-import React from "react";
-import "./Card.css";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
-function Card() {
+function BasicExample() {
   return (
-    <div id="card">
-      <div className="img-container">
-        <img className="card-thumnail" src="./DummyImg.svg" alt="dummyimg" />
-      </div>
-      <div className="card-description">
-        <p>안녕하세요 고양이입니다.</p>
-      </div>
-    </div>
+    <Card style={{ width: "18rem" }}>
+      <Card.Img variant="top" src="./DummyImg.svg" />
+      <Card.Body>
+        <Card.Title>Card Title</Card.Title>
+      </Card.Body>
+    </Card>
   );
 }
 
-export default Card;
+export default BasicExample;

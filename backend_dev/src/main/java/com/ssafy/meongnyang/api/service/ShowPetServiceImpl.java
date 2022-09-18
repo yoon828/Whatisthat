@@ -128,6 +128,15 @@ public class ShowPetServiceImpl implements ShowPetService {
                                 .img_url(showPetImg.getImg_url())
                                 .build())
                         .collect(Collectors.toList()))
+                .comments(showPet.getCommentList()
+                        .stream()
+                        .map(comment -> CommentResponseDto.builder()
+                                .date(comment.getDate())
+                                .id(comment.getId())
+                                .content(comment.getContent())
+                                .user_nickname(comment.getUser().getNickname())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
         return showPetDetailResponseDto;
     }

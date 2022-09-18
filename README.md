@@ -10,7 +10,8 @@
 * 사용자 주변의 반려동물 관련 병원과 애완용품상점 등의 정보를 제공합니다 <br>
 
 [ 기획 배경 자료 ](https://www.notion.so/77447be27ed74646acf1833e5a2565d7)<br>
-[ 기술 스택 ](https://www.notion.so/394c6ecfd7db44fd92337e5c5b937dd1)
+[ 기술 스택 ](https://www.notion.so/394c6ecfd7db44fd92337e5c5b937dd1)<br>
+[ 디렉토리 구조 ](https://www.notion.so/Directory-6c65189a251444d2b5cdbd9dd6754967)<br><Br>
 
 ## 🐶🐱 산출물
 * [ 요구사항 명세서 ](https://www.notion.so/14b90b56db24489791e349874720ffbb)<br>

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import axios from 'axios'
 import { MagnifyingGlass } from  'react-loader-spinner'
+import './Diagnose.css'
 
 const DiagnosePage = () => {
     let [showResult, setShowResult] = useState(false)
@@ -32,17 +33,17 @@ const Diagnose = (props) => {
             {
                 loading ? <Loading /> : 
                 
-            <div>
-            <Form style={{'width':'250px'}} onInput={(event)=>{
+            <div className='box'>
+            <Form id='form-input' onInput={(event)=>{
                 setName(event.target.value)
             }}>
-                <Form.Label htmlFor="inputPassword5">이름</Form.Label>
+                <Form.Label className='mt-2'>이름</Form.Label>
                 <Form.Control
                 />
-                <Form.Text id="passwordHelpBlock" muted>
+                <Form.Text muted className='mb-2'>
                     반려동물 이름을 입력해주세요.
                 </Form.Text>
-            </Form>
+            </Form><br></br>
 
             <Form>
             {['radio'].map((type) => (
@@ -106,7 +107,7 @@ const Diagnose = (props) => {
 
             <p>사진 업로드 하기</p>
             <input
-            className='mb-3'
+            className='mb-4'
             type="file"
             accept="image/*"
             onChange={(e)=>{
@@ -123,11 +124,11 @@ const Diagnose = (props) => {
             >
             </input>
             <div>
-                <Button
+                {/* <Button
                 onClick={()=>{
                     setLoading(true)
-                }}>로딩테스트</Button>
-                <Button onClick={()=>{
+                }}>로딩테스트</Button> */}
+                <Button className='mt-2' onClick={()=>{
                     // 이미지 서버에 이미지를 저장하는 axios 추가 해야됨
                     setInfo(info.name=name)
                     setInfo(info.type=type)
@@ -138,7 +139,7 @@ const Diagnose = (props) => {
                     formData.append("uploadFile", file[0], img);
                     setImgFile(formData)
                     console.log(info)
-                    // setLoading(true)
+                    setLoading(true)
                     axios.all([
                         axios({
                           url: "https://i7c101.p.ssafy.io/image/upload", // 이미지 파일 저장하는 이미지 서버 요청 주소

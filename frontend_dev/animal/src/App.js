@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import MainNavBar from "./components/MainNavBar";
-import CommunityPage from "./screens/Community";
+import CommunityPage from "./screens/Community/Community";
 import DiagnosePage from "./screens/Diagnose";
 // import FacilitiesPage from "./screens/Facilities";
 import Main from "./screens/Main";

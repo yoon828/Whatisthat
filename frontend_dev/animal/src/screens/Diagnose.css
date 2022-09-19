@@ -1,3 +1,22 @@
-#form-input {
-    width: 250px;
+.box {
+    text-align: center;
+    width: 300px;
+    border-radius: 5%;
+}
+
+#picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    color: black;
+    background: #F5C6AA;
+    margin: 20px;
 }

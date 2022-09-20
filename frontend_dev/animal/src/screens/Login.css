@@ -1,0 +1,60 @@
+#login {
+  margin: (44px) (483px) (41px) (484px);
+  padding: (64px) (72px) (48px) (72px);
+
+  border: 1px solid $GRAY_DB;
+  border-radius: (20px);
+  .header {
+    &__title {
+      margin-bottom: (40px);
+      line-height: (35px);
+    }
+  }
+  .or {
+    margin: (32px) 0;
+    height: (20px);
+    &__line {
+      width: (138px);
+      height: (1px);
+      background-color: $GRAY_CB;
+    }
+    &__title {
+      white-space: nowrap;
+      color: $GRAY-CB;
+      margin: 0 (12px);
+    }
+  }
+  .form {
+    &__title {
+      margin-bottom: (12px);
+    }
+
+    &__input {
+      @include box();
+      margin-bottom: (20px);
+      padding: (12px);
+      border: 1px solid $GRAY_DB;
+    }
+
+    &__msg {
+      height: 12px;
+      margin-bottom: (28px);
+      color: $RED;
+    }
+
+    &__btn {
+      @include box();
+      margin-bottom: (24px);
+      background-color: $MAIN_YELLOW;
+    }
+  }
+  .footer {
+    color: $GRAY_76;
+    &__container + .footer__container {
+      margin-top: (8px);
+    }
+    &__msg {
+      margin-right: (8px);
+    }
+  }
+}

@@ -26,8 +26,8 @@ function MainNavbar() {
             </Nav.Link>
           </Nav>
           <Nav className="right-nav">
-            <Nav.Link href="">LOGIN</Nav.Link>
-            <Nav.Link href="">SIGNUP</Nav.Link>
+            <Nav.Link href="/login">LOGIN</Nav.Link>
+            <Nav.Link href="join">SIGNUP</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

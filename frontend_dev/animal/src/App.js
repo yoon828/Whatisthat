@@ -6,6 +6,8 @@ import DiagnosePage from "./screens/Diagnose";
 // import FacilitiesPage from "./screens/Facilities";
 import Main from "./screens/Main";
 import MyPage from "./screens/MyPage";
+import Login from "./screens/Login";
+import Join from "./screens/Join";
 import FirstAidPage from "./screens/FirstAid";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           {/* <Route element={<FacilitiesPage />} path="/facilities"></Route> */}
           <Route element={<CommunityPage />} path="/community"></Route>
           <Route element={<MyPage />} path="/mypage"></Route>
+          <Route element={<Login />} path="/login"></Route>
+          <Route element={<Join />} path="/join"></Route>
         </Routes>
       </div>
     </>

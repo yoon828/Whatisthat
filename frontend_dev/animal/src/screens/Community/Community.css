@@ -1,26 +1,49 @@
 #community {
-  width: 1080px;
 }
-.banner {
+
+.background__banner {
+  width: 100%;
+  height: 368px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+}
+
+.banners {
+  width: 1440px;
   display: flex;
-  justify-content: center;
-  width: 360px;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
+
+button {
+  font-size: 40px;
+}
+
 .banner__showpet {
-  display: flex;
-  justify-content: center;
-  width: 360px;
 }
+
 .banner__lost {
-  display: flex;
-  justify-content: center;
-  width: 360px;
 }
+
 .sort-list {
   display: flex;
-  justify-content: left;
-  width: 360px;
-}
-.item-list {
+  position: relative;
+  justify-content: flex-end;
   width: 1080px;
+  margin-bottom: 40px;
+}
+
+.item-content {
+  width: 1080px;
+  margin-top: 80px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

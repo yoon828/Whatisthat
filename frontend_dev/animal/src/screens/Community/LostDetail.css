@@ -1,0 +1,20 @@
+.lost {
+  display: flex;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 12px;
+  align-content: center;
+}
+
+.lost-imgwrapper {
+  display: flex;
+  align-content: center;
+}
+
+.lost-img {
+  width: 360px;
+}
+
+.lost-content {
+  margin-left: 20px;
+}

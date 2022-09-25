@@ -22,7 +22,7 @@
 
 ---
 ## 🐶🐱 배포 및 CI/CD 구축 진행 상황
-* 백엔드 CI/CD 구축 완료 : http://j7c101.p.ssafy.io:8080 <br>
+* 백엔드 CI/CD 구축 완료 : http://j7c101.p.ssafy.io:8080/swagger-ui/index.html <br>
 * 프론트엔드 CI/CD 구축 완료 : http://j7c101.p.ssafy.io:3000 <br>
 
 ## 🐶🐱 배포 계획

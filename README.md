@@ -21,4 +21,12 @@
 * [ 시퀀스다이어그램 ](https://www.notion.so/4e925d1ff02a4e3cb3167a9e5cb84a2f)
 
 ---
+## 🐶🐱 배포 및 CI/CD 구축 진행 상황
+* 백엔드 CI/CD 구축 완료 : http://j7c101.p.ssafy.io:8080 <br>
+* 프론트엔드 CI/CD 구축 완료 : http://j7c101.p.ssafy.io:3000 <br>
+
+## 🐶🐱 배포 계획
+* 프론트엔드 및 백엔드 API 연결하기<br>
+* https 설정, nginx 설정 및 배포 완료하기
+---
 [ 팀 노션 ](https://www.notion.so/45ecfc3f612b42eaa3c644a1bef4cda3)

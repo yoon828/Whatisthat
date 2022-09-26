@@ -28,5 +28,40 @@
 ## 🐶🐱 배포 계획
 * 프론트엔드 및 백엔드 API 연결하기<br>
 * https 설정, nginx 설정 및 배포 완료하기
+
+
+## 🐶🐱 AI 진행 상황
+### 피부
+#### 모델1_피부분류
+* accuracy <br>
+![accuracy](./readmeimg/skin_model/accuracy.png)
+
+* loss<br>
+![loss](./readmeimg/skin_model/loss.png)
+
+
+### 안구
+#### 모델1_안구분류(이미지사이즈 small)
+* accuracy <br>
+![accuracy](./readmeimg/eye_basic_small/accuracy.png)<br>
+
+* loss<br>
+![loss](./readmeimg/eye_basic_small/loss.png)
+
+#### 모델2_안구분류(이미지사이즈 up)
+* accuracy <br>
+![accuracy](./readmeimg/eye_basic_big/accuracy.png)
+
+* loss <br>
+![loss](./readmeimg/eye_basic_big/loss.png)
+
+#### 모델3_안구분류(RESNET)
+* accuracy <br>
+![accuracy](./readmeimg/eye_resnet/accuracy.png)
+
+* loss<br>
+![loss](./readmeimg/eye_resnet/loss.png)
+
+
 ---
 [ 팀 노션 ](https://www.notion.so/45ecfc3f612b42eaa3c644a1bef4cda3)

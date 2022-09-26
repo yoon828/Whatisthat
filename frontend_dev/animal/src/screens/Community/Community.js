@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardList from "../../components/CardList";
 import "./Community.css";
 import LostDetailList from "./LostDetailList";
+import { reqShowList } from "@apis/community";
 
 function Community() {
   const [comType, setComType] = useState("showpet");
+  const [conditions, setConditions] = useState({
+    category: "community",
+    sort: "최신순",
+  });
+  const handleConditions = () => {
+    if (type === "keyword" && value === "") {
+      setConditions({ ...conditions, [type]: null });
+    } else {
+      setConditions({ ...conditions, [type]: value });
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      const res = await reqShowList();
+    })();
+  }, []);
+
   return (
     <div id="community">
       <div className="background__banner">
@@ -38,7 +56,10 @@ function Community() {
           </button>
         </div>
         <div className="sort-list flex">
-          <select className="sort-list-select">
+          <select
+            className="sort-list-select"
+            onChange={(e) => handleConditions("sort", e.target.value)}
+          >
             <option value="최신순">최신순</option>
             <option value="조회순">조회순</option>
           </select>

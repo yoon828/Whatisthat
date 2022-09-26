@@ -1,55 +1,54 @@
-// src/pages/PostEditor/postEditor.jsx
-import React, { useEffect, useRef, useState, memo } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import styles from "./postEditor.module.css";
-import QuillEditor from "../../components/QuillEditor/quillEditor";
+import React from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-const PostEditor = memo(({ api, user }) => {
-  const history = useHistory();
-  const [htmlContent, setHtmlContent] = useState(""); //🌈
-  const { id: postId } = useParams();
-  const quillRef = useRef(); //🌈
-
-  const handleSubmit = async () => {
-    const description = quillRef.current.getEditor().getText(); //태그를 제외한 순수 text만을 받아온다. 검색기능을 구현하지 않을 거라면 굳이 text만 따로 저장할 필요는 없다.
-    if (description.trim() === "") {
-      alert("내용을 입력해주세요.");
-      return;
-    }
-    if (postId) {
-      //기존 게시글 업데이트
-      await api.updatePost({ postId, description, htmlContent });
-      //history.push(`/@${user.name}/post/${postId}`);
-    } else {
-      //새로운 게시글 생성
-      await api.createNewPost({ description, htmlContent });
-      //history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
-    }
+function ShowpetCreate({ placeholder, value, ...rest }) {
+  const toolbarOptions = [
+    ["link", "image", "video"],
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline", "strike"],
+    ["blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+  ];
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "align",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "background",
+    "color",
+    "link",
+    "image",
+    "video",
+    "width",
+  ];
+  const modules = {
+    toolbar: {
+      container: toolbarOptions,
+    },
   };
-  useEffect(() => {
-    if (!postId) {
-      return;
-    }
-    const fetchData = async () => {
-      const { htmlContent: prevHtml } = await api.fetchPostDetail(postId);
-      setHtmlContent(prevHtml);
-    };
-    fetchData();
-  }, [postId, api]);
-
   return (
-    <div>
-      //🌈
-      <QuillEditor
-        quillRef={quillRef}
-        htmlContent={htmlContent}
-        setHtmlContent={setHtmlContent}
-        api={api}
-      />
-      <button className={styles.submit} onClick={handleSubmit}>
-        Done
-      </button>
+    <div id="showpet-create">
+      <ReactQuill
+        {...rest}
+        placeholder={placeholder}
+        value={value || ""}
+        theme="snow"
+        modules={modules}
+        formats={formats}
+      ></ReactQuill>
     </div>
   );
-});
-export default PostEditor;
+}
+
+export default ShowpetCreate;

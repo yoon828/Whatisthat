@@ -54,7 +54,7 @@ app.post('/upload', async (req, res) => {
 })
 
 // 포트 설정
-const port = 3000;
+const port = 3001;
 
 
 app.listen(port, () => {

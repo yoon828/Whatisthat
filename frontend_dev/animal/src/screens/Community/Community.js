@@ -72,15 +72,6 @@ function Community() {
         <button className="notoReg" type="button" onClick={goEdit2}>
           글쓰기2
         </button>
-        <div className="sort-list flex">
-          <select
-            className="sort-list-select"
-            onChange={(e) => handleConditions("sort", e.target.value)}
-          >
-            <option value="최신순">최신순</option>
-            <option value="조회순">조회순</option>
-          </select>
-        </div>
         {comType === "showpet" ? <CardList /> : <LostDetailList />}
       </div>
     </div>

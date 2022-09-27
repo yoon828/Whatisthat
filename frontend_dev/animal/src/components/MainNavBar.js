@@ -3,8 +3,11 @@ import "./MainNavBar.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 
 function MainNavbar() {
+  let [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
     <Navbar bg="light" expand="lg">
       <Container className="container">
@@ -25,10 +28,16 @@ function MainNavbar() {
               주변시설
             </Nav.Link>
           </Nav>
+          {
+            isLoggedIn ? <Nav className="right-nav">
+            <Nav.Link href="/login">Logout</Nav.Link>
+            <Nav.Link href="join">My page</Nav.Link>
+          </Nav> :
           <Nav className="right-nav">
-            <Nav.Link href="/login">LOGIN</Nav.Link>
-            <Nav.Link href="join">SIGNUP</Nav.Link>
-          </Nav>
+          <Nav.Link href="/login">LOGIN</Nav.Link>
+          <Nav.Link href="join">SIGN UP</Nav.Link>
+        </Nav>
+          }
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -294,7 +294,7 @@ const DiagnoseResult = (props) => {
                             })
                             .catch((err) => {
                               console.log(err);
-                            }),
+                            })
                     }}
                     >진단내역 저장하기</StyledBtn>
                     

@@ -4,7 +4,7 @@ import React from "react";
 function Login() {
   return (
     <div id="login">
-      <div className="wrapper">
+      <div className="wrapper text-center">
         <div className="header">
           <div className="header__intro">
             <img className="header__img" src="./MainDog.svg" alt="icon" />
@@ -19,24 +19,29 @@ function Login() {
         <div className="content">
           <div className="line"></div>
           <p className="header__mention">SNS로 간편하게 시작하기</p>
-          <section className="social-login">
+          <img src='/kakao_login.png' id='loginBtn' onClick={()=>{
+            // 카카오 로그인 연결
+          }}></img><br></br>
+          <img src='/naver_login.png' id='loginBtn' onClick={()=>{
+            // 네이버 로그인 연결
+          }}></img>
+
+          {/* <section className="social-login">
             <button type="button" className="social-login__btn-kakao">
               <img
                 className="btn__img-kakao"
-                src="./Kakao.svg"
+                src="./kakao_login.png"
                 alt="kakaoimg"
               />
-              <p className="btn__word-kakao">카카오 로그인</p>
             </button>
             <button type="button" className="social-login__btn-naver">
               <img
                 className="btn__img-naver"
-                src="./Naver.svg"
+                src="./naver_login.png"
                 alt="naverimg"
               />
-              <p className="btn__word-naver">네이버 로그인</p>
             </button>
-          </section>
+          </section> */}
         </div>
       </div>
     </div>

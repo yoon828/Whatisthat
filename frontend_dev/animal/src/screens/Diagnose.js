@@ -197,10 +197,10 @@ const Diagnose = () => {
                     setInfo(info.type=type)
                     setInfo(info.part=part)
                     setInfo(info.img=img)
-                    setInfo(info.imgUrl=`https://i7c101.p.ssafy.io/images/${img}`)
+                    setInfo(info.imgUrl=`https://j7c101.p.ssafy.io:3003/images/${img}`)
                     axios({
-                        url: "http://localhost:3003/upload",
-                        // url: "https://j7c101.p.ssafy.io/image/upload",
+                        // url: "http://localhost:3003/upload",
+                        url: "https://j7c101.p.ssafy.io:3003/image/upload",
                         method: 'post',
                         headers: {
                             processData: false,
@@ -283,7 +283,7 @@ const DiagnoseResult = (props) => {
                     </div>
                     <StyledBtn onClick={()=>{
                         axios({
-                            url: "https://j7c101.p.ssafy.io/api/picture", // 이미지 주소 DB에 저장하는 api 주소
+                            url: "https://j7c101.p.ssafy.io:3003/api/picture", // 이미지 주소 DB에 저장하는 api 주소
                             method: "post",
                             data: {
                               imgUrl: info.imgUrl,

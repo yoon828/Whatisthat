@@ -2,16 +2,20 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import MainNavBar from "./components/MainNavBar";
 import CommunityPage from "./screens/Community/Community";
+import ShowpetCreate from "./screens/Community/ShowpetCreate";
 import DiagnosePage from "./screens/Diagnose";
-// import FacilitiesPage from "./screens/Facilities";
 import Main from "./screens/Main";
 import MyPage from "./screens/MyPage";
 import Login from "./screens/Login";
 import Join from "./screens/Join";
 import FirstAidPage from "./screens/FirstAid";
+<<<<<<< HEAD
 import LostList from './screens/LostList';
 import DiagnoseList from './screens/DiagnoseList';
 import ShowpetList from './screens/ShowpetList';
+=======
+import LostCreate from "./screens/Community/LostCreate";
+>>>>>>> b472c890778e27e9109d7d3859aafa315a0a75fd
 
 function App() {
   return (
@@ -22,7 +26,15 @@ function App() {
           <Route element={<Main />} path="/"></Route>
           <Route element={<DiagnosePage />} path="/diagnose"></Route>
           <Route element={<FirstAidPage />} path="/firstaid"></Route>
+<<<<<<< HEAD
           <Route element={<CommunityPage />} path="/community"></Route>
+=======
+          <Route path="/community">
+            <Route index element={<CommunityPage />} />
+            <Route element={<ShowpetCreate />} path="create" />
+            <Route element={<LostCreate />} path="create2" />
+          </Route>
+>>>>>>> b472c890778e27e9109d7d3859aafa315a0a75fd
           <Route element={<MyPage />} path="/mypage"></Route>
           <Route element={<Login />} path="/login"></Route>
           <Route element={<Join />} path="/join"></Route>

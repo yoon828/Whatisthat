@@ -14,25 +14,17 @@ function Community() {
     sort: "최신순",
   });
 
-  // const handleConditions = () => {
-  //   if (type === "keyword" && value === "") {
-  //     setConditions({ ...conditions, [type]: null });
-  //   } else {
-  //     setConditions({ ...conditions, [type]: value });
-  //   }
-  // };
-
   const goEdit = () => {
     navigate("create");
   };
   const goEdit2 = () => {
     navigate("create2");
   };
-  useEffect(() => {
-    (async () => {
-      const res = await reqShowList();
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await reqShowList();
+  //   })();
+  // }, []);
 
   return (
     <div id="community">

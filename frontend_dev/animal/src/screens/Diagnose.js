@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
 import styled from 'styled-components';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { MagnifyingGlass } from  'react-loader-spinner'
 import './Diagnose.css'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -53,33 +53,27 @@ const Innerbox = styled.div`
     justify-content: center;    
 ` ;
 
-const DiagnosePage = () => {
+
+const Diagnose = () => {
     let [showResult, setShowResult] = useState(false)
-
-    return (
-        <div className='container'>
-            {
-                showResult ? <Result /> : <Diagnose setShowResult={setShowResult}/>
-            }
-        </div>
-    )
-}
-
-const Diagnose = (props) => {
     let [name, setName] = useState("")
     let [type, setType] = useState("")
     let [part, setPart] = useState("")
+    // img는 img 파일명
     let [img, setImg] = useState("")
-    let [imgFile, setImgFile] = useState(null)
-    let [loading, setLoading] = useState(false)
     let [file, setFile] = useState(null)
-    let [info, setInfo] = useState({name:"", type:"", part:"", img:""})
+    let [info, setInfo] = useState({name:"", type:"", part:"", img:"", imgUrl: ""})
 
+    useEffect(()=>{
+        if (type === 'cat' && part === 'skin') {
+            alert('고양이 피부데이터는 준비중입니다.')
+        }
+    }, [part])
     return (
         <div>
             {
-                loading ? <Loading /> : 
-                
+                showResult ? <DiagnoseResult info={info} /> : 
+
             <div className='box'>
             <div>
                 <Innerbox>
@@ -100,7 +94,7 @@ const Diagnose = (props) => {
                 <Form.Check
                     
                     onClick={()=>{
-                        setType('강아지')
+                        setType('dog')
                     }}
                     inline
                     label="강아지"
@@ -111,7 +105,7 @@ const Diagnose = (props) => {
                 <Form.Check
                     
                     onClick={()=>{
-                        setType('고양이')
+                        setType('cat')
                     }}
                     inline
                     label="고양이"
@@ -132,7 +126,7 @@ const Diagnose = (props) => {
                 <Form.Check
                     
                     onClick={()=>{
-                        setPart('피부')
+                        setPart('skin')
                     }}
                     inline
                     label="피부"
@@ -144,7 +138,7 @@ const Diagnose = (props) => {
                 <Form.Check
                     
                     onClick={()=>{
-                        setPart('안구')
+                        setPart('eye')
                     }}
                     inline
                     label="안구"
@@ -188,7 +182,8 @@ const Diagnose = (props) => {
                         new Date().getDate() +
                         new Date().getHours() +
                         new Date().getMinutes() +
-                        new Date().getSeconds();
+                        new Date().getSeconds() +
+                        ".png"
                         setImg(fileName)
                     }}
                     ></input>
@@ -196,64 +191,30 @@ const Diagnose = (props) => {
 
                 <StyledBtn
                 onClick={()=>{
+                    let formData = new FormData();
+                    formData.append("uploadFile", file, img);
                     setInfo(info.name=name)
                     setInfo(info.type=type)
                     setInfo(info.part=part)
                     setInfo(info.img=img)
-
-                    let formData = new FormData();
-                    formData.append("uploadFile", file, img);
-                    setImgFile(formData)
-                    console.log(info)
-                    setLoading(true)
-
-                    axios.all([
-                        axios({
-                            url: "https://j7c101.p.ssafy.io/image/upload", // 이미지 파일 저장하는 이미지 서버 요청 주소
-                            method: "post",
-                            headers: {
-                              processData: false,
-                              "Content-Type": "multipart/form-data",
-                            },
-                            data: imgFile,
-                          })
-                            .then((res) => {
-                              console.log(res.data);
-                            })
-                            .catch((err) => {
-                              console.log(err);
-                            }),
-
-                            axios({
-                                url: "https://j7c101.p.ssafy.io/api/picture", // 이미지 주소 저장하는 api 주소
-                                method: "post",
-                                data: {
-                                  imgUrl: `https://i7c101.p.ssafy.io/images/${img}`,
-                                },
-                              })
-                                .then((res) => {
-                                  console.log(res.data);
-                                })
-                                .catch((err) => {
-                                  console.log(err);
-                                }),
-
-                                axios({
-                                    url: "https://j7c101.p.ssafy.io/ai", // AI 서버 요청 주소
-                                    method: "post",
-                                    data: {
-                                        // 사진 파일을 보낼지 이미지 접근 경로만 보낼지 결정해야함
-                                    }
-                                })
-                    ])
-                    .then(()=>{
-                        setLoading(false)
-                        props.setShowResult(true)
-                        // redux를 활용해 AI 서버로부터 받은 결과와 이미지 접근경로(문자열)를 redux에 저장한뒤
-                        // 진단결과 페이지로 이동
-                        // 진단결과 페이지에서는 받은결과를 바탕으로 렌더링하여 사용자에게 결과를 보여줌
-                        // document.location.href = '/diagnoseresult'
+                    setInfo(info.imgUrl=`https://i7c101.p.ssafy.io/images/${img}`)
+                    axios({
+                        url: "http://localhost:3003/upload",
+                        // url: "https://j7c101.p.ssafy.io/image/upload",
+                        method: 'post',
+                        headers: {
+                            processData: false,
+                            "Content-Type": "multipart/form-data",
+                          },
+                          data: formData,
                     })
+                    .then((res)=>{
+                        setShowResult(true)
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                    })
+                    console.log(info)
                 }}
                 >진단하기</StyledBtn>
             </div>
@@ -281,12 +242,66 @@ const Loading = () => {
     )
 }
 
-const Result = () => {
-    return(
+const DiagnoseResult = (props) => {
+    let [loading, setLoading] = useState(true)
+    let [result, setResult] = useState(null)
+    let info = props.info
+    useEffect(()=>{
+        axios({
+            url: `http://70.12.130.121:5550/ai/${info.part}/${info.type}`, // AI 서버 요청 주소
+            method: "post",
+            data: {
+                "imagePath" : info.imgUrl
+            }
+        })
+        .then((res)=>{
+            setResult(res.data)
+            setLoading(false)
+        })
+    }, [])
+    return (
         <div>
-
+            {
+                loading ? <Loading/> :
+                <div>
+                    <h2>진단결과</h2>
+                    <img src={info.imgUrl}></img>
+                    <div>
+                        <div>
+                            {result[0][0]}일 확률 : <ProgressBar striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
+                        </div>
+                        <div>
+                            {result[1][0]}일 확률 : <ProgressBar striped animated variant="warning" now={Math.round(result[1][1]*100)} label={`${Math.round(result[1][1]*100)}%`}/>
+                        </div>
+                        <div>
+                            {result[2][0]}일 확률 : <ProgressBar striped animated variant="info" now={Math.round(result[2][1]*100)} label={`${Math.round(result[2][1]*100)}%`}/>
+                        </div>
+                    </div>
+                    <h2>대처법</h2>
+                    <div>
+                        대처법 써주기
+                    </div>
+                    <StyledBtn onClick={()=>{
+                        axios({
+                            url: "https://j7c101.p.ssafy.io/api/picture", // 이미지 주소 DB에 저장하는 api 주소
+                            method: "post",
+                            data: {
+                              imgUrl: info.imgUrl,
+                            },
+                          })
+                            .then((res) => {
+                              console.log(res.data);
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            }),
+                    }}
+                    >진단내역 저장하기</StyledBtn>
+                    
+                </div>
+            }
         </div>
     )
 }
 
-export default DiagnosePage;
+export default Diagnose;

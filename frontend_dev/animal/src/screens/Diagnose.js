@@ -200,7 +200,7 @@ const Diagnose = () => {
                     setInfo(info.imgUrl=`http://j7c101.p.ssafy.io:3003/images/${img}`)
                     axios({
                         // url: "http://localhost:3003/upload",
-                        url: "http://j7c101.p.ssafy.io:3003/image/upload",
+                        url: "http://j7c101.p.ssafy.io:3003/upload",
                         method: 'post',
                         headers: {
                             processData: false,

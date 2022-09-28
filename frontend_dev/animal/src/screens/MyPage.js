@@ -49,22 +49,25 @@ const MyPage = () => {
             <Container>
                 <Row id='mypage'>
                     <Col md={4}>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '22rem' }}>
                     <Card.Img variant="top" src={userInfo.profile_img} />
                     <ListGroup className="list-group-flush">
-                        <ListGroup.Item>이름 : {userInfo.name}</ListGroup.Item>
-                        <ListGroup.Item>이메일 : {userInfo.email}</ListGroup.Item>
-                        <ListGroup.Item>닉네임 : {userInfo.nickname}</ListGroup.Item>
-                        <ListGroup.Item>생년월일 : {userInfo.date}</ListGroup.Item>
+                        <ListGroup.Item id='mypage-text'>이름 : {userInfo.name}</ListGroup.Item>
+                        <ListGroup.Item id='mypage-text'>이메일 : {userInfo.email}</ListGroup.Item>
+                        <ListGroup.Item id='mypage-text'>닉네임 : {userInfo.nickname}</ListGroup.Item>
+                        <ListGroup.Item id='mypage-text'>생년월일 : {userInfo.date}</ListGroup.Item>
                     </ListGroup>
                     </Card>
                     <div id='btn1'>
-                        <StyledBtn onClick={()=>{
+                        <StyledBtn style={{'fontSize':'18px'}} onClick={()=>{
                             document.location.href='/articlelist'
-                        }}>작성한 글 보러가기</StyledBtn>
-                        <StyledBtn onClick={()=>{
+                        }}>작성한 글 보기</StyledBtn>
+                        <StyledBtn style={{'fontSize':'18px'}} onClick={()=>{
                             document.location.href='/diagnoselist'
-                        }}>진단내역 보러가기</StyledBtn>
+                        }}>진단내역 보기</StyledBtn>
+                        <StyledBtn style={{'fontSize':'18px'}} onClick={()=>{
+                            document.location.href='/profileupdate'
+                        }}>프로필 수정</StyledBtn>
                     </div>
                     </Col>
                 </Row>

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Kotra';
+    src: url("./../fonts/KOTRA\ HOPE.ttf");
+  }
+
+#update-border {
+    font-family: 'Kotra';
+    width: 400px;
+}

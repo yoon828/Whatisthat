@@ -13,6 +13,7 @@ import DiagnoseList from "./screens/DiagnoseList";
 import LostCreate from "./screens/Community/LostCreate";
 import ArticleList from "./screens/ArticleList";
 import DiagnoseDetail from './screens/DiagnoseDetail'
+import ProfileUpdate from './screens/ProfileUpdate'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           {/* <Route element={<LostList />} path="/lostlist"></Route>
           <Route element={<ShowpetList />} path="/showpetlist"></Route> */}
           <Route element={<ArticleList />} path="/articlelist"></Route>
+          <Route element={<ProfileUpdate />} path="/profileupdate"></Route>
           <Route element={<DiagnoseDetail />} path="/diagnosedetail/:id"></Route>
         </Routes>
       </div>

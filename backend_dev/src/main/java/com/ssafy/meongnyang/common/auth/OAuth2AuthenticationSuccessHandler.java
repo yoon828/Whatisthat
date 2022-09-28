@@ -38,12 +38,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 //        login 성공한 사용자
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String id = oAuth2User.getAttributes().get("id").toString();
-
+        log.info("login user id : " + id);
         String accessToken = tokenProvider.createAccessToken(id);
         String refreshToken = tokenProvider.createRefreshToken(id);
-
+        log.info(accessToken);
+        log.info(refreshToken);
         userRepository.findById(Long.parseLong(id))
-                .orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(UserNotFoundException::new);
 
         redisService.setValues(id, refreshToken, Duration.ofDays(7));
 

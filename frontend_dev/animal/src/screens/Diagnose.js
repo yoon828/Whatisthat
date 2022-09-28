@@ -3,12 +3,14 @@ import Form from 'react-bootstrap/Form';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { MagnifyingGlass } from  'react-loader-spinner'
 import './Diagnose.css'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Lottie from 'lottie-react';
 import diagnose from './../lotties/diagnose.json'
 import { isMobile } from 'react-device-detect';
+import search from './../lotties/search.json'
+import paper from './../lotties/paper.json'
+import treat from './../lotties/treat.json'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -245,7 +247,6 @@ const Diagnose = () => {
                     .catch((err)=>{
                         console.log(err)
                     })
-                    console.log(info)
                 }}
                 >진단하기</StyledBtn>
             </div>
@@ -257,71 +258,91 @@ const Diagnose = () => {
 
 const Loading = () => {
     return(
-        <div>
-            <MagnifyingGlass
-                visible={true}
-                height="80"
-                width="80"
-                ariaLabel="MagnifyingGlass-loading"
-                wrapperStyle={{}}
-                wrapperClass="MagnifyingGlass-wrapper"
-                glassColor = '#c0efff'
-                color = '#e15b64'
-                />
-            <p>진단중입니다...</p>
+        <div id='loading-style'>
+            <Lottie animationData={search} id='search-lottie'></Lottie>
+            <p id='search-text'>진단중입니다...</p>
         </div>
     )
 }
 
 const DiagnoseResult = (props) => {
     let [loading, setLoading] = useState(true)
-    let [result, setResult] = useState(null)
-    let info = props.info
-    useEffect(()=>{
-        axios({
-            url: `http://70.12.130.121:5550/ai/${info.part}/${info.type}`, // AI 서버 요청 주소
-            method: "post",
-            data: {
-                "imagePath" : info.imgUrl
-            }
-        })
-        .then((res)=>{
-            setResult(res.data)
-            setLoading(false)
-        })
-    }, [])
+    // let info = props.info
+    let info = 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA2MTdfNDAg%2FMDAxNjU1NDU2MzQwMjk3.gn6EnHuunkvpKqOgCK0ZQY2CbF_xZTYF6kPu0E7iM8Ag.GjGEVnVIs5mDr7hubyRJBrr29VeIpDqHtfjTQvU-0fwg.JPEG.i-comfort%2F1018_5491_KakaoTalk_20220418_172537949.jpg&type=sc960_832'
+    let [result, setResult] = useState([
+        [
+        "농포,여드름",
+        0.2312759906053543
+        ],
+        [
+        "미란,궤양",
+        0.19840167462825775
+        ],
+        [
+        "결절,종괴",
+        0.1548846960067749
+        ]
+        ])
+    
+
+    setTimeout(()=>{
+        setLoading(false)
+        console.log(`ifo는 ${info} 입니다.`)
+    }, 3000)
+
+    // useEffect(()=>{
+    //     axios({
+    //         url: `http://70.12.130.121:5550/ai/${info.part}/${info.type}`, // AI 서버 요청 주소
+    //         method: "post",
+    //         data: {
+    //             "imagePath" : info
+    //         }
+    //     })
+    //     .then((res)=>{
+    //         setResult(res.data)
+    //         setLoading(false)
+    //     })
+    // }, [])
     return (
-        <div>
+        <div id='result-box'>
             {
                 loading ? <Loading/> :
-                <div>
-                    <h2>진단결과</h2>
-                    <img src={info.imgUrl}></img>
+                <div id='diagnose-result'>
+                    <div id='result-header'>
+                    <Lottie id='result-paper' animationData={paper}></Lottie>
+                    <h2 style={{'fontSize':'60px'}}>진단결과</h2>
+                    </div>
+                    <img src={info} style={{'width':'350px', 'marginBottom':'30px'}}></img>
                     <div>
-                        <div>
-                            {result[0][0]}일 확률 : <ProgressBar striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
+                        <div id='result-item'>
+                            {result[0][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
                         </div>
-                        <div>
-                            {result[1][0]}일 확률 : <ProgressBar striped animated variant="warning" now={Math.round(result[1][1]*100)} label={`${Math.round(result[1][1]*100)}%`}/>
+                        <div id='result-item'>
+                            {result[1][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="warning" now={Math.round(result[1][1]*100)} label={`${Math.round(result[1][1]*100)}%`}/>
                         </div>
-                        <div>
-                            {result[2][0]}일 확률 : <ProgressBar striped animated variant="info" now={Math.round(result[2][1]*100)} label={`${Math.round(result[2][1]*100)}%`}/>
+                        <div id='result-item'>
+                            {result[2][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="info" now={Math.round(result[2][1]*100)} label={`${Math.round(result[2][1]*100)}%`}/>
                         </div>
                     </div>
-                    <h2>대처법</h2>
-                    <div>
-                        대처법 써주기
+                    <div id='treat-header'>
+                    <Lottie id='treat' animationData={treat}></Lottie>
+                    <h2 style={{'fontSize':'60px'}}>대처법</h2>
                     </div>
-                    <StyledBtn onClick={()=>{
+                    <div style={{'width': '550px', 'marginBottom':'30px'}}>
+                    농피증은 피부가 포도상구균 등과 같은 세균에 감염돼 나타난다. ▲영양부족 ▲미흡한 털관리 ▲과도한 목욕 ▲잘못된 샴푸사용 등이 원인이다. 피부가 약하고 면역력이 떨어지는 노령견이나 어린강아지에게 더욱 생기기 쉽다.
+
+농피증은 얼굴주위, 겨드랑이, 등에 많이 발생하며 감염정도나 농의 깊이에 따라 증상이 다르다. 일반적으로 ▲발진 ▲구진 ▲농포 ▲각질 ▲딱지 ▲피부발적 ▲탈모 등이 나타나고 ▲심한 가려움이 동반되는 경우가 많다. 가려움이 심하면 강아지가 해당부위를 자꾸 긁거나 핥아 질환이 더 악화되고 이차감염으로 진행될 수 있어 빨리 치료하는 것이 좋다.
+                    </div>
+                    <StyledBtn id='btn10' onClick={()=>{
                         axios({
                             url: "http://j7c101.p.ssafy.io:3003/api/picture", // 이미지 주소 DB에 저장하는 api 주소
                             method: "post",
                             data: {
-                              imgUrl: info.imgUrl,
+                              imgUrl: info,
                             },
                           })
                             .then((res) => {
-                              console.log(res.data);
+                                console.log(res.data);
                             })
                             .catch((err) => {
                               console.log(err);

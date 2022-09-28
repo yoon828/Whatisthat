@@ -43,5 +43,63 @@
     font-size: 20px;
 }
 
+#loading-style {
+    font-family: 'Kotra';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+#search-lottie {
+    width: 30%;
+}
 
+#search-text {
+    font-size: 40px;
+}
+
+#diagnose-result {
+    font-family: 'Kotra';
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#result-item {
+    margin-bottom: 30px;
+    width: 700px;
+}
+
+#result-paper {
+    width: 150px;
+}
+
+#btn10 {
+    width: 200px;
+    height: 70px;
+    font-size: 28px;
+}
+
+#result-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#treat-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#treat {
+    width: 140px;
+}
+
+#result-box {
+    margin-top: 40px;
+    margin-bottom: 80px;
+}

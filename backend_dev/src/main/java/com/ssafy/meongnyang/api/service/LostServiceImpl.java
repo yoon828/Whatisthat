@@ -31,8 +31,8 @@ public class LostServiceImpl implements LostService {
     private final TokenProvider tokenProvider;
     @Override
     public LostResponseDto writeLost(String accessToken, LostRegisterDto lostRegisterDto) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
 
         Lost lost = Lost.builder()
                 .user(user)
@@ -173,8 +173,8 @@ public class LostServiceImpl implements LostService {
     @Override
     @Transactional(readOnly = true)
     public List<LostResponseDto> getUserLostList(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
-        return lostRepository.findAllByUserId(id)
+        String id = tokenProvider.getUserId(accessToken);
+        return lostRepository.findAllByUserId(Long.parseLong(id))
                 .stream()
                 .map(LostServiceImpl::apply)
                 .collect(Collectors.toList());

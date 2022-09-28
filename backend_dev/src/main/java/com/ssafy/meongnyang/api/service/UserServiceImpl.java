@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetailResponseDto getUserDetail(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
         List<LostResponseDto> lostList = user.getLostList()
                 .stream()
                 .map(lost -> LostResponseDto.builder()
@@ -134,10 +134,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
+        String id = tokenProvider.getUserId(accessToken);
         redisService.deleteValues(id);
-        userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userRepository.deleteById(id);
+        userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        userRepository.deleteById(Long.parseLong(id));
         return true;
     }
 
@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public TokenResponseDto reIssue(String accessToken, String refreshToken) {
         tokenProvider.validateToken(refreshToken);
-        Long id = tokenProvider.getUserId(refreshToken);
+        String id = tokenProvider.getUserId(refreshToken);
         String findRefreshToken = redisService.getValue(id);
 
         if (findRefreshToken == null || !findRefreshToken.equals(refreshToken)) {
@@ -160,13 +160,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserResponseDto userInfoByToken(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
+        String id = tokenProvider.getUserId(accessToken);
 
-        User user = userRepository.findById(id)
+        User user = userRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
 
         return UserResponseDto.builder()
-                .id(id)
+                .id(Long.parseLong(id))
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
@@ -177,9 +177,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
+        String id = tokenProvider.getUserId(accessToken);
 
-        userRepository.findById(id)
+        userRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
         redisService.deleteValues(id);
     }

@@ -30,8 +30,8 @@ public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Override
     public DiagnoseResponseDto writeDiagnose(String accessToken, DiagnoseRegisterDto diagnoseRegisterDto) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
         Disease disease1 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease2 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name2()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease3 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name3()).orElseThrow(DiseaseNotFoundException::new);
@@ -83,8 +83,8 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     @Override
     @Transactional(readOnly = true)
     public List<DiagnoseListResponseDto> getDiagnoseList(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
 
         List<DiagnoseListResponseDto> list = user.getDiagnoseList()
                 .stream()

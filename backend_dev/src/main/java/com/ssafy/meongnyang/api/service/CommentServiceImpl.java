@@ -31,8 +31,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto writeComment(String accessToken, CommentRegisterDto commentRegisterDto) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
         ShowPet showPet = showPetRepository.findById(commentRegisterDto.getId()).orElseThrow(ShowPetNotFoundException::new);
 
         Comment comment = Comment.builder()

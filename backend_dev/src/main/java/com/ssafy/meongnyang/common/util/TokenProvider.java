@@ -46,24 +46,24 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createAccessToken(Long id) {
+    public String createAccessToken(String id) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + this.accessTokenValidityInSeconds);
 
         return Jwts.builder()
-                .setSubject(String.valueOf(id))
+                .setSubject(id)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
     }
 
-    public String createRefreshToken(Long id) {
+    public String createRefreshToken(String id) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + this.refreshTokenValidityInSeconds);
 
         return Jwts.builder()
-                .setSubject(String.valueOf(id))
+                .setSubject(id)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
@@ -76,12 +76,12 @@ public class TokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public Long getUserId(String token) {
+    public String getUserId(String token) {
         try {
             if (token == null || token.isEmpty()) {
                 throw new TokenNotFoundException();
             }
-            return Long.parseLong(Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject());
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
         } catch (TokenNotFoundException e) {
             throw new TokenNotFoundException();
         } catch (ExpiredJwtException e) {

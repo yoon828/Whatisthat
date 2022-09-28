@@ -30,8 +30,8 @@ public class ShowPetServiceImpl implements ShowPetService {
 
     @Override
     public ShowPetResponseDto writeShowPet(String accessToken, ShowPetRegisterDto showPetRegisterDto) {
-        Long id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
+        String id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(ShowPetNotFoundException::new);
 
         ShowPet showPet = ShowPet.builder()
                 .user(user)
@@ -155,8 +155,8 @@ public class ShowPetServiceImpl implements ShowPetService {
     @Override
     @Transactional(readOnly = true)
     public List<ShowPetListResponseDto> getUserShowPetList(String accessToken) {
-        Long id = tokenProvider.getUserId(accessToken);
-        return showPetRepository.findAllByUserId(id)
+        String id = tokenProvider.getUserId(accessToken);
+        return showPetRepository.findAllByUserId(Long.parseLong(id))
                 .stream()
                 .map(showPet -> ShowPetListResponseDto.builder()
                         .id(showPet.getId())

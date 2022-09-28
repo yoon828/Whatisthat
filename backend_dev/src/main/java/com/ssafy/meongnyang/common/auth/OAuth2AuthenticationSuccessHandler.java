@@ -2,6 +2,7 @@ package com.ssafy.meongnyang.common.auth;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,6 +39,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 //        login 성공한 사용자
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+        log.info("attributes :: "+attributes);
         String email = oAuth2User.getAttributes().get("email").toString();
         User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         String id = String.valueOf(user.getId());

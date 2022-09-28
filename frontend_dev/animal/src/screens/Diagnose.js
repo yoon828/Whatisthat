@@ -6,6 +6,9 @@ import axios from 'axios'
 import { MagnifyingGlass } from  'react-loader-spinner'
 import './Diagnose.css'
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Lottie from 'lottie-react';
+import diagnose from './../lotties/diagnose.json'
+import { isMobile } from 'react-device-detect';
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -22,14 +25,14 @@ const StyledBtn = styled.button`
     &:focus {
         box-shadow: 0px 0px 4px 3px #FFAE6D;
     }
-    margin: 20px;
+    
     `;
 
 
 
 const StyledInput = styled.input`
 border-radius: 4px;
-font-size: 1rem;
+font-size: 22px;
 margin-left: 10px;
 padding-top: 0.7rem;
 padding-bottom: 0.7rem;
@@ -67,6 +70,7 @@ const Diagnose = () => {
     useEffect(()=>{
         if (type === 'cat' && part === 'skin') {
             alert('고양이 피부데이터는 준비중입니다.')
+            document.location.href='/diagnose'
         }
     }, [part])
     return (
@@ -76,9 +80,13 @@ const Diagnose = () => {
 
             <div className='box'>
             <div>
-                <Innerbox>
+                <div id='lottie-text'>
+                <Lottie animationData={diagnose} style={{'width':'100px'}}></Lottie>
+                <p style={{'fontSize':'50px', 'marginTop':'25px'}}>진단하기</p>
+                </div>
+                <Innerbox id='text'>
                     이름:
-                    <StyledInput 
+                    <StyledInput
                     placeholder='반려동물의 이름을 입력해주세요'
                     onInput={(e)=>{
                         setName(e.target.value)
@@ -86,7 +94,7 @@ const Diagnose = () => {
                     ></StyledInput>
                 </Innerbox>
                     
-                <Innerbox>
+                <Innerbox id='text'>
                     종:
                 <Form className='m-4'>
                 {['radio'].map((type) => (
@@ -103,7 +111,6 @@ const Diagnose = () => {
                     id={`inline-${type}-1`}
                 />
                 <Form.Check
-                    
                     onClick={()=>{
                         setType('cat')
                     }}
@@ -118,7 +125,7 @@ const Diagnose = () => {
             </Form>
                 </Innerbox>
 
-                <Innerbox>
+                <Innerbox id='text'> 
                     아픈부위:
                 <Form className='m-4'>
             {['radio'].map((type) => (
@@ -151,7 +158,9 @@ const Diagnose = () => {
             ))}
             </Form>
                 </Innerbox>
-
+                {
+                    isMobile ? 
+                
                 <Innerbox>
                     <label id="picture" for="input-file">
                         촬영하기
@@ -187,9 +196,31 @@ const Diagnose = () => {
                         setImg(fileName)
                     }}
                     ></input>
-                </Innerbox>
+                </Innerbox> :
+                <Innerbox>
+                    <label id="picture" for="upload-file">
+                    업로드 하기
+                </label>
+                <input type="file" accept="image/*" id="upload-file" style={{'display':'none'}}
+                onChange={(e)=>{
+                    setFile(e.target.files[0])
+                    const fileName = "img_" +
+                    new Date().getFullYear() +
+                    (new Date().getMonth() + 1) +
+                    new Date().getDate() +
+                    new Date().getHours() +
+                    new Date().getMinutes() +
+                    new Date().getSeconds() +
+                    ".png"
+                    setImg(fileName)
+                }}
+                ></input>
+            </Innerbox>
+                }
+
 
                 <StyledBtn
+                id = 'diagnoseBtn'
                 onClick={()=>{
                     let formData = new FormData();
                     formData.append("uploadFile", file, img);
@@ -205,8 +236,8 @@ const Diagnose = () => {
                         headers: {
                             processData: false,
                             "Content-Type": "multipart/form-data",
-                          },
-                          data: formData,
+                        },
+                        data: formData,
                     })
                     .then((res)=>{
                         setShowResult(true)

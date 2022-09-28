@@ -1,44 +1,55 @@
+@font-face {
+  font-family: 'Kotra';
+  src: url("./../fonts/KOTRA\ HOPE.ttf");
+}
+
 #login {
   display: flex;
   justify-content: center;
 }
 
-.wrapper {
+#wrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-
-  border: 1px solid;
   border-color: black;
   border-radius: 12px;
-
-  margin: 148px 300px 48px 300px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 450px;
+  height: 600px;
   padding: 72px;
+  background-color: #FDF6F0;
 }
 
 .header {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.header__intro {
+#header__intro {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+  margin-left: -100px;
 }
 
-.header__img {
-  width: 100px;
-  height: 100px;
+
+#header__name {
+  font-size: 40px;
+  margin-left: 10px;
+  font-family: 'Kotra';
+  font-size: 50px;
+  margin-bottom: 0px;
 }
 
-.header__name {
-  font-size: 64px;
-  margin-left: 40px;
-}
-
-.header__title {
-  font-size: 32px;
-  margin-bottom: 40px;
+#header__title {
+  font-size: 25px;
+  margin-bottom: 0px;
+  font-family: 'Kotra';
 }
 
 .content {
@@ -56,11 +67,12 @@
   margin-bottom: 40px;
 }
 
-.header__mention {
+#header__mention {
   font-size: 20px;
   margin: auto;
-  margin-top: 40px;
   margin-bottom: 40px;
+  font-family: 'Kotra';
+  font-size: 30px;
 }
 
 section {
@@ -109,8 +121,8 @@ section {
 }
 
 #loginBtn {
-  width: 300px;
-  height: 70px;
-  margin-left: 50px;
+  width: 250px;
+  height: 60px;
+  margin-left: 70px;
   cursor: pointer;
 }

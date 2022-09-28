@@ -1,0 +1,19 @@
+.act {
+    box-shadow: 0px 0px 5px 6px #FFAE6D;
+}
+
+#detailBtn {
+    width: 60px;
+    font-size: 10px;
+    background-color: #FCD8D4;
+    border: none;
+    border-radius: 10px;
+}
+
+#header {
+    background-color: #FFAE6D;
+}
+
+#list-body {
+    background-color: #FDF6F0;
+}

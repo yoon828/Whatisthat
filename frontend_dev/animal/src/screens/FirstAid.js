@@ -26,7 +26,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'20px'}}>의식이 없을 때</p>
+                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>의식이 없을 때</p>
                         <img className='animalImg' src='/conciousness.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{
@@ -39,7 +39,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'20px'}}>기도에 이물질이 들어갔을 때</p>
+                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>기도에 이물질이 들어갔을 때</p>
                         <img className='animalImg1' src='/airway.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{
@@ -52,7 +52,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'20px'}}>화상을 입었을 때</p>
+                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>화상을 입었을 때</p>
                         <img className='animalImg2' src='/burn.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{
@@ -66,7 +66,7 @@ const FirstAidPage = () => {
 
             <Modal className='modal' size='lg' show={show1} onHide={handleClose1}>
                 <Modal.Header closeButton id='modal-header'>
-                <Modal.Title>의식이 없을 때 대처법</Modal.Title>
+                <Modal.Title style={{'font-family':'Kotra'}}>의식이 없을 때 대처법</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center' id='modal-body'>
                     <YouTube
@@ -92,7 +92,7 @@ const FirstAidPage = () => {
 
             <Modal className='modal' size='lg' show={show2} onHide={handleClose2}>
                 <Modal.Header closeButton id='modal-header'>
-                <Modal.Title>기도에 이물질이 들어갔을 때 대처법</Modal.Title>
+                <Modal.Title style={{'font-family':'Kotra'}}>기도에 이물질이 들어갔을 때 대처법</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center' id='modal-body'>
                 <YouTube
@@ -118,7 +118,7 @@ const FirstAidPage = () => {
 
             <Modal className='modal' size='lg' show={show3} onHide={handleClose3}>
                 <Modal.Header closeButton id='modal-header'>
-                <Modal.Title>화상을 입었을 때 대처법</Modal.Title>
+                <Modal.Title style={{'font-family':'Kotra'}}>화상을 입었을 때 대처법</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center' id='modal-body'>
                 <YouTube

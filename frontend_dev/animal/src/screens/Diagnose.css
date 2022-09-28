@@ -1,8 +1,21 @@
+@font-face {
+    font-family: 'Kotra';
+    src: url("./../fonts/KOTRA\ HOPE.ttf");
+    font-weight: 50px;
+  }
+
+#lottie-text {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .box {
     text-align: center;
     width: 300px;
     border-radius: 5%;
     margin: auto;
+    font-family: 'Kotra';
 }
 
 #picture {
@@ -13,11 +26,22 @@
     height: 40px;
     border: none;
     border-radius: 15px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
     outline: none;
     cursor: pointer;
     color: black;
     background: #F5C6AA;
     margin: 20px;
 }
+
+#diagnoseBtn {
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+#text {
+    font-size: 20px;
+}
+
+
+

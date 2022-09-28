@@ -25,18 +25,18 @@ const StyledBtn = styled.button`
     `;
 
 const ArticleList = () => {
-    const [comType, setComType] = useState("showpet");
+    const [type, setType] = useState("showpet");
 
     return (
         <div className="text-center">
-            <StyledBtn className={comType === 'showpet' ? 'active' : null} onClick={()=>{
-                setComType('showpet')
+            <StyledBtn className={type === 'showpet' ? 'act' : null} onClick={()=>{
+                setType('showpet')
             }}>자랑하기</StyledBtn>
-            <StyledBtn className={comType === 'lost' ? 'active' : null} onClick={()=>{
-                setComType('lost')
+            <StyledBtn className={type === 'lost' ? 'act' : null} onClick={()=>{
+                setType('lost')
             }}>실종동물 찾기</StyledBtn>
             {
-                comType === 'showpet' ? <ShowpetList /> : <LostList />
+                type === 'showpet' ? <ShowpetList /> : <LostList />
             }
         </div>
     )
@@ -191,7 +191,7 @@ const LostList = () =>{
         })
     })
     return (
-        <div>
+        <div className='container' style={{'marginTop':'50px'}}>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>

@@ -9,7 +9,7 @@ import axios from 'axios';
 function MainNavbar() {
   let [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" id='navfont'>
       <Container className="container">
         <Navbar.Brand href="/">
           <img src="/MainDog.svg" alt="maindog"></img>
@@ -30,12 +30,11 @@ function MainNavbar() {
           </Nav>
           {
             isLoggedIn ? <Nav className="right-nav">
-            <Nav.Link href="/login">Logout</Nav.Link>
-            <Nav.Link href="join">My page</Nav.Link>
+            <Nav.Link href="/login" id='Btn3'>Logout</Nav.Link>
+            <Nav.Link href="join" id='Btn3'>My page</Nav.Link>
           </Nav> :
           <Nav className="right-nav">
-          <Nav.Link href="/login">LOGIN</Nav.Link>
-          <Nav.Link href="join">SIGN UP</Nav.Link>
+          <Nav.Link href="/login" >LOGIN</Nav.Link>
         </Nav>
           }
         </Navbar.Collapse>

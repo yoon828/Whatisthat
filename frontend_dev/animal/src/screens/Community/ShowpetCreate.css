@@ -1,0 +1,12 @@
+#showpet-create {
+  width: 1080px;
+  margin: auto;
+  justify-content: center;
+}
+.show-title {
+  width: 1080px;
+  height: 60px;
+}
+.showpet-editor {
+  height: 500px;
+}

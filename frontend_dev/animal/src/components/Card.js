@@ -1,14 +1,14 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 
-function BasicExample() {
+function BasicExample({ data: { id, title, user_nickname } }) {
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="./DummyImg.svg" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-      </Card.Body>
-    </Card>
+    <ListGroup>
+      <ListGroup.Item>
+        <Link to={`/show-pet/detail/${id}`}>{title}</Link>
+        <Link to={`/userfeed/${user_nickname}`}>{user_nickname}</Link>
+      </ListGroup.Item>
+    </ListGroup>
   );
 }
 

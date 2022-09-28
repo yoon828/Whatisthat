@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import CommentItem from "./CommentItem";
 
 function Comments() {
   const [commentList, setCommentList] = useState();
-  const UserInfo = useAppSelector((state) => state.auth.userInfo);
 
   useEffect(() => {
     setCommentList();
@@ -15,19 +15,6 @@ function Comments() {
           let isAuthor = false;
           if (item.userNickname === UserInfo?.nickname) {
             isAuthor = true;
-          }
-          if (item.upIdx) {
-            return (
-              <ReplyItem
-                isArticleAuthor={isArticleAuthor}
-                isAuthor={isAuthor}
-                type={type}
-                info={item}
-                key={item.idx}
-                changed={changed}
-                postIdx={postIdx}
-              />
-            );
           }
           return (
             <CommentItem

@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "./CommunityShowpetDetail.css";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import Comments from "@components/comments/Comments";
+import CommentInput from "@components/comments/CommentInput";
 
 function CommunityShowpetDetail() {
   return (

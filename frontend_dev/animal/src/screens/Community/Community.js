@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
-import CardList from "../../components/CardList";
+import React, { useState } from "react";
 import "./Community.css";
+import CardList from "../../components/CardList";
 import LostDetailList from "./LostDetailList";
 import { useNavigate } from "react-router-dom";
-
-// import { reqShowList } from "@apis/community";
 
 function Community() {
   const navigate = useNavigate();
   const [comType, setComType] = useState("showpet");
-  const [conditions, setConditions] = useState({
-    category: "community",
-    sort: "최신순",
-  });
 
   const goEdit = () => {
     navigate("create");
@@ -20,11 +14,6 @@ function Community() {
   const goEdit2 = () => {
     navigate("create2");
   };
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await reqShowList();
-  //   })();
-  // }, []);
 
   return (
     <div id="community">
@@ -58,13 +47,19 @@ function Community() {
             실종동물찾기
           </button>
         </div>
-        <button className="notoReg" type="button" onClick={goEdit}>
-          글쓰기
-        </button>
-        <button className="notoReg" type="button" onClick={goEdit2}>
-          글쓰기2
-        </button>
-        {comType === "showpet" ? <CardList /> : <LostDetailList />}
+        <div>
+          <button className="notoReg" type="button" onClick={goEdit}>
+            자랑하기 글 작성
+          </button>
+          <button className="notoReg" type="button" onClick={goEdit2}>
+            실종동물 글 작성
+          </button>
+        </div>
+        {comType === "showpet" ? (
+          <CardList condition={{ title: "", user_nickname: "" }} />
+        ) : (
+          <LostDetailList />
+        )}
       </div>
     </div>
   );

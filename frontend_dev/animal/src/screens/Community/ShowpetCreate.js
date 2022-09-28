@@ -1,52 +1,25 @@
 import React from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import "./ShowpetCreate.css";
+import ShowpetEditor from "./ShowpetEditor";
 
-function ShowpetCreate({ placeholder, value, ...rest }) {
-  const toolbarOptions = [
-    ["link", "image", "video"],
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ color: [] }, { background: [] }],
-    [{ align: [] }],
-  ];
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "align",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "background",
-    "color",
-    "link",
-    "image",
-    "video",
-    "width",
-  ];
-  const modules = {
-    toolbar: {
-      container: toolbarOptions,
-    },
-  };
+function ShowpetCreate() {
+  const chkForm = () => {};
   return (
     <div id="showpet-create">
-      <ReactQuill
-        {...rest}
-        placeholder={placeholder}
-        value={value || ""}
-        theme="snow"
-        modules={modules}
-        formats={formats}
-      ></ReactQuill>
+      <input
+        // ref={titleRef}
+        className="show-title"
+        type="text"
+        placeholder="제목을 입력하세요"
+      />
+      <>
+        <ShowpetEditor className="showpet-editor" />
+      </>
+      <div className="create-check">
+        <button type="button" onClick={chkForm}>
+          작성완료
+        </button>
+      </div>
     </div>
   );
 }

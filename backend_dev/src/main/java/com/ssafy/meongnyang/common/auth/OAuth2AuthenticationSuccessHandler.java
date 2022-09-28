@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.RedisService;
 import com.ssafy.meongnyang.common.util.TokenProvider;
+import com.ssafy.meongnyang.db.entity.User;
 import com.ssafy.meongnyang.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +38,20 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 //        login 성공한 사용자
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String id = oAuth2User.getAttributes().get("id").toString();
-        log.info("login user id : " + id);
+        String email = oAuth2User.getAttributes().get("email").toString();
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        String id = String.valueOf(user.getId());
         String accessToken = tokenProvider.createAccessToken(id);
         String refreshToken = tokenProvider.createRefreshToken(id);
-        log.info(accessToken);
-        log.info(refreshToken);
-        userRepository.findById(Long.parseLong(id))
-                .orElseThrow(UserNotFoundException::new);
+
+//        String id = oAuth2User.getAttributes().get("id").toString();
+//        log.info("login user id : " + id);
+//        String accessToken = tokenProvider.createAccessToken(id);
+//        String refreshToken = tokenProvider.createRefreshToken(id);
+//        log.info(accessToken);
+//        log.info(refreshToken);
+//        userRepository.findById(Long.parseLong(id))
+//                .orElseThrow(UserNotFoundException::new);
 
         redisService.setValues(id, refreshToken, Duration.ofDays(7));
 

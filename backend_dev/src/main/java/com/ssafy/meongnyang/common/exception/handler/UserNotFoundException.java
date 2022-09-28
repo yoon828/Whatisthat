@@ -1,9 +1,9 @@
 package com.ssafy.meongnyang.common.exception.handler;
 
 public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException() {super("해당 사용자를 찾을 수 없습니다.");}
+    public UserNotFoundException() {super("회원 정보를 찾을 수 없습니다.");}
 
-    public UserNotFoundException(String msg) {super("해당 사용자를 찾을 수 없습니다.");}
+    public UserNotFoundException(String msg) {super("회원 정보를 찾을 수 없습니다.");}
 
     public UserNotFoundException(String msg, Throwable cause) {
         super(msg, cause);

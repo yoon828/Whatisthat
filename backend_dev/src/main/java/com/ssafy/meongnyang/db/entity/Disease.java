@@ -16,8 +16,8 @@ public class Disease {
     @Column(name = "disease_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String code;
+//    @Column(nullable = false)
+//    private String code;
 
     @Column(nullable = false)
     private String name;

@@ -5,6 +5,8 @@ import com.ssafy.meongnyang.api.request.UserUpdateDto;
 import com.ssafy.meongnyang.api.response.*;
 import com.ssafy.meongnyang.common.exception.handler.DiseaseNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.util.RedisService;
+import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.User;
 import com.ssafy.meongnyang.db.repository.DiseaseRepository;
 import com.ssafy.meongnyang.db.repository.UserRepository;
@@ -21,6 +23,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final DiseaseRepository diseaseRepository;
+
+    private final TokenProvider tokenProvider;
+
+    private final RedisService redisService;
 
     @Override
     public UserResponseDto writeUser(UserRegisterDto userRegisterDto) {
@@ -60,7 +66,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetailResponseDto getUserDetail(Long id) {
+    public UserDetailResponseDto getUserDetail(String accessToken) {
+        Long id = tokenProvider.getUserId(accessToken);
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         List<LostResponseDto> lostList = user.getLostList()
                 .stream()
@@ -107,7 +114,7 @@ public class UserServiceImpl implements UserService {
                         .id(diagnose.getId())
                         .date(diagnose.getDate())
                         .name(diagnose.getName())
-                        .disease_name(diseaseRepository.findByCode(diagnose.getCode()).orElseThrow(DiseaseNotFoundException::new).getName())
+                        .disease_name(diagnose.getDisease_name1())
                         .build())
                 .collect(Collectors.toList());
 
@@ -126,9 +133,54 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(String accessToken) {
+        Long id = tokenProvider.getUserId(accessToken);
+        redisService.deleteValues(id);
         userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TokenResponseDto reIssue(String accessToken, String refreshToken) {
+        tokenProvider.validateToken(refreshToken);
+        Long id = tokenProvider.getUserId(refreshToken);
+        String findRefreshToken = redisService.getValue(id);
+
+        if (findRefreshToken == null || !findRefreshToken.equals(refreshToken)) {
+            throw new UserNotFoundException("refreshToken을 찾을 수 없습니다.");
+        } else {
+            return TokenResponseDto.builder()
+                    .accessToken(tokenProvider.createAccessToken(id))
+                    .build();
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserResponseDto userInfoByToken(String accessToken) {
+        Long id = tokenProvider.getUserId(accessToken);
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
+
+        return UserResponseDto.builder()
+                .id(id)
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .join_date(user.getJoin_date())
+                .profile_img(user.getProfile_img())
+                .build();
+    }
+
+    @Override
+    public void logout(String accessToken) {
+        Long id = tokenProvider.getUserId(accessToken);
+
+        userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
+        redisService.deleteValues(id);
     }
 }

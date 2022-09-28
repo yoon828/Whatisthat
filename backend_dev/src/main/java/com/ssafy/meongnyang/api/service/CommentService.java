@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface CommentService {
-    CommentResponseDto writeComment(CommentRegisterDto commentRegisterDto);
+    CommentResponseDto writeComment(String accessToken, CommentRegisterDto commentRegisterDto);
     CommentResponseDto updateComment(CommentUpdateDto commentUpdateDto);
     List<CommentResponseDto> getCommentList(long id);
     boolean deleteComment(long id);

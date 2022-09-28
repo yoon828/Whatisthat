@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public interface DiagnoseService {
-    DiagnoseResponseDto writeDiagnose(DiagnoseRegisterDto diagnoseRegisterDto);
+    DiagnoseResponseDto writeDiagnose(String accessToken, DiagnoseRegisterDto diagnoseRegisterDto);
     boolean deleteDiagnose(Long id);
-    List<DiagnoseListResponseDto> getDiagnoseList(Long id);
+    List<DiagnoseListResponseDto> getDiagnoseList(String accessToken);
     DiagnoseResponseDto getDiagnose(Long id);
 }

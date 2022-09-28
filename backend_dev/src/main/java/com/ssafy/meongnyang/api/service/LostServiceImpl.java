@@ -6,6 +6,7 @@ import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import com.ssafy.meongnyang.api.response.LostResponseDto;
 import com.ssafy.meongnyang.common.exception.handler.LostNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.Lost;
 import com.ssafy.meongnyang.db.entity.LostImg;
 import com.ssafy.meongnyang.db.entity.User;
@@ -27,10 +28,11 @@ public class LostServiceImpl implements LostService {
     private final LostRepository lostRepository;
     private final LostImgRepository lostImgRepository;
     private final UserRepository userRepository;
-
+    private final TokenProvider tokenProvider;
     @Override
-    public LostResponseDto writeLost(LostRegisterDto lostRegisterDto) {
-        User user = userRepository.findById(lostRegisterDto.getUser_id()).orElseThrow(UserNotFoundException::new);
+    public LostResponseDto writeLost(String accessToken, LostRegisterDto lostRegisterDto) {
+        Long id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
         Lost lost = Lost.builder()
                 .user(user)
@@ -170,7 +172,8 @@ public class LostServiceImpl implements LostService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<LostResponseDto> getUserLostList(Long id) {
+    public List<LostResponseDto> getUserLostList(String accessToken) {
+        Long id = tokenProvider.getUserId(accessToken);
         return lostRepository.findAllByUserId(id)
                 .stream()
                 .map(LostServiceImpl::apply)

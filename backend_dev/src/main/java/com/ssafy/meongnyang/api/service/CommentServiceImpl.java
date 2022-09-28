@@ -6,6 +6,7 @@ import com.ssafy.meongnyang.api.response.CommentResponseDto;
 import com.ssafy.meongnyang.common.exception.handler.CommentNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.ShowPetNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.Comment;
 import com.ssafy.meongnyang.db.entity.ShowPet;
 import com.ssafy.meongnyang.db.entity.User;
@@ -26,11 +27,13 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final ShowPetRepository showPetRepository;
+    private final TokenProvider tokenProvider;
 
     @Override
-    public CommentResponseDto writeComment(CommentRegisterDto commentRegisterDto) {
+    public CommentResponseDto writeComment(String accessToken, CommentRegisterDto commentRegisterDto) {
+        Long id = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         ShowPet showPet = showPetRepository.findById(commentRegisterDto.getId()).orElseThrow(ShowPetNotFoundException::new);
-        User user = userRepository.findById(commentRegisterDto.getUser_id()).orElseThrow(UserNotFoundException::new);
 
         Comment comment = Comment.builder()
                 .content(commentRegisterDto.getContent())

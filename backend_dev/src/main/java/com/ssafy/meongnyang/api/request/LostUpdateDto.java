@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class LostUpdateDto {
     private Long id;
-    private Long user_id;   //토큰 만들면 삭제
+//    private Long user_id;   //토큰 만들면 삭제
     private String title;
     private Integer gender;
     private String lost_date;

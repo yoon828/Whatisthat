@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import './DiagnoseList.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
 const DiagnosisList = () => {
-    let [diagnosisList, setDiagnosisList] = useState(null)
+    let [diagnosisList, setDiagnosisList] = useState([
+        {
+        "id": 3,
+        "date": 1663499025000,
+        "name": "나비",
+        "disease_name": "eye disease"
+        },
+        {
+        "id": 2,
+        "date": 1663499014000,
+        "name": "초코",
+        "disease_name": "eye disease"
+        }
+        ])
     useEffect(()=>{
         axios({
             url:'http://ssafy.io/api/diagnose/articles', // 본인이 쓴 진단내역 목록 조회 api 주소
@@ -25,30 +38,44 @@ const DiagnosisList = () => {
         })
     })
     return (
-        <div>
-            <ListGroup as="ol" numbered>
-                {
-                    diagnosisList.length >= 5 ?
+        <div className='container' style={{'marginTop':'50px'}}>
+            <ListGroup variant="flush">
+                <ListGroup.Item id='header'>
+                <Container>
+                <Row>
+                    <Col className='text-center'>반려동물 이름</Col>
+                    <Col className='text-center'>병명</Col>
+                    <Col className='text-center'>진단일시</Col>
+                    <Col className='text-center'>상세정보/삭제</Col>
+                </Row>
+                </Container>
+                </ListGroup.Item>
+                {diagnosisList.map((item)=>(
                     <div>
-                        <ListGroup.Item as="li" action variant='light'>{diagnosisList[0].title}</ListGroup.Item>
-                        <ListGroup.Item as="li" action variant='light'>{diagnosisList[1].title}</ListGroup.Item>
-                        <ListGroup.Item as="li" action variant='light'>{diagnosisList[2].title}</ListGroup.Item>
-                        <ListGroup.Item as="li" action variant='light'>{diagnosisList[3].title}</ListGroup.Item>
-                        <ListGroup.Item as="li" action variant='light'>{diagnosisList[4].title}</ListGroup.Item>
-                    </div> :
-                    <div>
-                        {
-                            diagnosisList.map(function(article) {
-                                return(
-                                    <div>
-                                        <ListGroup.Item as="li" action variant='light'>{article.title}</ListGroup.Item>
-                                    </div>
-                                )
-                            })
-                        }
+                        <ListGroup.Item id='list-body'>
+                        <Container>
+                        <Row>
+                            <Col className='text-center'>{item.name}</Col>
+                            <Col className='text-center'>{item.disease_name}</Col>
+                            <Col className='text-center'>{item.date}</Col>
+                            <Col className='text-center'><button id='detailBtn' onClick={()=>{
+                                document.location.href=`/diagnosedetail/${item.id}`
+                            }}>상세정보</button>
+                            <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                axios({
+                                    url : `http://ssafy.io/api/diagnose/${item.id}`,
+                                    method: 'delete',
+                                    headers : {
+                                        Token : 'aldkfjaf' //토큰값
+                                    }
+                                })
+                            }}>삭제</button>
+                            </Col>
+                        </Row>
+                        </Container>
+                        </ListGroup.Item>
                     </div>
-                    
-                }
+                ))}
             </ListGroup>
         </div>
     )

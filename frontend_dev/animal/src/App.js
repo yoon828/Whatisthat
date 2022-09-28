@@ -9,10 +9,10 @@ import MyPage from "./screens/MyPage";
 import Login from "./screens/Login";
 import Join from "./screens/Join";
 import FirstAidPage from "./screens/FirstAid";
-import LostList from "./screens/LostList";
 import DiagnoseList from "./screens/DiagnoseList";
-import ShowpetList from "./screens/ShowpetList";
 import LostCreate from "./screens/Community/LostCreate";
+import ArticleList from "./screens/ArticleList";
+import DiagnoseDetail from './screens/DiagnoseDetail'
 
 function App() {
   return (
@@ -31,9 +31,11 @@ function App() {
           <Route element={<MyPage />} path="/mypage"></Route>
           <Route element={<Login />} path="/login"></Route>
           <Route element={<Join />} path="/join"></Route>
-          <Route element={<LostList />} path="/lostlist"></Route>
           <Route element={<DiagnoseList />} path="/diagnoselist"></Route>
-          <Route element={<ShowpetList />} path="/showpetlist"></Route>
+          {/* <Route element={<LostList />} path="/lostlist"></Route>
+          <Route element={<ShowpetList />} path="/showpetlist"></Route> */}
+          <Route element={<ArticleList />} path="/articlelist"></Route>
+          <Route element={<DiagnoseDetail />} path="/diagnosedetail/:id"></Route>
         </Routes>
       </div>
     </>

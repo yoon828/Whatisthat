@@ -1,3 +1,9 @@
-.box {
-    margin: auto;
+#mypage {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#btn1 {
+    margin-left: 20px;
 }

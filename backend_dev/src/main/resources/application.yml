@@ -5,6 +5,7 @@ spring:
   redis:
     host: redis
     port: 6379
+    password: 7rlTkxmqnrredis6379
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public interface UserService {
-    UserResponseDto writeUser(UserRegisterDto userRegisterDto);
+//    UserResponseDto writeUser(String accessToken, UserRegisterDto userRegisterDto);
     UserResponseDto updateUser(UserUpdateDto userUpdateDto);
     UserDetailResponseDto getUserDetail(String accessToken);
     boolean deleteUser(String accessToken);

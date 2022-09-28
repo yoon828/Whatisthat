@@ -28,24 +28,25 @@ public class UserServiceImpl implements UserService {
 
     private final RedisService redisService;
 
-    @Override
-    public UserResponseDto writeUser(UserRegisterDto userRegisterDto) {
-        User user = User.builder()
-                .name(userRegisterDto.getName())
-                .nickname(userRegisterDto.getNickname())
-                .email(userRegisterDto.getEmail())
-                .profile_img(userRegisterDto.getProfile_img()).build();
-        User userResponse = userRepository.save(user);
+//    @Override
+//    public UserResponseDto writeUser(UserRegisterDto userRegisterDto) {
+//        User user = User.builder()
+//                .name(userRegisterDto.getName())
+//                .nickname(userRegisterDto.getNickname())
+//                .email(userRegisterDto.getEmail())
+//                .profile_img(userRegisterDto.getProfile_img()).build();
+//        User userResponse = userRepository.save(user);
+//
+//        UserResponseDto userResponseDto = UserResponseDto.builder()
+//                .id(userResponse.getId())
+//                .name(userResponse.getName())
+//                .nickname(userResponse.getNickname())
+//                .email(userResponse.getEmail())
+//                .profile_img(userResponse.getProfile_img())
+//                .join_date(userResponse.getJoin_date()).build();
+//        return userResponseDto;
+//    }
 
-        UserResponseDto userResponseDto = UserResponseDto.builder()
-                .id(userResponse.getId())
-                .name(userResponse.getName())
-                .nickname(userResponse.getNickname())
-                .email(userResponse.getEmail())
-                .profile_img(userResponse.getProfile_img())
-                .join_date(userResponse.getJoin_date()).build();
-        return userResponseDto;
-    }
 
     @Override
     public UserResponseDto updateUser(UserUpdateDto userUpdateDto) {

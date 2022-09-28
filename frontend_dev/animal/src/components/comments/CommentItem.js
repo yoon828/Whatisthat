@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "./CommentItem.css";
 
-function CommentsItem() {
+function CommentsItem({
+  info,
+  type,
+  isAuthor,
+  changed,
+  postIdx,
+  isArticleAuthor,
+}) {
+  const [editInput, setEditInput] = useState(false);
+  const navigate = useNavigate();
+  const [imgToggle, setImgToggle] = useState(false);
+
+  const goFeed = () => {
+    navigate(`/userfeed/${info.userNickname}`);
+  };
+
+  const deleteComment = async () => {
+    await commentDelete(info.idx, type);
+    changed();
+  };
+
+  const editComment = () => {
+    setEditInput(true);
+  };
+
+  const closeEdit = () => {
+    setEditInput(false);
+  };
   return (
     <div id="comments">
       <div className="comments-content">

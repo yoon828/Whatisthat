@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
+import "./CommentInput.css";
+import { useNavigate } from "react-router-dom";
 
-function CommentInput() {
+function CommentInput({ articleIdx, changed, type }) {
+  const navigate = useNavigate();
+
   return (
     <div id="comments-input">
       <div className="comments-icon">

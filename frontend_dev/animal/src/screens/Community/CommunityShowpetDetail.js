@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "./CommunityShowpetDetail.css";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 function CommunityShowpetDetail() {
   return (

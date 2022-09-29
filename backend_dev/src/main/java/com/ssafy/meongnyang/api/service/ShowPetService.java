@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public interface ShowPetService {
     ShowPetResponseDto writeShowPet(String accessToken, ShowPetRegisterDto showPetRegisterDto);
-    ShowPetResponseDto updateShowPet(ShowPetUpdateDto showPetUpdateDto);
+    ShowPetResponseDto updateShowPet(String accessToken, ShowPetUpdateDto showPetUpdateDto);
     List<ShowPetListResponseDto> getShowPetList();
     ShowPetDetailResponseDto getShowPet(Long id);
-    boolean deleteShowPet(Long id);
+    boolean deleteShowPet(String accessToken, Long id);
     List<ShowPetListResponseDto> getUserShowPetList(String accessToken);
 }

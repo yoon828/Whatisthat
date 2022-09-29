@@ -4,6 +4,7 @@ import com.ssafy.meongnyang.api.request.LostRegisterDto;
 import com.ssafy.meongnyang.api.request.LostUpdateDto;
 import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import com.ssafy.meongnyang.api.response.LostResponseDto;
+import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
 import com.ssafy.meongnyang.common.exception.handler.LostNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
@@ -31,8 +32,8 @@ public class LostServiceImpl implements LostService {
     private final TokenProvider tokenProvider;
     @Override
     public LostResponseDto writeLost(String accessToken, LostRegisterDto lostRegisterDto) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
 
         Lost lost = Lost.builder()
                 .user(user)
@@ -89,8 +90,13 @@ public class LostServiceImpl implements LostService {
     }
 
     @Override
-    public LostResponseDto updateLost(LostUpdateDto lostUpdateDto) {
+    public LostResponseDto updateLost(String accessToken, LostUpdateDto lostUpdateDto) {
+        String uid = tokenProvider.getUserId(accessToken);
         Lost lost = lostRepository.findById(lostUpdateDto.getId()).orElseThrow(LostNotFoundException::new);
+
+        if (!uid.equals(lost.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         lostImgRepository.deleteAllByLostId(lost.getId());
 
         lost.updateLost(lostUpdateDto);
@@ -164,8 +170,13 @@ public class LostServiceImpl implements LostService {
     }
 
     @Override
-    public boolean deleteLost(Long id) {
-        lostRepository.findById(id).orElseThrow(LostNotFoundException::new);
+    public boolean deleteLost(String accessToken, Long id) {
+        String uid = tokenProvider.getUserId(accessToken);
+        Lost lost = lostRepository.findById(id).orElseThrow(LostNotFoundException::new);
+
+        if (!uid.equals(lost.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         lostRepository.deleteById(id);
         return true;
     }

@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 public interface LostService {
     LostResponseDto writeLost(String accessToken, LostRegisterDto lostRegisterDto);
-    LostResponseDto updateLost(LostUpdateDto lostUpdateDto);
+    LostResponseDto updateLost(String accessToken, LostUpdateDto lostUpdateDto);
     List<LostResponseDto> getLostList();
-    boolean deleteLost(Long id);
+    boolean deleteLost(String accessToken, Long id);
     List<LostResponseDto> getUserLostList(String accessToken);
 }

@@ -5,12 +5,12 @@ public class TokenNotFoundException extends IllegalArgumentException {
         super("토큰을 찾을 수 없습니다.");
     }
 
-    public TokenNotFoundException(String s) {
-        super(s);
+    public TokenNotFoundException(String msg) {
+        super(msg);
     }
 
-    public TokenNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    public TokenNotFoundException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 
     public TokenNotFoundException(Throwable cause) {

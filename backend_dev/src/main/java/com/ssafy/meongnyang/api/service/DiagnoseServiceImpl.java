@@ -3,6 +3,7 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.DiagnoseRegisterDto;
 import com.ssafy.meongnyang.api.response.DiagnoseListResponseDto;
 import com.ssafy.meongnyang.api.response.DiagnoseResponseDto;
+import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
 import com.ssafy.meongnyang.common.exception.handler.DiagnoseNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.DiseaseNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
@@ -30,8 +31,8 @@ public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Override
     public DiagnoseResponseDto writeDiagnose(String accessToken, DiagnoseRegisterDto diagnoseRegisterDto) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
         Disease disease1 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease2 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name2()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease3 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name3()).orElseThrow(DiseaseNotFoundException::new);
@@ -74,8 +75,14 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     }
 
     @Override
-    public boolean deleteDiagnose(Long id) {
-        diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
+    public boolean deleteDiagnose(String accessToken, Long id) {
+        String uid = tokenProvider.getUserId(accessToken);
+        Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
+
+        if (!uid.equals(diagnose.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
+
         diagnoseRepository.deleteById(id);
         return true;
     }
@@ -83,8 +90,8 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     @Override
     @Transactional(readOnly = true)
     public List<DiagnoseListResponseDto> getDiagnoseList(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
 
         List<DiagnoseListResponseDto> list = user.getDiagnoseList()
                 .stream()
@@ -101,8 +108,13 @@ public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Override
     @Transactional(readOnly = true)
-    public DiagnoseResponseDto getDiagnose(Long id) {
+    public DiagnoseResponseDto getDiagnose(String accessToken, Long id) {
+        String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
+
+        if (!uid.equals(diagnose.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         Disease disease1 = diseaseRepository.findByName(diagnose.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease2 = diseaseRepository.findByName(diagnose.getDisease_name2()).orElseThrow(DiseaseNotFoundException::new);
         Disease disease3 = diseaseRepository.findByName(diagnose.getDisease_name3()).orElseThrow(DiseaseNotFoundException::new);

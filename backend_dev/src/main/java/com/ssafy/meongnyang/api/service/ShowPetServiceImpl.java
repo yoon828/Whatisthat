@@ -3,7 +3,9 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.ShowPetRegisterDto;
 import com.ssafy.meongnyang.api.request.ShowPetUpdateDto;
 import com.ssafy.meongnyang.api.response.*;
+import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
 import com.ssafy.meongnyang.common.exception.handler.ShowPetNotFoundException;
+import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.ShowPet;
 import com.ssafy.meongnyang.db.entity.ShowPetImg;
@@ -30,8 +32,8 @@ public class ShowPetServiceImpl implements ShowPetService {
 
     @Override
     public ShowPetResponseDto writeShowPet(String accessToken, ShowPetRegisterDto showPetRegisterDto) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(ShowPetNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(ShowPetNotFoundException::new);
 
         ShowPet showPet = ShowPet.builder()
                 .user(user)
@@ -68,8 +70,13 @@ public class ShowPetServiceImpl implements ShowPetService {
     }
 
     @Override
-    public ShowPetResponseDto updateShowPet(ShowPetUpdateDto showPetUpdateDto) {
+    public ShowPetResponseDto updateShowPet(String accessToken, ShowPetUpdateDto showPetUpdateDto) {
+        String uid = tokenProvider.getUserId(accessToken);
         ShowPet showPet = showPetRepository.findById(showPetUpdateDto.getId()).orElseThrow(ShowPetNotFoundException::new);
+
+        if (!uid.equals(showPet.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         showPetImgRepository.deleteAllByShowPetId(showPet.getId());
 
         showPet.updateShowPet(showPetUpdateDto);
@@ -146,8 +153,13 @@ public class ShowPetServiceImpl implements ShowPetService {
     }
 
     @Override
-    public boolean deleteShowPet(Long id) {
-        showPetRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
+    public boolean deleteShowPet(String accesssToken, Long id) {
+        String uid = tokenProvider.getUserId(accesssToken);
+        ShowPet showPet = showPetRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
+
+        if (!uid.equals(showPet.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         showPetRepository.deleteById(id);
         return true;
     }

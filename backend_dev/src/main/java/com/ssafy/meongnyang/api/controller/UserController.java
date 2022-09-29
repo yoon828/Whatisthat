@@ -46,8 +46,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 수정한다.")
-    public Response<?> updateUser(@RequestBody UserUpdateDto userUpdateDto) {
-        return new Response<>(true, 202, "회원 정보 수정 성공", userService.updateUser((userUpdateDto)));
+    public Response<?> updateUser(@RequestHeader("authorization") String authorization, @RequestBody UserUpdateDto userUpdateDto) {
+        return new Response<>(true, 202, "회원 정보 수정 성공", userService.updateUser(authorization.replace("Bearer ", ""), userUpdateDto));
     }
 
     @ResponseStatus(HttpStatus.OK)

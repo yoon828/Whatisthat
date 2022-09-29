@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public interface UserService {
 //    UserResponseDto writeUser(String accessToken, UserRegisterDto userRegisterDto);
-    UserResponseDto updateUser(UserUpdateDto userUpdateDto);
+    UserResponseDto updateUser(String accessToken, UserUpdateDto userUpdateDto);
     UserDetailResponseDto getUserDetail(String accessToken);
     boolean deleteUser(String accessToken);
     TokenResponseDto reIssue(String accessToken, String refreshToken);

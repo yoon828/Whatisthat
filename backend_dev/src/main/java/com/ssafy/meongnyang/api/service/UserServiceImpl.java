@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    private final DiseaseRepository diseaseRepository;
-
     private final TokenProvider tokenProvider;
 
     private final RedisService redisService;
@@ -49,8 +47,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResponseDto updateUser(UserUpdateDto userUpdateDto) {
-        User user = userRepository.findById(userUpdateDto.getId()).orElseThrow(UserNotFoundException::new);
+    public UserResponseDto updateUser(String accessToken, UserUpdateDto userUpdateDto) {
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
 
         user.updateUser(userUpdateDto);
 

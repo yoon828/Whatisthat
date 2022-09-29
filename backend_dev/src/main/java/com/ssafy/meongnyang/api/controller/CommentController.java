@@ -41,9 +41,9 @@ public class CommentController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
     @ApiOperation(value = "댓글 수정", notes = "반려동물 자랑 글의 댓글을 수정한다.")
-    public Response<?> updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
+    public Response<?> updateComment(@RequestHeader("authorization") String authorization, @RequestBody CommentUpdateDto commentUpdateDto) {
         return new Response<>(true, 202, "댓글 수정 성공",
-                commentService.updateComment(commentUpdateDto));
+                commentService.updateComment(authorization.replace("Bearer ", ""), commentUpdateDto));
     }
 
 //    @DeleteMapping("/{id}")
@@ -55,9 +55,9 @@ public class CommentController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "댓글 삭제", notes = "해당 id의 댓글을 삭제한다.")
-    public Response<?> deleteComment(@PathVariable long id) {
+    public Response<?> deleteComment(@RequestHeader("authorization") String authorization, @PathVariable long id) {
         return new Response<>(true, 200, "댓글 삭제 성공",
-                commentService.deleteComment(id));
+                commentService.deleteComment(authorization.replace("Bearer ", ""), id));
     }
 
     @ResponseStatus(HttpStatus.OK)

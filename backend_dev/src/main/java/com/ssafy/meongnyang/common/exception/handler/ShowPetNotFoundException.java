@@ -3,7 +3,7 @@ package com.ssafy.meongnyang.common.exception.handler;
 public class ShowPetNotFoundException extends RuntimeException {
     public ShowPetNotFoundException() {super("해당 반려동물 자랑 글을 찾을 수 없습니다.");}
 
-    public ShowPetNotFoundException(String msg) {super("해당 반려동물 자랑 글을 찾을 수 없습니다.");}
+    public ShowPetNotFoundException(String msg) {super(msg);}
 
     public ShowPetNotFoundException(String msg, Throwable cause) {
         super(msg, cause);

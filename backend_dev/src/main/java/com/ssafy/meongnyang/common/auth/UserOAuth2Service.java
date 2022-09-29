@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Random;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,20 +35,36 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
         String email = (String) kakao_account.get("email");
 
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-        String nickname = (String) properties.get("nickname");
+        String name = (String) properties.get("nickname");
 
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
+            String profile_img = "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzAxMTRfMjYy%2FMDAxNDg0MzcxOTkxNzA4._N73NTpWleCLp8M6gXR8vpdDAZoAQ2mTJLimKBYFtRwg.5LEqnsukFugxlrTdlYk5hkxEKoVdUbTVsjL6gqJ03vIg.PNG.koomarin%2F%253F%253F%253F%253F%257B%253F_%253F%253F%253F%253F%253F%253F%253F.png&type=sc960_832";
+            String nickname = randomNickname();
             log.info("가입되지 않은 사용자입니다. DB에 저장합니다.");
             userRepository.save(User.builder()
                     .email(email)
-                    .name(nickname)
-                    .nickname("no-data")
-                    .profile_img("no-data")
+                    .name(name)
+                    .nickname(nickname)
+                    .profile_img(profile_img)
                     .build());
         }
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_MEMBER")), attributes, "id");
+    }
+
+    public String randomNickname() {
+        int leftLimit = 48;
+        int rightLimit = 122;
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generateString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generateString;
     }
 
 }

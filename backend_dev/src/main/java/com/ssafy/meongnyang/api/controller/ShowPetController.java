@@ -69,9 +69,9 @@ public class ShowPetController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
     @ApiOperation(value = "반려동물 자랑 글 수정", notes = "반려동물 자랑 글을 수정한다.")
-    public Response<?> updateShowPet(@RequestBody ShowPetUpdateDto showPetUpdateDto) {
+    public Response<?> updateShowPet(@RequestHeader("authorization") String authorization, @RequestBody ShowPetUpdateDto showPetUpdateDto) {
         return new Response<>(true, 202, "자랑 글 수정 성공",
-                showPetService.updateShowPet(showPetUpdateDto));
+                showPetService.updateShowPet(authorization.replace("Bearer ", ""), showPetUpdateDto));
     }
 
 //    @DeleteMapping("/{id}")
@@ -84,9 +84,9 @@ public class ShowPetController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "반려동물 자랑 글 삭제", notes = "id에 해당하는 반려동물 자랑 글을 삭제한다.")
-    public Response<?> deleteShowPet(@PathVariable long id) {
+    public Response<?> deleteShowPet(@RequestHeader("authorization") String authorization, @PathVariable long id) {
         return new Response<>(true, 200, "자랑 글 삭제 성공",
-                showPetService.deleteShowPet(id));
+                showPetService.deleteShowPet(authorization.replace("Bearer ", ""), id));
     }
 
     // 토큰 만들기 전 임시로 id값 넘겨주기

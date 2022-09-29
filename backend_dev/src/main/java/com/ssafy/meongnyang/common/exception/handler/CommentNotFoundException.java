@@ -3,7 +3,7 @@ package com.ssafy.meongnyang.common.exception.handler;
 public class CommentNotFoundException extends RuntimeException {
     public CommentNotFoundException() {super("해당 댓글을 찾을 수 없습니다.");}
 
-    public CommentNotFoundException(String msg) {super("해당 댓글을 찾을 수 없습니다.");}
+    public CommentNotFoundException(String msg) {super(msg);}
 
     public CommentNotFoundException(String msg, Throwable cause) {
         super(msg, cause);

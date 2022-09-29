@@ -3,7 +3,7 @@ package com.ssafy.meongnyang.common.exception.handler;
 public class DiseaseNotFoundException extends RuntimeException {
     public DiseaseNotFoundException() {super("해당 질환을 찾을 수 없습니다.");}
 
-    public DiseaseNotFoundException(String msg) {super("해당 질환을 찾을 수 없습니다.");}
+    public DiseaseNotFoundException(String msg) {super(msg);}
 
     public DiseaseNotFoundException(String msg, Throwable cause) {
         super(msg, cause);

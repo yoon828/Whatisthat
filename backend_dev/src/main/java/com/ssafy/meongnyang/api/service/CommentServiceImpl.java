@@ -3,6 +3,7 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.CommentRegisterDto;
 import com.ssafy.meongnyang.api.request.CommentUpdateDto;
 import com.ssafy.meongnyang.api.response.CommentResponseDto;
+import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
 import com.ssafy.meongnyang.common.exception.handler.CommentNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.ShowPetNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
@@ -31,8 +32,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto writeComment(String accessToken, CommentRegisterDto commentRegisterDto) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
         ShowPet showPet = showPetRepository.findById(commentRegisterDto.getId()).orElseThrow(ShowPetNotFoundException::new);
 
         Comment comment = Comment.builder()
@@ -52,9 +53,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentResponseDto updateComment(CommentUpdateDto commentUpdateDto) {
+    public CommentResponseDto updateComment(String accessToken, CommentUpdateDto commentUpdateDto) {
+        String uid = tokenProvider.getUserId(accessToken);
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(CommentNotFoundException::new);
 
+        if (!uid.equals(comment.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         comment.updateComment(commentUpdateDto);
 
         CommentResponseDto commentResponseDto = CommentResponseDto.builder()
@@ -81,8 +86,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(long id) {
-        commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
+    public boolean deleteComment(String accessToken, long id) {
+        String uid = tokenProvider.getUserId(accessToken);
+        Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
+
+        if (!uid.equals(comment.getUser().getId())) {
+            throw new AccessDeniedException();
+        }
         commentRepository.deleteById(id);
         return true;
     }

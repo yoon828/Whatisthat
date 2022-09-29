@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface CommentService {
     CommentResponseDto writeComment(String accessToken, CommentRegisterDto commentRegisterDto);
-    CommentResponseDto updateComment(CommentUpdateDto commentUpdateDto);
+    CommentResponseDto updateComment(String accessToken, CommentUpdateDto commentUpdateDto);
     List<CommentResponseDto> getCommentList(long id);
-    boolean deleteComment(long id);
+    boolean deleteComment(String accessToken, long id);
 }

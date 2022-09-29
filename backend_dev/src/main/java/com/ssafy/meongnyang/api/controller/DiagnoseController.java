@@ -33,9 +33,9 @@ public class DiagnoseController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     @ApiOperation(value = "진단 내역 상세 조회", notes = "해당 id의 진단 내역을 상세 조회한다.")
-    public Response<?> getDiagnose(@PathVariable long id) {
+    public Response<?> getDiagnose(@RequestHeader("authorization") String authorization, @PathVariable long id) {
         return new Response<>(true, 200, "진단 내역 상세 조회 성공",
-                diagnoseService.getDiagnose(id));
+                diagnoseService.getDiagnose(authorization.replace("Bearer ", ""), id));
     }
 
 //    @DeleteMapping("/{id}")
@@ -47,9 +47,9 @@ public class DiagnoseController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "진단 내역 삭제", notes = "해당 id의 진단 내역을 삭제한다.")
-    public Response<?> deleteDiagnose(@PathVariable long id) {
+    public Response<?> deleteDiagnose(@RequestHeader("authorization") String authorization, @PathVariable long id) {
         return new Response<>(true, 200, "진단 내역 삭제 성공",
-                diagnoseService.deleteDiagnose(id));
+                diagnoseService.deleteDiagnose(authorization.replace("Bearer ", ""), id));
     }
 
     // 토큰 만들기 전 임시로 id값 넘겨주기

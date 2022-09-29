@@ -48,9 +48,9 @@ public class LostController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
     @ApiOperation(value = "실종 글 수정", notes = "실종 글을 수정한다.")
-    public Response<?> updateLost(@RequestBody LostUpdateDto lostUpdateDto) {
+    public Response<?> updateLost(@RequestHeader("authorization") String authorization, @RequestBody LostUpdateDto lostUpdateDto) {
         return new Response<>(true, 202, "실종 글 수정 성공",
-                lostService.updateLost(lostUpdateDto));
+                lostService.updateLost(authorization.replace("Bearer ", ""), lostUpdateDto));
     }
 
 //    @DeleteMapping("/{id}")
@@ -62,9 +62,9 @@ public class LostController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "실종 글 삭제", notes = "id에 해당하는 실종 글을 삭제한다.")
-    public Response<?> deleteLost(@PathVariable long id) {
+    public Response<?> deleteLost(@RequestHeader("authorization") String authorization, @PathVariable long id) {
         return new Response<>(true, 200, "실종 글 삭제 성공",
-                lostService.deleteLost(id));
+                lostService.deleteLost(authorization.replace("Bearer ", ""), id));
     }
 
     // 토큰 만들기 전 임시로 id값 넘겨주기

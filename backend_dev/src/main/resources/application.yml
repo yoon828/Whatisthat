@@ -48,8 +48,8 @@ jwt:
   refresh-token-validity-in-seconds: 86400
 
 front:
-  url: http://j7c101.p.ssafy.io/test
-#  url: http://localhost:3000/oauth/callback
+#  url: http://j7c101.p.ssafy.io/test
+  url: http://j7c101.p.ssafy.io:3000/oauth/callback
 
 logging:
   level:

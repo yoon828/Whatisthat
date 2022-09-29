@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Kotra';
+    src: url("./../fonts/KOTRA\ HOPE.ttf");
+  }
+
+#login-lottie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}

@@ -7,14 +7,12 @@ import { useNavigate } from "react-router-dom";
 function Community() {
   const navigate = useNavigate();
   const [comType, setComType] = useState("showpet");
-
   const goEdit = () => {
     navigate("create");
   };
   const goEdit2 = () => {
     navigate("create2");
   };
-
   return (
     <div id="community">
       <div className="background__banner">
@@ -55,11 +53,7 @@ function Community() {
             실종동물 글 작성
           </button>
         </div>
-        {comType === "showpet" ? (
-          <CardList condition={{ title: "", user_nickname: "" }} />
-        ) : (
-          <LostDetailList />
-        )}
+        {comType === "showpet" ? <CardList /> : <LostDetailList />}
       </div>
     </div>
   );

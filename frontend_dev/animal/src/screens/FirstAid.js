@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import YouTube from 'react-youtube';
+import Lottie from 'lottie-react'
+import emergence from './../lotties/emergence.json'
 
 const FirstAidPage = () => {
     let [show1, setShow1] = useState(false)
@@ -19,6 +21,10 @@ const FirstAidPage = () => {
 
     return (
         <div>
+            <div id='firstaid-lottie'>
+                <Lottie animationData={emergence} style={{'width':'200px'}}></Lottie>
+                <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>위급상황에 아래와 같이 대처하세요</h1>
+            </div>
             <Container>
             <br></br>
             <br></br>
@@ -26,7 +32,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>의식이 없을 때</p>
+                        <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>의식이 없을 때</p>
                         <img className='animalImg' src='/conciousness.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{
@@ -39,7 +45,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>기도에 이물질이 들어갔을 때</p>
+                        <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>기도에 이물질이 들어갔을 때</p>
                         <img className='animalImg1' src='/airway.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{
@@ -52,7 +58,7 @@ const FirstAidPage = () => {
                 <Col>
                     <div className='container text-center' id='box'>
                         <br></br>
-                        <p style={{'fontSize':'30px', 'fontFamily':'Kotra'}}>화상을 입었을 때</p>
+                        <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>화상을 입었을 때</p>
                         <img className='animalImg2' src='/burn.jpg'></img><br></br>
                         <Button className='mt-4' id='btn'
                         onClick={()=>{

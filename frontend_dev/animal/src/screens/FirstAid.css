@@ -23,7 +23,7 @@
 
 #box {
     width: 350px;
-    height: 420px;
+    height: 430px;
     background-color: #F8E2CF;
     border-radius: 10%;
 }
@@ -37,6 +37,11 @@
     font-size: 20px;
 }
 
+#firstaid-lottie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 

@@ -315,13 +315,13 @@ const DiagnoseResult = (props) => {
                     <img src={info} style={{'width':'350px', 'marginBottom':'30px'}}></img>
                     <div>
                         <div id='result-item'>
-                            {result[0][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
+                            {result[0][0]}일 확률 <ProgressBar style={{'height':'30px', 'fontSize':'30px'}} striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
                         </div>
                         <div id='result-item'>
-                            {result[1][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="warning" now={Math.round(result[1][1]*100)} label={`${Math.round(result[1][1]*100)}%`}/>
+                            {result[1][0]}일 확률 <ProgressBar style={{'height':'30px', 'fontSize':'30px'}} striped animated variant="warning" now={Math.round(result[1][1]*100)} label={`${Math.round(result[1][1]*100)}%`}/>
                         </div>
                         <div id='result-item'>
-                            {result[2][0]}일 확률 <ProgressBar style={{'height':'30px'}} striped animated variant="info" now={Math.round(result[2][1]*100)} label={`${Math.round(result[2][1]*100)}%`}/>
+                            {result[2][0]}일 확률 <ProgressBar style={{'height':'30px', 'fontSize':'30px'}} striped animated variant="info" now={Math.round(result[2][1]*100)} label={`${Math.round(result[2][1]*100)}%`}/>
                         </div>
                     </div>
                     <div id='treat-header'>

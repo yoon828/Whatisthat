@@ -5,6 +5,8 @@ import './DiagnoseList.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Lottie from 'lottie-react'
+import list from './../lotties/list.json'
 
 
 const DiagnosisList = () => {
@@ -38,7 +40,11 @@ const DiagnosisList = () => {
         })
     })
     return (
-        <div className='container' style={{'marginTop':'50px'}}>
+        <div className='container' style={{'marginTop':'50px', 'fontFamily':'Kotra', 'fontSize':'25px'}}>
+            <div id='list-lottie'>
+                <Lottie animationData={list} style={{'width':'150px'}}></Lottie>
+                <h1>내가 작성한 글 보기</h1>
+            </div>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>

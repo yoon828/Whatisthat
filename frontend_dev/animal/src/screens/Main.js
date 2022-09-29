@@ -51,17 +51,17 @@ function Main() {
         </div>
         <div id='carousel'>
           <Carousel variant="dark">
-            <Carousel.Item interval={2000}>
+            <Carousel.Item interval={4000}>
               <img
                 className="d-block w-100"
                 src="/page1.png"
                 alt="First slide"
               />
               <Carousel.Caption>
-                <h3 style={{'fontSize':'35px'}}>반려동물의 정보와 환부 사진을 업로드해주세요</h3>
+                <h3 style={{'fontSize':'35px'}}>반려동물의 정보와 아픈부위 사진을 업로드해주세요</h3>
               </Carousel.Caption>
             </Carousel.Item>
-            <Carousel.Item interval={2000}>
+            <Carousel.Item interval={4000}>
               <img
                 className="d-block w-100"
                 src="/page2.png"
@@ -71,7 +71,7 @@ function Main() {
                 <h3 style={{'fontSize':'35px'}}>인공지능이 질병을 분석해 결과를 보여줄거에요</h3>
               </Carousel.Caption>
             </Carousel.Item >
-            <Carousel.Item interval={2000}>
+            <Carousel.Item interval={4000}>
               <img
                 className="d-block w-100"
                 src="page3.png"
@@ -82,7 +82,7 @@ function Main() {
               </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item interval={2000}>
+            <Carousel.Item interval={4000}>
               <img
                 className="d-block w-100"
                 src="page4.png"

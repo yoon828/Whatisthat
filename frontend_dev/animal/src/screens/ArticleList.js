@@ -7,6 +7,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Lottie from 'lottie-react'
+import article from './../lotties/article.json'
 
 
 const StyledBtn = styled.button`
@@ -15,29 +17,36 @@ const StyledBtn = styled.button`
     height: 40px;
     border: none;
     border-radius: 15px;
-    font-size: 18px;
+    font-size: 23px;
     font-weight: bold;
     outline: none;
     cursor: pointer;
     color: black;
     background: #F5C6AA;
     margin: 20px;
+    font-family: 'Kotra';
     `;
 
 const ArticleList = () => {
     const [type, setType] = useState("showpet");
 
     return (
-        <div className="text-center">
-            <StyledBtn className={type === 'showpet' ? 'act' : null} onClick={()=>{
-                setType('showpet')
-            }}>자랑하기</StyledBtn>
-            <StyledBtn className={type === 'lost' ? 'act' : null} onClick={()=>{
-                setType('lost')
-            }}>실종동물 찾기</StyledBtn>
-            {
-                type === 'showpet' ? <ShowpetList /> : <LostList />
-            }
+        <div>
+            <div id='article-lottie'>
+                <Lottie animationData={article} style={{'width':'150px'}}></Lottie>
+                <h1 style={{'fontFamily':'Kotra'}}>내가 작성한 글 보기</h1>
+            </div>
+            <div className="text-center">
+                <StyledBtn className={type === 'showpet' ? 'act' : null} onClick={()=>{
+                    setType('showpet')
+                }}>자랑하기</StyledBtn>
+                <StyledBtn className={type === 'lost' ? 'act' : null} onClick={()=>{
+                    setType('lost')
+                }}>실종동물 찾기</StyledBtn>
+                {
+                    type === 'showpet' ? <ShowpetList /> : <LostList />
+                }
+            </div>
         </div>
     )
 }
@@ -73,7 +82,7 @@ const ShowpetList = () => {
         })
     })
     return (
-        <div className='container' style={{'marginTop':'50px'}}>
+        <div className='container' style={{'marginTop':'50px', 'fontFamily':'Kotra', 'fontSize':'25px'}}>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>
@@ -191,7 +200,7 @@ const LostList = () =>{
         })
     })
     return (
-        <div className='container' style={{'marginTop':'50px'}}>
+        <div className='container' style={{'marginTop':'50px', 'fontFamily':'Kotra', 'fontSize':'25px'}}>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>

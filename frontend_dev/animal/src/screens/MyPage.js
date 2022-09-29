@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Mypage.css'
 import styled from 'styled-components';
+import Lottie from 'lottie-react'
+import profile from './../lotties/profile.json'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -45,7 +47,11 @@ const MyPage = () => {
         })
     }, [])
     return (
-        <div>
+        <div id='mypage-box'>
+            <div id='mypage-lottie'>
+                <Lottie animationData={profile} style={{'width':'80px'}}></Lottie>
+                <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>{userInfo.name}님의 프로필</h1>
+            </div>
             <Container>
                 <Row id='mypage'>
                     <Col md={4}>

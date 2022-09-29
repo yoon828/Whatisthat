@@ -199,6 +199,7 @@ const Diagnose = () => {
                     }}
                     ></input>
                 </Innerbox> :
+
                 <Innerbox>
                     <label id="picture" for="upload-file">
                     업로드 하기
@@ -220,19 +221,18 @@ const Diagnose = () => {
             </Innerbox>
                 }
 
-
                 <StyledBtn
                 id = 'diagnoseBtn'
                 onClick={()=>{
                     let formData = new FormData();
                     formData.append("uploadFile", file, img);
-                    setInfo(info.name=name)
                     setInfo(info.type=type)
                     setInfo(info.part=part)
                     setInfo(info.img=img)
-                    setInfo(info.imgUrl=`http://j7c101.p.ssafy.io:3003/images/${img}`)
+                    setInfo(info.imgUrl=`http://j7c101.p.ssafy.io:3003/${img}`)
+                    setInfo(info.name=name)
+                    setInfo(info=info)
                     axios({
-                        // url: "http://localhost:3003/upload",
                         url: "http://j7c101.p.ssafy.io:3003/upload",
                         method: 'post',
                         headers: {
@@ -243,6 +243,7 @@ const Diagnose = () => {
                     })
                     .then((res)=>{
                         setShowResult(true)
+                        console.log(info)
                     })
                     .catch((err)=>{
                         console.log(err)
@@ -267,8 +268,7 @@ const Loading = () => {
 
 const DiagnoseResult = (props) => {
     let [loading, setLoading] = useState(true)
-    // let info = props.info
-    let info = 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA2MTdfNDAg%2FMDAxNjU1NDU2MzQwMjk3.gn6EnHuunkvpKqOgCK0ZQY2CbF_xZTYF6kPu0E7iM8Ag.GjGEVnVIs5mDr7hubyRJBrr29VeIpDqHtfjTQvU-0fwg.JPEG.i-comfort%2F1018_5491_KakaoTalk_20220418_172537949.jpg&type=sc960_832'
+    let info = props.info
     let [result, setResult] = useState([
         [
         "농포,여드름",
@@ -287,7 +287,6 @@ const DiagnoseResult = (props) => {
 
     setTimeout(()=>{
         setLoading(false)
-        console.log(`ifo는 ${info} 입니다.`)
     }, 3000)
 
     // useEffect(()=>{
@@ -312,7 +311,7 @@ const DiagnoseResult = (props) => {
                     <Lottie id='result-paper' animationData={paper}></Lottie>
                     <h2 style={{'fontSize':'60px'}}>진단결과</h2>
                     </div>
-                    <img src={info} style={{'width':'350px', 'marginBottom':'30px'}}></img>
+                    <img src={info.imgUrl} style={{'width':'350px', 'marginBottom':'30px'}}></img>
                     <div>
                         <div id='result-item'>
                             {result[0][0]}일 확률 <ProgressBar style={{'height':'30px', 'fontSize':'30px'}} striped animated variant="danger" now={Math.round(result[0][1]*100)} label={`${Math.round(result[0][1]*100)}%`}/>
@@ -338,8 +337,20 @@ const DiagnoseResult = (props) => {
                             url: "http://j7c101.p.ssafy.io:3003/api/picture", // 이미지 주소 DB에 저장하는 api 주소
                             method: "post",
                             data: {
-                              imgUrl: info,
+                                disease_name1 : result[0][0],
+                                disease_name2 : result[1][0],
+                                disease_name3 : result[2][0],
+                                img_url : info.imgUrl,
+                                name : info.name,
+                                probability1: result[0][1],
+                                probability2: result[1][1],
+                                probability3: result[2][1],
+                                species: info.type,
+                                type : info.part
                             },
+                            headers:{
+                                Token : 'asdfasdf'
+                            }
                           })
                             .then((res) => {
                                 console.log(res.data);

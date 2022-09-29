@@ -25,28 +25,11 @@ function Login() {
           <div className="line"></div>
           <p id="header__mention">SNS로 간편하게 시작하기</p>
           <img src='/kakao_login.png' id='loginBtn' onClick={()=>{
-            // 카카오 로그인 연결
+            document.location.href='http://j7c101.p.ssafy.io:8080/oauth2/authorization/kakao'
           }}></img><br></br>
           <img src='/naver_login.png' id='loginBtn' onClick={()=>{
             // 네이버 로그인 연결
           }}></img>
-
-          {/* <section className="social-login">
-            <button type="button" className="social-login__btn-kakao">
-              <img
-                className="btn__img-kakao"
-                src="./kakao_login.png"
-                alt="kakaoimg"
-              />
-            </button>
-            <button type="button" className="social-login__btn-naver">
-              <img
-                className="btn__img-naver"
-                src="./naver_login.png"
-                alt="naverimg"
-              />
-            </button>
-          </section> */}
         </div>
       </div>
     </div>

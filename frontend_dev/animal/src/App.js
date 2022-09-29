@@ -14,6 +14,7 @@ import LostCreate from "./screens/Community/LostCreate";
 import ArticleList from "./screens/ArticleList";
 import DiagnoseDetail from './screens/DiagnoseDetail'
 import ProfileUpdate from './screens/ProfileUpdate'
+import LoginCallback from './screens/LoginCallback';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route element={<ArticleList />} path="/articlelist"></Route>
           <Route element={<ProfileUpdate />} path="/profileupdate"></Route>
           <Route element={<DiagnoseDetail />} path="/diagnosedetail/:id"></Route>
+          <Route element={<LoginCallback />} path="/oauth/callback"></Route>
         </Routes>
       </div>
     </>

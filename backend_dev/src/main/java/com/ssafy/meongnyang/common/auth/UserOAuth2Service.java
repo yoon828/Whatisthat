@@ -39,7 +39,7 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
 
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
-            String profile_img = "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzAxMTRfMjYy%2FMDAxNDg0MzcxOTkxNzA4._N73NTpWleCLp8M6gXR8vpdDAZoAQ2mTJLimKBYFtRwg.5LEqnsukFugxlrTdlYk5hkxEKoVdUbTVsjL6gqJ03vIg.PNG.koomarin%2F%253F%253F%253F%253F%257B%253F_%253F%253F%253F%253F%253F%253F%253F.png&type=sc960_832";
+            String profile_img = "https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png";
             String nickname = randomNickname();
             log.info("가입되지 않은 사용자입니다. DB에 저장합니다.");
             userRepository.save(User.builder()

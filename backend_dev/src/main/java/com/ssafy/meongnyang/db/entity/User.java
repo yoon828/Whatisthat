@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 800)
     private String profile_img;
 
     @CreationTimestamp

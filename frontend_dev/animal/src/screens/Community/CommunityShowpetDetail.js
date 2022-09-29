@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./CommunityShowpetDetail.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import Comments from "@components/comments/Comments";
-import CommentInput from "@components/comments/CommentInput";
+// import Comments from "@components/comments/Comments";
+// import CommentInput from "@components/comments/CommentInput";
 
-function CommunityShowpetDetail() {
+function CommunityShowpetDetail({ id }) {
+  useEffect(() => {
+    axios({
+      url: `http://ssafy.io/api/show-pet/detail/${id}`,
+      method: "get",
+      headers: {
+        Token: "",
+      },
+    })
+      .then((res) => {
+        // setDiagnosisList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   return (
     <div id="showpet-detail">
       <div className="article">
@@ -20,7 +36,7 @@ function CommunityShowpetDetail() {
           <div className="content-description">content</div>
         </div>
       </div>
-      <div className="comment flex column">
+      {/* <div className="comment flex column">
         <div className="comment-head">
           <p className="notoMid">
             댓글<span className="">{article.comment}</span>
@@ -41,7 +57,7 @@ function CommunityShowpetDetail() {
           <CommentInput />
         </div>
         {comment ? <Comments /> : null}
-      </div>
+      </div> */}
     </div>
   );
 }

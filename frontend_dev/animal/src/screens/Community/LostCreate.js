@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./LostCreate.css";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -7,8 +7,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 function LostCreate() {
+  const titleRef = useRef(null);
+  const imgsRef = useRef(null);
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const handleSubmit = (event) => {
@@ -16,6 +20,26 @@ function LostCreate() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      // axios({
+      //   url: "http://j7c101.p.ssafy.io:8080/api/lost",
+      //   method: "post",
+      //   headers: {
+      //     Content_Type: "application/json",
+      //     Token: "",
+      //     body: JSON.stringify({
+      //       title: titleRef.current.value,
+      //       content: data,
+      //       imgs: imgsRef.current.value,
+      //     }),
+      //   },
+      // })
+      //   .then((res) => {
+      //     alert("글이 작성");
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+      navigate(`/lost/list`);
     }
 
     setValidated(true);
@@ -29,6 +53,7 @@ function LostCreate() {
             <Form.Label>제목</Form.Label>
             <Form.Control
               type="text"
+              ref={titleRef}
               placeholder="제목을 입력해 주세요"
               required
             />

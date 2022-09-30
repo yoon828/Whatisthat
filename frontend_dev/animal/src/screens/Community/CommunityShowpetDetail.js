@@ -18,6 +18,9 @@ function CommunityShowpetDetail() {
     setNewComment((cur) => !cur);
   };
 
+  const [isAuthor, setIsAuthor] = useState();
+  // const isAuthor = UserInfo?.nickname === article.userNickname;
+
   useEffect(() => {
     axios({
       url: `http://ssafy.io/api/show-pet/detail/${id}`,
@@ -27,7 +30,7 @@ function CommunityShowpetDetail() {
       },
     })
       .then((res) => {
-        setArticle(res.data);
+        setArticle(res.data.data);
         // const comments = res.Comments.reverse();
         // setComment(comments);
       })
@@ -39,10 +42,19 @@ function CommunityShowpetDetail() {
     <div id="showpet-detail">
       <div className="article">
         <div className="title">
-          <p>title</p>
-          <p>date</p>
-          <p>nickname</p>
+          {/* <p>{data.title}</p>
+          <p>{data.content}</p>
+          <p>{data.name}</p> */}
         </div>
+        {isAuthor ? (
+          <div>
+            <button className="">수정</button>
+            <button className="">삭제</button>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="content">
           <div className="content-imgwrapper">
             <img />

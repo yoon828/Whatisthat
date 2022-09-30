@@ -41,6 +41,11 @@ const CommunityShowpetDetail = () => {
       }
     }
   };
+  const editArticle = () => {
+    navigator("/show-pet", {
+      state: article,
+    });
+  };
   return (
     <div id="showpet-detail">
       <div className="article">
@@ -61,7 +66,9 @@ const CommunityShowpetDetail = () => {
           <p>{article.name}</p>
         </div>
         <div>
-          <button className="showpet-edit">수정</button>
+          <button className="showpet-edit" onClick={() => editArticle()}>
+            수정
+          </button>
           <button className="showpet-delete" onClick={() => deleteArticle()}>
             삭제
           </button>

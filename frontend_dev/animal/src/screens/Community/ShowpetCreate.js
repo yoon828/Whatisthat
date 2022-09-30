@@ -1,16 +1,33 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./ShowpetCreate.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
-import { postShowpet } from "../../api/community";
+import { postShowpet, putShowpet } from "../../api/community";
 
-function ShowpetCreate() {
+const ShowpetCreate = ({ item }) => {
+  const [isEdit, setIsEdit] = useState(false);
   const [files, setFiles] = useState([]);
   const [filenames, setFilenames] = useState([]);
   const titleRef = useRef(null);
   const nameRef = useRef(null);
   const contentRef = useRef(null);
   const navigator = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+    if (location.state) {
+      setIsEdit(true);
+      setting();
+    }
+  }, []);
+
+  const setting = () => {
+    const article = location.state;
+    titleRef.current.value = article.title;
+    contentRef.current.value = article.content;
+    nameRef.current.value = article.name;
+  };
 
   const submitShowpet = (e) => {
     e.preventDefault();
@@ -59,15 +76,29 @@ function ShowpetCreate() {
   // 백엔드에 자랑하기 글 등록
   const sendShowpet = async () => {
     try {
-      const { data } = await postShowpet({
-        content: contentRef.current.value,
-        imgs: [""], //이미지 서버 주소
-        name: nameRef.current.value,
-        title: titleRef.current.value,
-      });
-      let id = data.data.id;
-      alert("등록 되었습니다!");
-      navigator(`/show-pet/detail/${id}`);
+      if (isEdit) {
+        //수정인 경우
+        const { data } = await putShowpet({
+          content: contentRef.current.value,
+          imgs: [""], //이미지 서버 주소
+          name: nameRef.current.value,
+          title: titleRef.current.value,
+          id: location.state.id,
+        });
+        let id = data.data.id;
+        alert("수정 되었습니다!");
+        navigator(`/show-pet/detail/${id}`);
+      } else {
+        const { data } = await postShowpet({
+          content: contentRef.current.value,
+          imgs: [""], //이미지 서버 주소
+          name: nameRef.current.value,
+          title: titleRef.current.value,
+        });
+        let id = data.data.id;
+        alert("등록 되었습니다!");
+        navigator(`/show-pet/detail/${id}`);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +148,6 @@ function ShowpetCreate() {
       <button>작성완료</button>
     </form>
   );
-}
+};
 
 export default ShowpetCreate;

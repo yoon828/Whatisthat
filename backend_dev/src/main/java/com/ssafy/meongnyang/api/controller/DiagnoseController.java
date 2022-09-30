@@ -47,7 +47,7 @@ public class DiagnoseController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "진단 내역 삭제", notes = "해당 id의 진단 내역을 삭제한다.")
-    public Response<?> deleteDiagnose(@RequestHeader("authorization") String authorization, @PathVariable long id) {
+    public Response<?> deleteDiagnose(@RequestHeader("authorization") String authorization, @PathVariable String id) {
         return new Response<>(true, 200, "진단 내역 삭제 성공",
                 diagnoseService.deleteDiagnose(authorization.replace("Bearer ", ""), id));
     }

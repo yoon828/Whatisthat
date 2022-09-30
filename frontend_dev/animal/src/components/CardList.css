@@ -1,2 +1,6 @@
 #card-list {
 }
+
+.row {
+  flex-direction: column;
+}

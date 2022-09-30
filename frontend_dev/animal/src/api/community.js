@@ -25,7 +25,7 @@ export const getShowListDetail = async (id) => {
   return await http.get(`/show-pet/${id}`);
 };
 
-//자랑하기 목록 조회
+//자랑하기 댓글 목록 조회
 export const getShowpetComments = async (id) => {
   //글 id
   return await http.get(`/show-pet/comment/list/${id}`);

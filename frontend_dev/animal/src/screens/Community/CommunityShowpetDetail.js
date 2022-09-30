@@ -3,7 +3,11 @@ import "./CommunityShowpetDetail.css";
 import { useSelector } from "react-redux";
 import Comments from "../../components/comments/Comments";
 import CommentInput from "../../components/comments/CommentInput";
-import { deleteShowpet, getShowListDetail } from "../../api/community";
+import {
+  deleteShowpet,
+  getShowListDetail,
+  getShowpetComments,
+} from "../../api/community";
 import { useNavigate, useParams } from "react-router-dom";
 import { transform } from "../../function/functions";
 import Carousel from "react-bootstrap/Carousel";
@@ -22,16 +26,16 @@ const CommunityShowpetDetail = () => {
     try {
       const { data } = await getShowListDetail(params.id);
       setArticle(data.data);
+      setComments(data.data.comments);
     } catch (error) {
       console.log(error);
     }
   };
+
   const deleteArticle = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
-        console.log(article);
         const { data } = await deleteShowpet(article.id);
-        console.log(data);
         if (data.success) {
           alert("삭제되었습니다.");
           navigator("/show-pet/list");
@@ -41,11 +45,24 @@ const CommunityShowpetDetail = () => {
       }
     }
   };
+
+  //글 수정
   const editArticle = () => {
     navigator("/show-pet", {
       state: article,
     });
   };
+
+  //댓글만 불러오기
+  const getComments = async () => {
+    try {
+      const { data } = await getShowpetComments(params.id);
+      setComments(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div id="showpet-detail">
       <div className="article">
@@ -81,18 +98,18 @@ const CommunityShowpetDetail = () => {
           <div className="content-description">{article.content}</div>
         </div>
       </div>
+      <hr />
       <div className="comment flex column">
         <div className="comment-head">
-          <p className="notoMid">
-            댓글
-            {/* <span className="">{article.comment}</span> */}
-          </p>
+          <h4 className="notoMid">댓글</h4>
         </div>
         <div className="comment-input flex">
           <div className="input-img-container flex"></div>
-          <CommentInput />
+          <CommentInput getComments={getComments} />
         </div>
-        {comments.length !== 0 ? <Comments comments={comments} /> : null}
+        {comments.length !== 0 ? (
+          <Comments comments={comments} getComments={getComments} />
+        ) : null}
       </div>
     </div>
   );

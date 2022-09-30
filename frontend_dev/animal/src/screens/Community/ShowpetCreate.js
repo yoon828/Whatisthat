@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { postShowpet, putShowpet } from "../../api/community";
 
-const ShowpetCreate = ({ item }) => {
+const ShowpetCreate = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [files, setFiles] = useState([]);
   const [filenames, setFilenames] = useState([]);
@@ -15,7 +15,6 @@ const ShowpetCreate = ({ item }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
     if (location.state) {
       setIsEdit(true);
       setting();

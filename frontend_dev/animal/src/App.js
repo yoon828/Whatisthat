@@ -22,21 +22,20 @@ import axios from "axios";
 function App() {
   const token = localStorage.getItem("accessToken");
   useEffect(() => {
-    console.log(token);
     if (token) {
-      axios({
-        url: "http://j7c101.p.ssafy.io:8080/api/user", // 회원정보 조회 api 주소
-        method: "get",
-        headers: {
-          Token: token, // 사용자의 토큰값
-        },
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // axios({
+      //   url: "http://j7c101.p.ssafy.io:8080/api/user", // 회원정보 조회 api 주소
+      //   method: "get",
+      //   headers: {
+      //     Token: token, // 사용자의 토큰값
+      //   },
+      // })
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
   }, []);
 

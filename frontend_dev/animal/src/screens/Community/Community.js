@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Community.css";
 import CardList from "../../components/CardList";
 import LostDetailList from "./LostDetailList";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import CommunityShowpet from "./CommunityShowpet";
 
 function Community() {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ function Community() {
   const goEdit2 = () => {
     navigate("/lost");
   };
+
   return (
     <div id="community">
       <div className="background__banner">
@@ -55,7 +58,7 @@ function Community() {
             실종동물 글 작성
           </button>
         </div>
-        {comType === "showpet" ? <CardList /> : <LostDetailList />}
+        {comType === "showpet" ? <CommunityShowpet /> : <LostDetailList />}
       </div>
     </div>
   );

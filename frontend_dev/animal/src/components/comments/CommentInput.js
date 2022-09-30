@@ -1,50 +1,78 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import "./CommentInput.css";
-import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import axios from "axios";
 
-function CommentInput({ articleIdx, changed, type }) {
-  const navigate = useNavigate();
-  const submit = async (e) => {
-    if (e.key !== "Enter") {
-      return inputRef.current?.focus();
+function CommentInput({ item }) {
+  const commentRef = useRef();
+  useEffect(() => {
+    console.log(item);
+    if (item) {
+      console.log(item);
+      commentRef.current.value = item.content;
     }
-    // if (!isLoggedIn) {
-    //   return navigate("/login");
-    // }
-    if (!inputRef.current?.value.trim()) {
-      return inputRef.current?.focus();
-    }
-    if (!loading) {
-      setLoading(true);
-      const data = {
-        postIdx: articleIdx,
-        upIdx: 0,
-        content: inputRef.current.value,
-        bannerImg: commentImg.replace("data:image/jpeg;base64,", ""),
-      };
-      inputRef.current.disabled = true;
-      await commentCreate(data, type);
-      setLoading(false);
-      changed();
-      inputRef.current.value = "";
-      setCommentImg("");
-      inputRef.current.disabled = false;
-    }
-    return 0;
+  }, []);
+
+  //댓글 등록하기
+  const submit = async () => {
+    const content = commentRef.current.value;
+    console.log(content);
+    axios
+      .post(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment`, {
+        content: content,
+        id: item.id,
+        user_id: "user_id",
+      })
+      .then((res) => {
+        console.log(res);
+        console.log("글 등록");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //댓글 수정하기
+  const edit = async () => {
+    const content = commentRef.current.value;
+    console.log(content);
+    axios
+      .put(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment`, {
+        content: content,
+        id: item.id,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log("글 수정");
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div id="comments-input">
-      <div className="comments-icon">
-        <div className="comments-icon-wrapper">
-          <img />
-        </div>
-      </div>
-      <div className="comments-input-text">write comment</div>
-      <div className="comments-send">
-        <div className="comments-send-wrapper">
-          <img />
-        </div>
-      </div>
+      <InputGroup className="mb-3">
+        <Form.Control
+          placeholder="댓글을 작성해주세요"
+          aria-describedby="basic-addon2"
+          ref={commentRef}
+        />
+        {item ? (
+          <Button
+            variant="outline-secondary"
+            id="button-addon2"
+            onClick={() => edit()}
+          >
+            수정
+          </Button>
+        ) : (
+          <Button
+            variant="outline-secondary"
+            id="button-addon2"
+            onClick={() => submit()}
+          >
+            등록
+          </Button>
+        )}
+      </InputGroup>
     </div>
   );
 }

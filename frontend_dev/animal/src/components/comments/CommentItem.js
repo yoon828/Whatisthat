@@ -1,26 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./CommentItem.css";
+import CommentInput from "../../components/comments/CommentInput";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
 
-function CommentsItem({
-  info,
-  type,
-  isAuthor,
-  changed,
-  postIdx,
-  isArticleAuthor,
-}) {
+function CommentsItem({ item, isAuthor }) {
   const [editInput, setEditInput] = useState(false);
-  const navigate = useNavigate();
-  const [imgToggle, setImgToggle] = useState(false);
 
-  const goFeed = () => {
-    navigate(`/userfeed/${info.userNickname}`);
-  };
+  useEffect(() => {
+    // console.log(item);
+  }, []);
 
   const deleteComment = async () => {
-    await commentDelete(info.idx, type);
-    changed();
+    axios
+      .delete(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment/${item.id}`)
+      .then((res) => {
+        console.log(res);
+        alert("댓글이 삭제 되었습니다.");
+      })
+      .catch((err) => console.log(err));
   };
 
   const editComment = () => {
@@ -32,25 +31,25 @@ function CommentsItem({
   };
   return (
     <div id="comments">
-      <div className="comments-content">
-        <div className="comments-head">
-          <div className="comments-head__imgwrapper">
-            <img />
-          </div>
-          <div className="comments-head__counts">3</div>
-        </div>
-        <div className="comments-body">
+      {editInput ? (
+        <CommentInput item={item} />
+      ) : (
+        <div className="comments-content">
           <div className="comments-item">
-            <div className="comments-item__imgwrapper">
-              <img />
-            </div>
-            <div className="comments-item__username">username</div>
+            <div className="comments-item__username">{item.user_nickname}</div>
           </div>
-          <div className="comments-discription">description</div>
-          <div className="comments-like">like-dislike</div>
+          <div className="comments-discription">{item.content}</div>
+          <Button variant="primary" onClick={() => setEditInput(true)}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={() => setEditInput(true)}>
+            수정
+          </Button>
+          <Button variant="danger" onClick={() => deleteComment()}>
+            삭제{" "}
+          </Button>
         </div>
-      </div>
-      <div className="comments-input"></div>
+      )}
     </div>
   );
 }

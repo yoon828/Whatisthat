@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Community.css";
 import CardList from "../../components/CardList";
 import LostDetailList from "./LostDetailList";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 function Community() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Community() {
   const goEdit2 = () => {
     navigate("/lost");
   };
+
   return (
     <div id="community">
       <div className="background__banner">

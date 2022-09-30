@@ -12,6 +12,7 @@ import com.ssafy.meongnyang.db.entity.User;
 import com.ssafy.meongnyang.db.repository.DiagnoseRepository;
 import com.ssafy.meongnyang.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DiagnoseServiceImpl implements DiagnoseService {
     private final DiagnoseRepository diagnoseRepository;
     private final UserRepository userRepository;
@@ -106,6 +108,7 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     @Override
     @Transactional(readOnly = true)
     public DiagnoseResponseDto getDiagnose(String accessToken, long id) {
+        log.info("iddddddddddd  " + id);
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 

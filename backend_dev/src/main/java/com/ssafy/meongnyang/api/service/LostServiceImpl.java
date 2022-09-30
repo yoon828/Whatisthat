@@ -170,7 +170,7 @@ public class LostServiceImpl implements LostService {
     }
 
     @Override
-    public boolean deleteLost(String accessToken, Long id) {
+    public boolean deleteLost(String accessToken, long id) {
         String uid = tokenProvider.getUserId(accessToken);
         Lost lost = lostRepository.findById(id).orElseThrow(LostNotFoundException::new);
 

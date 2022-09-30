@@ -15,6 +15,6 @@ public interface ShowPetService {
     ShowPetResponseDto updateShowPet(String accessToken, ShowPetUpdateDto showPetUpdateDto);
     List<ShowPetListResponseDto> getShowPetList();
     ShowPetDetailResponseDto getShowPet(Long id);
-    boolean deleteShowPet(String accessToken, Long id);
+    boolean deleteShowPet(String accessToken, long id);
     List<ShowPetListResponseDto> getUserShowPetList(String accessToken);
 }

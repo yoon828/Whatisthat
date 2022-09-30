@@ -12,6 +12,6 @@ public interface LostService {
     LostResponseDto writeLost(String accessToken, LostRegisterDto lostRegisterDto);
     LostResponseDto updateLost(String accessToken, LostUpdateDto lostUpdateDto);
     List<LostResponseDto> getLostList();
-    boolean deleteLost(String accessToken, Long id);
+    boolean deleteLost(String accessToken, long id);
     List<LostResponseDto> getUserLostList(String accessToken);
 }

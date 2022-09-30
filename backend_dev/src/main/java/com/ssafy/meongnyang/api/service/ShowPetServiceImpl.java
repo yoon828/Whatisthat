@@ -153,7 +153,7 @@ public class ShowPetServiceImpl implements ShowPetService {
     }
 
     @Override
-    public boolean deleteShowPet(String accesssToken, Long id) {
+    public boolean deleteShowPet(String accesssToken, long id) {
         String uid = tokenProvider.getUserId(accesssToken);
         ShowPet showPet = showPetRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
 

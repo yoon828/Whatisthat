@@ -72,7 +72,7 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     }
 
     @Override
-    public boolean deleteDiagnose(String accessToken, Long id) {
+    public boolean deleteDiagnose(String accessToken, long id) {
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 
@@ -105,7 +105,7 @@ public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Override
     @Transactional(readOnly = true)
-    public DiagnoseResponseDto getDiagnose(String accessToken, Long id) {
+    public DiagnoseResponseDto getDiagnose(String accessToken, long id) {
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 

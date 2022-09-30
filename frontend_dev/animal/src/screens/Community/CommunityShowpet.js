@@ -15,8 +15,12 @@ function CommunityShowpet({ id }) {
   }, []);
 
   const getShowListApi = async () => {
-    const { data } = await getShowList();
-    setList(data.data);
+    try {
+      const { data } = await getShowList();
+      setList(data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div id="showpet">

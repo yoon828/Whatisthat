@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import "./ShowpetCreate.css";
-import ShowpetEditor from "./ShowpetEditor";
 import { useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { postShowpet } from "../../api/community";
@@ -34,7 +33,7 @@ function ShowpetCreate() {
     // }
   };
   //이미지 서버에 이미지 전송 (여러장)
-  const sendImage = () => {
+  const sendImage = async () => {
     let formData = new FormData();
     formData.append("uploadFile", files, filenames);
     // axios({
@@ -78,10 +77,10 @@ function ShowpetCreate() {
     e.preventDefault();
     console.log(e.target.files);
     setFiles(e.target.files);
-    let cur = new Date();
-    const fileName = `img_${cur.getFullYear()}${
-      cur.getMonth() + 1
-    }${cur.getDate()}${cur.getHours()}${cur.getMinutes()}${cur.getSeconds()}.png`;
+    let today = new Date();
+    const fileName = `img_${today.getFullYear()}${
+      today.getMonth() + 1
+    }${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}.png`;
     console.log(fileName);
     // setImg(fileName);
   };

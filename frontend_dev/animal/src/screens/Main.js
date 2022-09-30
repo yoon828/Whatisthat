@@ -27,6 +27,7 @@ const StyledBtn = styled.button`
     `;
 
 function Main() {
+  let accessToken = localStorage.getItem('accessToken')
   return (
     <div id='main-box1'>
       <div id='main-lottie'>
@@ -100,7 +101,11 @@ function Main() {
         <h3 style={{'fontSize':'30px'}}>아래 버튼을 눌러 진단을 시작해보세요</h3>
       </div>
       <StyledBtn onClick={()=>{
-        document.location.href='/diagnose'
+        if (accessToken) {
+          document.location.href='/diagnose'
+        } else {
+          alert('로그인이 필요한 서비스입니다.')
+        }
       }}>진단하기</StyledBtn>
     </div>
   );

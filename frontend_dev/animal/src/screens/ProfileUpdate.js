@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Lottie from 'lottie-react'
 import update from './../lotties/update.json'
+import loadLottie from './../lotties/loading.json'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -55,112 +56,156 @@ const Innerbox = styled.div`
 ` ;
 
 const ProfileUpdate = () => {
+    const accessToken = localStorage.getItem('accessToken')
     const [profileImg, setProfileImg] = useState(null)
     const [nickname, setNickname] = useState('')
     const [file, setFile] = useState(null)
-    const [info, setInfo] = useState({email:'', id:'', name:'', nickname:'', profile_img:''})
-    const [userInfo, setUserInfo] = useState({name: '멍멍', email: 'naver.com', nickname: '닉네임', date: '1993.03', profile_img: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzAxMTRfMjYy%2FMDAxNDg0MzcxOTkxNzA4._N73NTpWleCLp8M6gXR8vpdDAZoAQ2mTJLimKBYFtRwg.5LEqnsukFugxlrTdlYk5hkxEKoVdUbTVsjL6gqJ03vIg.PNG.koomarin%2F%253F%253F%253F%253F%257B%253F_%253F%253F%253F%253F%253F%253F%253F.png&type=sc960_832'})
+    const [info, setInfo] = useState({email:'', name:'', nickname:'', profile_img:''})
+    const [userInfo, setUserInfo] = useState(null)
+    let [loading, setLoading] = useState(true)
+
     useEffect(()=>{
+        let accessToken = localStorage.getItem('accessToken')
         axios({
-            url: 'http://ssaffy.io/api/user', // 회원정보 조회 api 주소
+            url: 'http://j7c101.p.ssafy.io:8080/api/user',
             method: 'get',
             headers: {
-                Token: 'asdfsf' // 사용자의 토큰값
+                authorization: `Bearer ${accessToken}`
             }
         })
         .then((res)=> {
-            setUserInfo(res.data)
+            setUserInfo(res.data.data)
+            setLoading(false)
         })
         .catch((err)=>{
             console.log(err)
         })
-    }, [])
+    }, [userInfo])
     return (
         <div id='update-box'>
-            <div id='update-lottie'>
-                <Lottie animationData={update} style={{'width':'200px'}}></Lottie>
-                <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>프로필 수정</h1>
-            </div>
-            <Container>
-                <Row id='update'>
-                    <Col md={4}>
-                    <Card style={{ width: '22rem' }}>
-                    <Card.Img variant="top" src={userInfo.profile_img} />
-                    <ListGroup className="list-group-flush">
-                        <ListGroup.Item id='mypage-text'>이름 : {userInfo.name}</ListGroup.Item>
-                        <ListGroup.Item id='mypage-text'>이메일 : {userInfo.email}</ListGroup.Item>
-                        <ListGroup.Item id='profileupdate-input'>닉네임 : <StyledInput 
-                        onInput={(e)=>{
-                            setNickname(e.target.value)
-                        }}
-                        placeholder='수정할 닉네임을 입력해주세요'></StyledInput></ListGroup.Item>
-                        <ListGroup.Item id='mypage-text'>생년월일 : {userInfo.date}</ListGroup.Item>
-                    </ListGroup>
-                    </Card>
-                    <div>
-                        <label id="updateBtn" for="input-file">
-                            프로필 이미지 업로드
-                        </label>
-                        <input type="file" accept="image/*" capture="camera" id="input-file" style={{'display':'none'}}
-                        onChange={(e)=>{
-                            setFile(e.target.files[0])
-                            const fileName = "img_" +
-                            new Date().getFullYear() +
-                            (new Date().getMonth() + 1) +
-                            new Date().getDate() +
-                            new Date().getHours() +
-                            new Date().getMinutes() +
-                            new Date().getSeconds();
-                            setProfileImg(fileName)
-                        }}
-                        ></input>
-                        <StyledBtn style={{'fontSize':'23px'}} onClick={()=>{
-                            let formData = new FormData();
-                            formData.append("uploadFile", file, profileImg);
-                            setInfo(info.name=userInfo.name)
-                            setInfo(info.email=userInfo.email)
-                            setInfo(info.id=userInfo.id)
-                            setInfo(info.nickname=nickname)
-                            setInfo(info.profile_img=profileImg)
-                            axios.all([
-                                axios({
-                                    url:'http://image_server_url', // 이미지 서버에 이미지 저장
-                                    method: 'post',
-                                    headers: {
-                                        processData: false,
-                                        "Content-Type": "multipart/form-data",
-                                    },
-                                    data: formData
-                                })
-                                .then((res)=>{
-                                    console.log(res.data)
-                                })
-                                .catch((err)=>{
-                                    console.log(err)
-                                }),
-                                axios({
-                                    url: 'http://ssafy.p.io', // DB에 수정된 정보 저장
-                                    method: 'put',
-                                    headers: {
-                                        Token : 'asdfasdf'
-                                    },
-                                    data: info
-                                })
-                                .then((res)=>{
-                                    console.log(res.data)
-                                })
-                                .catch((err)=>{
-                                    console.log(err)
-                                })
-                            ])
-                            .then((res)=>{
-                                document.location.href='/mypage'
-                            })
-                        }}>수정완료</StyledBtn>
+            {
+                loading ? <Loading /> :
+                <div id='update-inner'>
+                    <div id='update-lottie'>
+                        <Lottie animationData={update} style={{'width':'200px'}}></Lottie>
+                        <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>프로필 수정</h1>
                     </div>
-                    </Col>
-                </Row>
-            </Container>
+                    <Container>
+                        <Row id='update'>
+                            <Col md={4}>
+                            <Card id='update-card' style={{ width: '22rem' }}>
+                            <Card.Img variant="top" src={userInfo.profile_img} />
+                            <ListGroup className="list-group-flush">
+                                <ListGroup.Item id='mypage-text'>이름 : {userInfo.name}</ListGroup.Item>
+                                <ListGroup.Item id='mypage-text'>이메일 : {userInfo.email}</ListGroup.Item>
+                                <ListGroup.Item id='profileupdate-input'>닉네임 : <StyledInput 
+                                onInput={(e)=>{
+                                    setNickname(e.target.value)
+                                }}
+                                placeholder='수정할 닉네임을 입력해주세요'></StyledInput></ListGroup.Item>
+                            </ListGroup>
+                            </Card>
+                            <div>
+                                <label id="updateBtn" for="input-file">
+                                    프로필 이미지 업로드
+                                </label>
+                                <input type="file" accept="image/*" capture="camera" id="input-file" style={{'display':'none'}}
+                                onChange={(e)=>{
+                                    setFile(e.target.files[0])
+                                    const fileName = "img_" +
+                                    new Date().getFullYear() +
+                                    (new Date().getMonth() + 1) +
+                                    new Date().getDate() +
+                                    new Date().getHours() +
+                                    new Date().getMinutes() +
+                                    new Date().getSeconds();
+                                    setProfileImg(fileName)
+                                }}
+                                ></input>
+                                <StyledBtn style={{'fontSize':'23px'}} onClick={()=>{
+                                    if (file) {
+                                        let formData = new FormData();
+                                        formData.append("uploadFile", file, profileImg);
+                                        setInfo(info.name=userInfo.name)
+                                        setInfo(info.email=userInfo.email)
+                                        setInfo(info.nickname=nickname)
+                                        setInfo(info.profile_img=`http://j7c101.p.ssafy.io:3003/${profileImg}`)
+                                        axios.all([
+                                            axios({
+                                                url:'http://j7c101.p.ssafy.io:3003/upload',
+                                                method: 'post',
+                                                headers: {
+                                                    processData: false,
+                                                    "Content-Type": "multipart/form-data",
+                                                },
+                                                data: formData
+                                            })
+                                            .then((res)=>{
+                                                console.log(res.data)
+                                            })
+                                            .catch((err)=>{
+                                                console.log(err)
+                                            }),
+                                            axios({
+                                                url: 'http://j7c101.p.ssafy.io:8080/api/user',
+                                                method: 'put',
+                                                headers: {
+                                                    authorization : `Bearer ${accessToken}`
+                                                },
+                                                data: info
+                                            })
+                                            .then((res)=>{
+                                                console.log(res.data)
+                                            })
+                                            .catch((err)=>{
+                                                console.log(err)
+                                            })
+                                        ])
+                                        .then(()=>{
+                                            document.location.href='/mypage'
+                                        })
+                                    } else {
+                                        setInfo(info.name=userInfo.name)
+                                        setInfo(info.email=userInfo.email)
+                                        setInfo(info.nickname=nickname)
+                                        setInfo(info.profile_img=userInfo.profile_img)
+                                        axios({
+                                            url : 'http://j7c101.p.ssafy.io:8080/api/user',
+                                            method : 'put', 
+                                            headers: {
+                                                authorization : `Bearer ${accessToken}`
+                                            },
+                                            data : {
+                                                email : info.email,
+                                                name : info.name,
+                                                nickname : info.nickname,
+                                                profile_img: info.profile_img
+                                            }
+                                        })
+                                        .then(()=>{
+                                            document.location.href='/mypage'
+                                        })
+                                        .catch((err)=>{
+                                            console.log(err)
+                                            console.log(info)
+                                        })
+                                    }
+                                }}>수정완료</StyledBtn>
+                            </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            }
+        </div>
+    )
+}
+
+
+const Loading = () => {
+    return (
+        <div style={{'display':'flex', 'justifyContent': 'center'}}>
+            <Lottie animationData={loadLottie} style={{'width': '500px'}}></Lottie>
         </div>
     )
 }

@@ -9,7 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Lottie from 'lottie-react'
 import article from './../lotties/article.json'
-
+import write from './../lotties/write.json'
+import loadLottie from './../lotties/loading.json'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -52,37 +53,33 @@ const ArticleList = () => {
 }
 
 const ShowpetList = () => {
-    let [info, setInfo] = useState([
-        {
-        "id": 2,
-        "title": "귀여운 방울이 자랑 2탄",
-        "user_nickname": "알고리즘마스터",
-        "date": 1663502850000
-        },
-        {
-        "id": 1,
-        "title": "귀여운 방울이 자랑",
-        "user_nickname": "알고리즘마스터",
-        "date": 1663501915000
-        }
-        ])
+    let accessToken = localStorage.getItem('accessToken')
+    let [info, setInfo] = useState(null)
+    let [loading, setLoading] = useState(true)
     useEffect(()=>{
         axios({
-            url : 'http://ssafy.io/api/show-pet/articles',
+            url : 'http://j7c101.p.ssafy.io:8080/api/show-pet/articles',
             method: 'get',
             headers: {
-                Token : 'adsf'
+                authorization : `Bearer ${accessToken}`
             }
         })
         .then((res)=>{
-            setInfo(res.data)
+            console.log(res.data.data)
+            setInfo(res.data.data)
+            setLoading(false)
         })
         .catch((err)=>{
             console.log(err)
         })
-    })
+    }, [info])
     return (
         <div className='container' style={{'marginTop':'50px', 'fontFamily':'Kotra', 'fontSize':'25px'}}>
+            {
+                loading ? <Loading /> :
+            <div>
+            { info.length === 0 ? <Empty /> :
+            <div>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>
@@ -99,17 +96,23 @@ const ShowpetList = () => {
                         <Container>
                         <Row>
                             <Col className='text-center'>{item.title}</Col>
-                            <Col className='text-center'>{item.date}</Col>
+                            <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
                             <Col className='text-center'><button id='detailBtn' onClick={()=>{
                                 // showpet 상세정보로 이동하는 코드 삽입
                             }}>상세정보</button>
                             <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                 axios({
-                                    url : `http://ssafy.io/api/show-pet/${item.id}`,
+                                    url : `http://j7c101.p.ssafy.io/api/show-pet/${item.id}`,
                                     method: 'delete',
                                     headers : {
-                                        Token : 'aldkfjaf' //토큰값
+                                        authorization : `Bearer ${accessToken}`
                                     }
+                                })
+                                .then(()=>{
+                                    alert('해당 글이 삭제되었습니다.')
+                                })
+                                .catch((err)=>{
+                                    console.log(err)
                                 })
                             }}>삭제</button>
                             </Col>
@@ -119,89 +122,62 @@ const ShowpetList = () => {
                     </div>
                 ))}
             </ListGroup>
+            </div>
+}
+</div>
+}
+        </div>
+    )
+}
+
+const Empty = () => {
+    return (
+        <div style={{'display':'flex', 'flexDirection': 'column', 'justifyContent': 'center', 'alignItems': 'center'}}>
+            <Lottie animationData={write} style={{'width':'200px'}}></Lottie>
+            <h1>아직 작성한 글이 없네요 글을 작성해보세요</h1>
+        </div>
+    )
+}
+
+
+const Loading = () => {
+    return (
+        <div style={{'display':'flex', 'justifyContent': 'center'}}>
+            <Lottie animationData={loadLottie} style={{'width': '300px'}}></Lottie>
         </div>
     )
 }
 
 const LostList = () =>{
-    let [lost, setLost] = useState([
-        {
-        "id": 3,
-        "title": "한 번 더 올립니다..",
-        "user_nickname": "알고리즘마스터",
-        "gender": 0,
-        "lost_date": "2022년 9월 18일",
-        "age": "3",
-        "weight": "8kg",
-        "kind": "푸들",
-        "place": "장미공원",
-        "phone": "01012345678",
-        "pay": "10만원",
-        "etc": "제발 찾으시면 연락주세요ㅜㅜ",
-        "is_found": false,
-        "name": "금지",
-        "date": 1663499664000,
-        "imgs": [
-        {
-        "id": 7,
-        "lost_id": 3,
-        "img_url": "실종 반려동물 이미지 경로1"
-        },
-        {
-        "id": 8,
-        "lost_id": 3,
-        "img_url": "실종 반려동물 이미지 경로2"
-        }
-        ]
-        },
-        {
-        "id": 2,
-        "title": "금지를 찾아주세요",
-        "user_nickname": "알고리즘마스터",
-        "gender": 0,
-        "lost_date": "2022년 9월 18일",
-        "age": "3",
-        "weight": "8kg",
-        "kind": "푸들",
-        "place": "장미공원",
-        "phone": "01012345678",
-        "pay": "10만원",
-        "etc": "제발 찾으시면 연락주세요ㅜㅜ",
-        "is_found": false,
-        "name": "금지",
-        "date": 1663499633000,
-        "imgs": [
-        {
-        "id": 5,
-        "lost_id": 2,
-        "img_url": "실종 반려동물 이미지 경로1"
-        },
-        {
-        "id": 6,
-        "lost_id": 2,
-        "img_url": "실종 반려동물 이미지 경로2"
-        }
-        ]
-        }
-        ])
+    let accessToken = localStorage.getItem('accessToken')
+    let [loading, setLoading] = useState(true)
+    let [lost, setLost] = useState()
     useEffect(()=>{
         axios({
-            url : 'http://ssafy.io/api/lost/articles',
+            url : 'http://j7c101.p.ssafy.io:8080/api/lost/articles',
             method: 'get',
             headers: {
-                Token : 'adsf'
+                authorization : `Bearer ${accessToken}`
             }
         })
         .then((res)=>{
-            setLost(res.data)
+            setLost(res.data.data)
+            setLoading(false)
         })
         .catch((err)=>{
             console.log(err)
         })
-    })
+    },[lost])
     return (
         <div className='container' style={{'marginTop':'50px', 'fontFamily':'Kotra', 'fontSize':'25px'}}>
-            <ListGroup variant="flush">
+            {
+                loading ? <Loading /> :
+                <div>
+                    <div>
+                {
+                    lost.length === 0 ? <Empty /> :
+                    <div>
+                        <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
                 <Container>
                 <Row>
@@ -215,33 +191,44 @@ const LostList = () =>{
                 {lost.map((item)=>(
                     <div>
                         <ListGroup.Item id='list-body'>
-                        <Container>
-                        <Row>
-                            <Col className='text-center'>{item.title}</Col>
-                            <Col className='text-center'>{item.lost_date}</Col>
-                            <Col className='text-center'>{item.date}</Col>
-                            <Col className='text-center'><button id='detailBtn' onClick={()=>{
-                                // lost 글 상세정보로 이동하는 코드 삽입
-                            }}>상세정보</button>
-                            <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
-                                axios({
-                                    url : `http://ssafy.io/api/lost/${item.id}`,
-                                    method: 'delete',
-                                    headers : {
-                                        Token : 'aldkfjaf' //토큰값
-                                    }
-                                })
-                            }}>삭제</button>
-                            </Col>
-                        </Row>
-                        </Container>
-                        </ListGroup.Item>
+                            <Container>
+                            <Row>
+                                <Col className='text-center'>{item.title}</Col>
+                                <Col className='text-center'>{item.lost_date}</Col>
+                                <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
+                                <Col className='text-center'><button id='detailBtn' onClick={()=>{
+                                    // lost 글 상세정보로 이동하는 코드 삽입
+                                }}>상세정보</button>
+                                <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                    axios({
+                                        url : `http://ssafy.io/api/lost/${item.id}`,
+                                        method: 'delete',
+                                        headers : {
+                                            authorization : `Bearer ${accessToken}`
+                                        }
+                                    })
+                                    .then(()=>{
+                                        alert('해당 글이 삭제되었습니다.')
+                                    })
+                                    .catch((err)=>{
+                                        console.log(err)
+                                    })
+                                }}>삭제</button>
+                                </Col>
+                            </Row>
+                            </Container>
+                            </ListGroup.Item>
+                        </div>
+                        ))}
+                        </ListGroup>
                     </div>
-                ))}
-            </ListGroup>
+                }
+            
+            </div>
+                </div>
+            }
         </div>
     )
 }
-
 
 export default ArticleList;

@@ -72,15 +72,15 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     }
 
     @Override
-    public boolean deleteDiagnose(String accessToken, String id) {
+    public boolean deleteDiagnose(String accessToken, long id) {
         String uid = tokenProvider.getUserId(accessToken);
-        Diagnose diagnose = diagnoseRepository.findById(Long.parseLong(id)).orElseThrow(DiagnoseNotFoundException::new);
+        Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 
         if (!uid.equals(diagnose.getUser().getId())) {
             throw new AccessDeniedException();
         }
 
-        diagnoseRepository.deleteById(Long.parseLong(id));
+        diagnoseRepository.deleteById(id);
         return true;
     }
 
@@ -105,9 +105,9 @@ public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Override
     @Transactional(readOnly = true)
-    public DiagnoseResponseDto getDiagnose(String accessToken, String id) {
+    public DiagnoseResponseDto getDiagnose(String accessToken, long id) {
         String uid = tokenProvider.getUserId(accessToken);
-        Diagnose diagnose = diagnoseRepository.findById(Long.parseLong(id)).orElseThrow(DiagnoseNotFoundException::new);
+        Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 
         if (!uid.equals(diagnose.getUser().getId())) {
             throw new AccessDeniedException();

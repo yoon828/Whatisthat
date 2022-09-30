@@ -24,24 +24,22 @@ function CommunityLostDetail({
 }) {
   return (
     <div id="communitylostdetail">
-      <Link to={`/userfeed/${user_nickname}`}>
-        <div className="lost">
-          <div className="lost-imgwrapper">
-            <img className="lost-img" src="DummyImg.svg" alt="dummy" />
-          </div>
-          <div className="lost-content">
-            <p>{title}</p>
-            <p>{gender}</p>
-            <p>{age}</p>
-            <p>{kind}</p>
-            <p>{lost_date}</p>
-            <p>{place}</p>
-            <p>{etc}</p>
-            <p>{phone}</p>
-            <p>{pay}</p>
-          </div>
+      <div className="lost">
+        <div className="lost-imgwrapper">
+          <img className="lost-img" src="DummyImg.svg" alt="dummy" />
         </div>
-      </Link>
+        <div className="lost-content">
+          <p>{title}</p>
+          <p>{user_nickname}</p> <p>{gender}</p>
+          <p>{age}</p>
+          <p>{kind}</p>
+          <p>{lost_date}</p>
+          <p>{place}</p>
+          <p>{etc}</p>
+          <p>{phone}</p>
+          <p>{pay}</p>
+        </div>
+      </div>
     </div>
   );
 }

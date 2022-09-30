@@ -4,32 +4,27 @@ import "./CardList.css";
 import Card from "./Card.js";
 import axios from "axios";
 
-function CardList(condition) {
+function CardList() {
   const [cards, setCards] = useState([]);
   useEffect(() => {
     axios({
       url: "http://j7c101.p.ssafy.io:8080/api/show-pet/list",
       method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        withCredentials: true,
-      },
     })
       .then((res) => {
-        console.log(res.data);
+        setCards(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
   return (
     <div id="card-list">
-      <div className="row row-cols-1 row-cols-md-3 g-4 ]">
-        {cards.map((data) => (
+      <div>
+        {cards.map((card) => (
           <div className="col">
-            <Card className="card" data={data} key={data.id} />
+            <Card card={card} key={card.id} />
           </div>
         ))}
       </div>

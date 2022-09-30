@@ -2,25 +2,23 @@ import React, { useState } from "react";
 import "./Community.css";
 import CardList from "../../components/CardList";
 import LostDetailList from "./LostDetailList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Community() {
   const navigate = useNavigate();
   const [comType, setComType] = useState("showpet");
-
   const goEdit = () => {
-    navigate("create");
+    navigate("/show-pet");
   };
   const goEdit2 = () => {
-    navigate("create2");
+    navigate("/lost");
   };
-
   return (
     <div id="community">
       <div className="background__banner">
         <img
           className="banner-img"
-          src="./CombannerImg.jpg"
+          src=".././CombannerImg.jpg"
           alt="combannerimg"
         />
       </div>
@@ -37,15 +35,17 @@ function Community() {
           >
             자랑하기
           </button>
-          <button
-            onClick={() => {
-              setComType("lost");
-            }}
-            className={`banner-lost ${comType === "lost" ? "active" : null}`}
-            type="button"
-          >
-            실종동물찾기
-          </button>
+          <Link to={`/lost/list`}>
+            <button
+              onClick={() => {
+                setComType("lost");
+              }}
+              className={`banner-lost ${comType === "lost" ? "active" : null}`}
+              type="button"
+            >
+              실종동물찾기
+            </button>
+          </Link>
         </div>
         <div>
           <button className="notoReg" type="button" onClick={goEdit}>
@@ -55,11 +55,7 @@ function Community() {
             실종동물 글 작성
           </button>
         </div>
-        {comType === "showpet" ? (
-          <CardList condition={{ title: "", user_nickname: "" }} />
-        ) : (
-          <LostDetailList />
-        )}
+        {comType === "showpet" ? <CardList /> : <LostDetailList />}
       </div>
     </div>
   );

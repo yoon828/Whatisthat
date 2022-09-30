@@ -13,23 +13,22 @@ import loadLottie from './../lotties/loading.json'
 
 
 const StyledBtn = styled.button`
-    text-align: center;
-    width: 100px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    font-size: 10px;
-    font-weight: bold;
-    outline: none;
-    cursor: pointer;
-    color: black;
-    background: #F5C6AA;
-    &:focus {
-        box-shadow: 0px 0px 4px 3px #FFAE6D;
-    }
-    margin: 10px;
-    `;
-
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  &:focus {
+    box-shadow: 0px 0px 4px 3px #ffae6d;
+  }
+  margin: 10px;
+`;
 
 const MyPage = () => {
     let [userInfo, setUserInfo] = useState(null)

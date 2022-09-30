@@ -12,25 +12,26 @@ function ShowpetCreate() {
 
   function onSubmit(e) {
     e.preventDefault();
-    // axios({
-    //   url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
-    //   method: "post",
-    //   headers: {
-    //     Content_Type: "application/json",
-    //     Token: "",
-    //     body: JSON.stringify({
-    //       title: titleRef.current.value,
-    //       content: contentRef.current.value,
-    //       imgs: imgsRef.current.value,
-    //     }),
-    //   },
-    // })
-    //   .then((res) => {
-    //     alert("글이 작성");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios({
+      url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
+      method: "post",
+      headers: {
+        Content_Type: "application/json",
+        Token: "",
+        data: JSON.stringify({
+          title: titleRef.current.value,
+          content: contentRef.current.value,
+          // imgs: imgsRef.current.value,
+        }),
+      },
+    })
+      .then((res) => {
+        alert("글이 작성");
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     navigate(`/show-pet/list`);
   }
 

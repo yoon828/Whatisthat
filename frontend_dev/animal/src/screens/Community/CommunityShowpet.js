@@ -5,18 +5,24 @@ import { useSelector } from "react-redux";
 import Comments from "../../components/comments/Comments";
 import CommentInput from "../../components/comments/CommentInput";
 import { getShowList } from "../../api/community";
+import CardList from "../../components/CardList";
 
 function CommunityShowpet({ id }) {
-  const [list, setlist] = useState([]);
+  const [list, setList] = useState([]);
+
   useEffect(() => {
     getShowListApi();
-  });
+  }, []);
 
   const getShowListApi = async () => {
     const { data } = await getShowList();
-    // console.log(data);
+    setList(data.data);
   };
-  return <div id="showpet-detail"></div>;
+  return (
+    <div id="showpet">
+      <CardList cards={list} />
+    </div>
+  );
 }
 
 export default CommunityShowpet;

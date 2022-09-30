@@ -1,88 +1,120 @@
 import React, { useRef, useState } from "react";
 import "./ShowpetCreate.css";
 import ShowpetEditor from "./ShowpetEditor";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { postShowpet } from "../../api/community";
 
 function ShowpetCreate() {
-  const titleRef = useRef("");
-  const contentRef = useRef("");
-  const imgsRef = useRef();
-  const navigate = useNavigate();
+  const [files, setFiles] = useState([]);
+  const [filenames, setFilenames] = useState([]);
+  const titleRef = useRef(null);
+  const nameRef = useRef(null);
+  const contentRef = useRef(null);
+  const navigator = useNavigate();
 
-  const toolbarOptions = [
-    ["link", "image", "video"],
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ color: [] }, { background: [] }],
-    [{ align: [] }],
-  ];
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "align",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "background",
-    "color",
-    "link",
-    "image",
-    "video",
-    "width",
-  ];
-  const modules = {
-    toolbar: {
-      container: toolbarOptions,
-    },
+  const submitShowpet = (e) => {
+    e.preventDefault();
+    sendShowpet();
+    // if (titleRef.current.value.trim() === "") {
+    //   alert("제목을 입력해주세요.");
+    //   titleRef.current.focus();
+    // } else if (nameRef.current.value.trim() === "") {
+    //   alert("이름을 입력해주세요.");
+    //   nameRef.current.focus();
+    // } else if (contentRef.current.value.trim() === "") {
+    //   alert("내용을 입력해주세요.");
+    //   contentRef.current.focus();
+    // } else {
+    //   if (sendImage()) {
+    //     sendShowpet();
+    //   } else {
+    //     alert("문제 발생");
+    //   }
+    // }
+  };
+  //이미지 서버에 이미지 전송 (여러장)
+  const sendImage = () => {
+    let formData = new FormData();
+    formData.append("uploadFile", files, filenames);
+    // axios({
+    //   url: "http://j7c101.p.ssafy.io:3003/upload",
+    //   method: "post",
+    //   headers: {
+    //     processData: false,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   data: formData,
+    // })
+    //   .then((res) => {
+    //  //이미지 경로들 받아서 setState `http://j7c101.p.ssafy.io:3003/${filenames}
+    //     console.log(res);
+    // return true;
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    // return false;
+    //   });
   };
 
-  const [result, setResult] = useState("");
-  function onSubmit(e) {
-    e.preventDefault();
-    const accessToken = localStorage.getItem("accessToken");
-    axios({
-      url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
-      method: "post",
-      headers: {
-        Content_Type: "application/json",
-        Token: accessToken,
-        data: JSON.stringify({
-          title: titleRef.current.value,
-          content: contentRef.current.value,
-          // imgs: imgsRef.current.value,
-        }),
-      },
-    })
-      .then((res) => {
-        alert("글이 작성");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  // 백엔드에 자랑하기 글 등록
+  const sendShowpet = async () => {
+    try {
+      const { data } = await postShowpet({
+        content: contentRef.current.value,
+        imgs: [""], //이미지 서버 주소
+        name: nameRef.current.value,
+        title: titleRef.current.value,
       });
-    navigate(`/show-pet/list`);
-  }
+      let id = data.data.id;
+      alert("등록 되었습니다!");
+      navigator(`/show-pet/detail/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeFiles = (e) => {
+    e.preventDefault();
+    console.log(e.target.files);
+    setFiles(e.target.files);
+    let cur = new Date();
+    const fileName = `img_${cur.getFullYear()}${
+      cur.getMonth() + 1
+    }${cur.getDate()}${cur.getHours()}${cur.getMinutes()}${cur.getSeconds()}.png`;
+    console.log(fileName);
+    // setImg(fileName);
+  };
 
   return (
-    <form id="showpet-create" onSubmit={onSubmit}>
+    <form id="showpet-create" onSubmit={(e) => submitShowpet(e)}>
       <input
         ref={titleRef}
         className="show-title"
         type="text"
         placeholder="제목을 입력하세요"
       />
-
+      <input
+        ref={nameRef}
+        className="show-name"
+        type="text"
+        placeholder="이름을 입력하세요"
+      />
+      <textarea
+        ref={contentRef}
+        className="show-content"
+        type="text"
+        placeholder="내용을 입력하세요"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        id="upload-file"
+        multiple={true}
+        onChange={(e) => {
+          changeFiles(e);
+        }}
+      ></input>
       <button>작성완료</button>
     </form>
   );

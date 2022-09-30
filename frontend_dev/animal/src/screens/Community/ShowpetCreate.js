@@ -6,11 +6,10 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function ShowpetCreate({ placeholder, value, ...rest }) {
-  const titleRef = useRef(null);
-  const contentRef = useRef(null);
-  const imgsRef = useRef(null);
-  const quillRef = useRef(null);
+function ShowpetCreate() {
+  const titleRef = useRef("");
+  const contentRef = useRef("");
+  const imgsRef = useRef();
   const navigate = useNavigate();
 
   const toolbarOptions = [
@@ -51,27 +50,28 @@ function ShowpetCreate({ placeholder, value, ...rest }) {
   const [result, setResult] = useState("");
   function onSubmit(e) {
     e.preventDefault();
-    console.log(quillRef.current.value);
-    setResult(quillRef.current.value);
-    // axios({
-    //   url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
-    //   method: "post",
-    //   headers: {
-    //     Content_Type: "application/json",
-    //     Token: "",
-    //     body: JSON.stringify({
-    //       title: titleRef.current.value,
-    //       content: contentRef.current.value,
-    //       imgs: imgsRef.current.value,
-    //     }),
-    //   },
-    // })
-    //   .then((res) => {
-    //     alert("글이 작성");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    const accessToken = localStorage.getItem("accessToken");
+    axios({
+      url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
+      method: "post",
+      headers: {
+        Content_Type: "application/json",
+        Token: accessToken,
+        data: JSON.stringify({
+          title: titleRef.current.value,
+          content: contentRef.current.value,
+          // imgs: imgsRef.current.value,
+        }),
+      },
+    })
+      .then((res) => {
+        alert("글이 작성");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate(`/show-pet/list`);
   }
 
   return (

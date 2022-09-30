@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CommunityShowpetDetail.css";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import Comments from "../../components/comments/Comments";
-import CommentInput from "../../components/comments/CommentInput";
+import { useSelector } from "react-redux";
+// import Comments from "@components/comments/Comments";
+// import CommentInput from "@components/comments/CommentInput";
 
 function CommunityShowpetDetail({ id }) {
   const [article, setArticle] = useState({
@@ -51,6 +52,15 @@ function CommunityShowpetDetail({ id }) {
           <p>date</p>
           <p>{article.name}</p>
         </div>
+        {isAuthor ? (
+          <div>
+            <button className="">수정</button>
+            <button className="">삭제</button>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="content">
           <div className="content-imgwrapper">
             <img src={article.imgs[0]} alt="img" className="content-img"/>

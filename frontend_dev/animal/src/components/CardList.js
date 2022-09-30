@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import "./CardList.css";
 import Card from "./Card.js";
 import axios from "axios";
-import dummy from "./data.json";
 
 function CardList() {
   const [cards, setCards] = useState([
@@ -44,10 +43,10 @@ function CardList() {
   });
   return (
     <div id="card-list">
-      <div className="row">
-        {cards.map((dm) => (
+      <div>
+        {cards.map((card) => (
           <div className="col">
-            <Card className="card" dm={dm} key={dm.id} />
+            <Card card={card} key={card.id} />
           </div>
         ))}
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./CommentItem.css";
 import CommentInput from "../../components/comments/CommentInput";
 import Button from "react-bootstrap/Button";
@@ -7,6 +8,7 @@ import axios from "axios";
 
 function CommentsItem({ item, isAuthor }) {
   const [editInput, setEditInput] = useState(false);
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
     // console.log(item);
@@ -22,13 +24,6 @@ function CommentsItem({ item, isAuthor }) {
       .catch((err) => console.log(err));
   };
 
-  const editComment = () => {
-    setEditInput(true);
-  };
-
-  const closeEdit = () => {
-    setEditInput(false);
-  };
   return (
     <div id="comments">
       {editInput ? (
@@ -39,7 +34,7 @@ function CommentsItem({ item, isAuthor }) {
             <div className="comments-item__username">{item.user_nickname}</div>
           </div>
           <div className="comments-discription">{item.content}</div>
-          <Button variant="primary" onClick={() => setEditInput(true)}>
+          <Button variant="primary" onClick={() => setEditInput(false)}>
             취소
           </Button>
           <Button variant="primary" onClick={() => setEditInput(true)}>

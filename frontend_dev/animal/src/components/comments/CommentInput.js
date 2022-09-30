@@ -7,6 +7,8 @@ import axios from "axios";
 
 function CommentInput({ item }) {
   const commentRef = useRef();
+
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     console.log(item);
     if (item) {
@@ -37,10 +39,18 @@ function CommentInput({ item }) {
     const content = commentRef.current.value;
     console.log(content);
     axios
-      .put(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment`, {
-        content: content,
-        id: item.id,
-      })
+      .put(
+        `http://j7c101.p.ssafy.io:8080/api/show-pet/comment`,
+        {
+          content: content,
+          id: item.id,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         console.log("글 수정");

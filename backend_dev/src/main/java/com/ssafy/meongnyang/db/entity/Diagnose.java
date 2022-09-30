@@ -18,17 +18,18 @@ public class Diagnose {
     @Column(name = "diagnose_id")
     private Long id;
 
-    @Column(nullable = false)
-    private Integer species;
+//    @Column(nullable = false)
+//    private Integer species;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Integer type;
+//    @Column(nullable = false)
+//    private Integer type;
 
 //    @Column(nullable = false)
 //    private String code;
+
     @Column(nullable = false)
     private String disease_name1;
 

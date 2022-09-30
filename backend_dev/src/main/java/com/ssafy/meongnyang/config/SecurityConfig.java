@@ -57,7 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/error",
             "/health_check",
             "/logout",
-            "/token/reissuance/*"
+            "/token/reissuance/*",
+            "/api/show-pet/comment/list/*",
+            "/api/lost/list",
+            "/api/show-pet/list",
+            "/api/show-pet/*"
     };
 
     @Override

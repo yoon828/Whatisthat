@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DiagnoseRegisterDto {
 //    private Long user_id;   // 토큰 사용하면 삭제할 변수
-    private Integer species;
+//    private Integer species;
     private String name;
-    private Integer type;
+//    private Integer type;
     private String img_url;
 //    private String code;
     private String disease_name1;

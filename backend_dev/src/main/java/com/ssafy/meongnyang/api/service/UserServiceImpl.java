@@ -1,14 +1,11 @@
 package com.ssafy.meongnyang.api.service;
 
-import com.ssafy.meongnyang.api.request.UserRegisterDto;
 import com.ssafy.meongnyang.api.request.UserUpdateDto;
 import com.ssafy.meongnyang.api.response.*;
-import com.ssafy.meongnyang.common.exception.handler.DiseaseNotFoundException;
 import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.RedisService;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.User;
-import com.ssafy.meongnyang.db.repository.DiseaseRepository;
 import com.ssafy.meongnyang.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

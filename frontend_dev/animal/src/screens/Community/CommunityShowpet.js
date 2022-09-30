@@ -14,7 +14,7 @@ function CommunityShowpet({ id }) {
 
   const getShowListApi = async () => {
     const { data } = await getShowList();
-    console.log(data);
+    // console.log(data);
   };
   return <div id="showpet-detail"></div>;
 }

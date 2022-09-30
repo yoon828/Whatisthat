@@ -12,9 +12,11 @@ function MainNavbar() {
   let [accessToken, setAccesToken] = useState('')
   let [refreshToken, setRefreshToken] = useState('')
   let [isLoggedIn, setIsLoggedIn] = useState(accessToken && refreshToken ? true : false)
+
   useEffect(()=>{
     setIsLoggedIn(accessToken && refreshToken ? true : false)
   }, [accessToken, refreshToken])
+
   useEffect(()=>{
     setAccesToken(localStorage.getItem('accessToken'))
     setRefreshToken(localStorage.getItem('refreshToken'))
@@ -63,7 +65,7 @@ function MainNavbar() {
               setRefreshToken('')
               document.location.href='/'
             }}>Logout</Nav.Link>
-            <Nav.Link href="mypage" id='Btn3'>My page</Nav.Link>
+            <Nav.Link href="/mypage" id='Btn3'>My page</Nav.Link>
           </Nav> :
           <Nav className="right-nav">
           <Nav.Link href="/login" >LOGIN</Nav.Link>

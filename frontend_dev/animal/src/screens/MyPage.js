@@ -9,6 +9,8 @@ import './Mypage.css'
 import styled from 'styled-components';
 import Lottie from 'lottie-react'
 import profile from './../lotties/profile.json'
+import loadLottie from './../lotties/loading.json'
+
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -30,17 +32,21 @@ const StyledBtn = styled.button`
 
 
 const MyPage = () => {
-    let [userInfo, setUserInfo] = useState({name: '멍멍', email: 'naver.com', nickname: '닉네임', date: '1993.03', profile_img: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzAxMTRfMjYy%2FMDAxNDg0MzcxOTkxNzA4._N73NTpWleCLp8M6gXR8vpdDAZoAQ2mTJLimKBYFtRwg.5LEqnsukFugxlrTdlYk5hkxEKoVdUbTVsjL6gqJ03vIg.PNG.koomarin%2F%253F%253F%253F%253F%257B%253F_%253F%253F%253F%253F%253F%253F%253F.png&type=sc960_832'})
+    let [userInfo, setUserInfo] = useState(null)
+    let [loading, setLoading] = useState(true)
     useEffect(()=>{
+        let token = localStorage.getItem('accessToken')
         axios({
-            url: 'http://ssaffy.io/api/user', // 회원정보 조회 api 주소
+            url: 'http://j7c101.p.ssafy.io:8080/api/user', // 회원정보 조회 api 주소
             method: 'get',
             headers: {
-                Token: 'asdfsf' // 사용자의 토큰값
+                authorization :  `Bearer ${token}`
             }
         })
         .then((res)=> {
-            setUserInfo(res.data)
+            console.log(res.data.data)
+            setUserInfo(res.data.data)
+            setLoading(false)
         })
         .catch((err)=>{
             console.log(err)
@@ -48,6 +54,10 @@ const MyPage = () => {
     }, [])
     return (
         <div id='mypage-box'>
+            {
+                loading ? <Loading /> :
+            
+            <div>
             <div id='mypage-lottie'>
                 <Lottie animationData={profile} style={{'width':'80px'}}></Lottie>
                 <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>{userInfo.name}님의 프로필</h1>
@@ -61,7 +71,6 @@ const MyPage = () => {
                         <ListGroup.Item id='mypage-text'>이름 : {userInfo.name}</ListGroup.Item>
                         <ListGroup.Item id='mypage-text'>이메일 : {userInfo.email}</ListGroup.Item>
                         <ListGroup.Item id='mypage-text'>닉네임 : {userInfo.nickname}</ListGroup.Item>
-                        <ListGroup.Item id='mypage-text'>생년월일 : {userInfo.date}</ListGroup.Item>
                     </ListGroup>
                     </Card>
                     <div id='btn1'>
@@ -78,6 +87,16 @@ const MyPage = () => {
                     </Col>
                 </Row>
             </Container>
+            </div>
+            }
+        </div>
+    )
+}
+
+const Loading = () => {
+    return (
+        <div style={{'display':'flex', 'justifyContent': 'center'}}>
+            <Lottie animationData={loadLottie} style={{'width': '500px'}}></Lottie>
         </div>
     )
 }

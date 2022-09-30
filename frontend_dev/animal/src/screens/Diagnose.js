@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import './Diagnose.css'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Lottie from 'lottie-react';
@@ -11,6 +11,7 @@ import { isMobile } from 'react-device-detect';
 import search from './../lotties/search.json'
 import paper from './../lotties/paper.json'
 import treat from './../lotties/treat.json'
+import treatMethod from './../treats/treatMethod.json'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -243,13 +244,13 @@ const Diagnose = () => {
                     })
                     .then((res)=>{
                         setShowResult(true)
-                        console.log(info)
                     })
                     .catch((err)=>{
                         console.log(err)
                     })
                 }}
                 >진단하기</StyledBtn>
+                
             </div>
             </div>
             }
@@ -267,41 +268,45 @@ const Loading = () => {
 }
 
 const DiagnoseResult = (props) => {
+    let accessToken = localStorage.getItem('accessToken')
     let [loading, setLoading] = useState(true)
+    let [result, setResult] = useState(null)
+    let [treats, setTreats] = useState('')
     let info = props.info
-    let [result, setResult] = useState([
-        [
-        "농포,여드름",
-        0.2312759906053543
-        ],
-        [
-        "미란,궤양",
-        0.19840167462825775
-        ],
-        [
-        "결절,종괴",
-        0.1548846960067749
-        ]
-        ])
+    // const axiosAPI = axios.create({
+    //     baseURL: 'http://j7c101.p.ssafy.io:8080/api/diagnose',
+    //     headers: {
+    //         authorization : `Bearer ${accessToken}`
+    //     },
+    //     data: {
+    //         disease_name1 : result[0][0],
+    //         disease_name2 : result[1][0],
+    //         disease_name3 : result[2][0],
+    //         img_url : info.imgUrl,
+    //         name : info.name,
+    //         probability1: result[0][1],
+    //         probability2: result[1][1],
+    //         probability3: result[2][1]
+    //     },
+    // })
     
 
-    setTimeout(()=>{
-        setLoading(false)
-    }, 3000)
+    useEffect(()=>{
+        let info = props.info
+        axios({
+            url: `http://j7c101.p.ssafy.io:5550/ai/${info.part}/${info.type}`,
+            method: "post",
+            data: {
+                imagePath : info.imgUrl
+            }
+        })
+        .then((res)=>{
+            setResult(res.data)
+            setTreats(treatMethod[res.data[0][0]])
+            setLoading(false)
+        })
+    }, [result])
 
-    // useEffect(()=>{
-    //     axios({
-    //         url: `http://70.12.130.121:5550/ai/${info.part}/${info.type}`, // AI 서버 요청 주소
-    //         method: "post",
-    //         data: {
-    //             "imagePath" : info
-    //         }
-    //     })
-    //     .then((res)=>{
-    //         setResult(res.data)
-    //         setLoading(false)
-    //     })
-    // }, [])
     return (
         <div id='result-box'>
             {
@@ -325,16 +330,45 @@ const DiagnoseResult = (props) => {
                     </div>
                     <div id='treat-header'>
                     <Lottie id='treat' animationData={treat}></Lottie>
-                    <h2 style={{'fontSize':'60px'}}>대처법</h2>
+                    <h2 style={{'fontSize':'60px'}}>{`${result[0][0].substr(2)} 대처법`}</h2>
                     </div>
                     <div style={{'width': '550px', 'marginBottom':'30px'}}>
-                    농피증은 피부가 포도상구균 등과 같은 세균에 감염돼 나타난다. ▲영양부족 ▲미흡한 털관리 ▲과도한 목욕 ▲잘못된 샴푸사용 등이 원인이다. 피부가 약하고 면역력이 떨어지는 노령견이나 어린강아지에게 더욱 생기기 쉽다.
-
-농피증은 얼굴주위, 겨드랑이, 등에 많이 발생하며 감염정도나 농의 깊이에 따라 증상이 다르다. 일반적으로 ▲발진 ▲구진 ▲농포 ▲각질 ▲딱지 ▲피부발적 ▲탈모 등이 나타나고 ▲심한 가려움이 동반되는 경우가 많다. 가려움이 심하면 강아지가 해당부위를 자꾸 긁거나 핥아 질환이 더 악화되고 이차감염으로 진행될 수 있어 빨리 치료하는 것이 좋다.
+                        {treats}
                     </div>
                     <StyledBtn id='btn10' onClick={()=>{
+                        // axiosAPI.interceptors.response.use(
+                        //     response => {
+                        //         return response
+                        //     },
+                        //     (error) => {
+                        //         const {
+                        //             config,
+                        //             response : {status},
+                        //         } = error;
+
+                        //         const OriginalRequest = config;
+
+                        //         if (status === 401) {
+                        //             const refreshToken = localStorage.getItem('refreshToken');
+                        //             axios({
+                        //                 url : `http://j7c101.p.ssafy.io:8080/token/reissuance/${refreshToken}`,
+                        //                 method: 'get',
+                        //                 headers: {
+                        //                     authorization : `Bearer ${accessToken}`
+                        //                 }
+                        //             })
+                        //             .then((res)=>{
+                        //                 const accessToken = res.data.accessToken
+                        //                 localStorage.setItem('accessToken', accessToken)
+                        //                 OriginalRequest.headers = {authorization : accessToken}
+                        //                 return axios(OriginalRequest)
+                        //             })
+                        //         }
+                        //         return Promise.reject(error);
+                        //     }
+                        // )
                         axios({
-                            url: "http://j7c101.p.ssafy.io:3003/api/picture", // 이미지 주소 DB에 저장하는 api 주소
+                            url: "http://j7c101.p.ssafy.io:8080/api/diagnose",
                             method: "post",
                             data: {
                                 disease_name1 : result[0][0],
@@ -342,18 +376,16 @@ const DiagnoseResult = (props) => {
                                 disease_name3 : result[2][0],
                                 img_url : info.imgUrl,
                                 name : info.name,
-                                probability1: result[0][1],
-                                probability2: result[1][1],
-                                probability3: result[2][1],
-                                species: info.type,
-                                type : info.part
+                                probability1: Math.round(result[0][1]*100),
+                                probability2: Math.round(result[1][1]*100),
+                                probability3: Math.round(result[2][1]*100)
                             },
                             headers:{
-                                Token : 'asdfasdf'
+                                authorization : `Bearer ${accessToken}`
                             }
                           })
                             .then((res) => {
-                                console.log(res.data);
+                                alert('진단내역 등록 성공하였습니다.')
                             })
                             .catch((err) => {
                               console.log(err);

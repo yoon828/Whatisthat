@@ -5,19 +5,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function ShowpetCreate() {
-  const titleRef = useRef(null);
-  const contentRef = useRef(null);
-  const imgsRef = useRef(null);
+  const titleRef = useRef("");
+  const contentRef = useRef("");
+  const imgsRef = useRef();
   const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault();
+    const accessToken = localStorage.getItem("accessToken");
     axios({
       url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
       method: "post",
       headers: {
         Content_Type: "application/json",
-        Token: "",
+        Token: accessToken,
         data: JSON.stringify({
           title: titleRef.current.value,
           content: contentRef.current.value,
@@ -27,7 +28,7 @@ function ShowpetCreate() {
     })
       .then((res) => {
         alert("글이 작성");
-        console.log(res.data.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

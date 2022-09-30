@@ -225,29 +225,33 @@ const Diagnose = () => {
                 <StyledBtn
                 id = 'diagnoseBtn'
                 onClick={()=>{
-                    let formData = new FormData();
-                    formData.append("uploadFile", file, img);
-                    setInfo(info.type=type)
-                    setInfo(info.part=part)
-                    setInfo(info.img=img)
-                    setInfo(info.imgUrl=`http://j7c101.p.ssafy.io:3003/${img}`)
-                    setInfo(info.name=name)
-                    setInfo(info=info)
-                    axios({
-                        url: "http://j7c101.p.ssafy.io:3003/upload",
-                        method: 'post',
-                        headers: {
-                            processData: false,
-                            "Content-Type": "multipart/form-data",
-                        },
-                        data: formData,
-                    })
-                    .then((res)=>{
-                        setShowResult(true)
-                    })
-                    .catch((err)=>{
-                        console.log(err)
-                    })
+                    if (info.type && info.part && info.imgUrl && info.name) {
+                        let formData = new FormData();
+                        formData.append("uploadFile", file, img);
+                        setInfo(info.type=type)
+                        setInfo(info.part=part)
+                        setInfo(info.img=img)
+                        setInfo(info.imgUrl=`http://j7c101.p.ssafy.io:3003/${img}`)
+                        setInfo(info.name=name)
+                        setInfo(info=info)
+                        axios({
+                            url: "http://j7c101.p.ssafy.io:3003/upload",
+                            method: 'post',
+                            headers: {
+                                processData: false,
+                                "Content-Type": "multipart/form-data",
+                            },
+                            data: formData,
+                        })
+                        .then((res)=>{
+                            setShowResult(true)
+                        })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                    } else {
+                        alert('모든 항목을 선택해 주세요')
+                    }
                 }}
                 >진단하기</StyledBtn>
                 

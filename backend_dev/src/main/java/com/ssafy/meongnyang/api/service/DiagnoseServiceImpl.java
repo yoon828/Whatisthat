@@ -78,7 +78,7 @@ public class DiagnoseServiceImpl implements DiagnoseService {
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 
-        if (!uid.equals(diagnose.getUser().getId())) {
+        if (Long.parseLong(uid) != diagnose.getUser().getId()) {
             throw new AccessDeniedException();
         }
 
@@ -112,7 +112,7 @@ public class DiagnoseServiceImpl implements DiagnoseService {
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 
-        if (!uid.equals(diagnose.getUser().getId())) {
+        if (Long.parseLong(uid) != diagnose.getUser().getId()) {
             throw new AccessDeniedException();
         }
 //        Disease disease1 = diseaseRepository.findByName(diagnose.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);

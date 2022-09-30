@@ -94,7 +94,7 @@ public class LostServiceImpl implements LostService {
         String uid = tokenProvider.getUserId(accessToken);
         Lost lost = lostRepository.findById(lostUpdateDto.getId()).orElseThrow(LostNotFoundException::new);
 
-        if (!uid.equals(lost.getUser().getId())) {
+        if (Long.parseLong(uid) != lost.getUser().getId()) {
             throw new AccessDeniedException();
         }
         lostImgRepository.deleteAllByLostId(lost.getId());
@@ -174,7 +174,7 @@ public class LostServiceImpl implements LostService {
         String uid = tokenProvider.getUserId(accessToken);
         Lost lost = lostRepository.findById(id).orElseThrow(LostNotFoundException::new);
 
-        if (!uid.equals(lost.getUser().getId())) {
+        if (Long.parseLong(uid) != lost.getUser().getId()) {
             throw new AccessDeniedException();
         }
         lostRepository.deleteById(id);

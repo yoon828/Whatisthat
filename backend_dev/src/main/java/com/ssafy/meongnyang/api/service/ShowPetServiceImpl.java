@@ -74,7 +74,7 @@ public class ShowPetServiceImpl implements ShowPetService {
         String uid = tokenProvider.getUserId(accessToken);
         ShowPet showPet = showPetRepository.findById(showPetUpdateDto.getId()).orElseThrow(ShowPetNotFoundException::new);
 
-        if (!uid.equals(showPet.getUser().getId())) {
+        if (Long.parseLong(uid) != showPet.getUser().getId()) {
             throw new AccessDeniedException();
         }
         showPetImgRepository.deleteAllByShowPetId(showPet.getId());
@@ -157,7 +157,7 @@ public class ShowPetServiceImpl implements ShowPetService {
         String uid = tokenProvider.getUserId(accesssToken);
         ShowPet showPet = showPetRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
 
-        if (!uid.equals(showPet.getUser().getId())) {
+        if (Long.parseLong(uid) != showPet.getUser().getId()) {
             throw new AccessDeniedException();
         }
         showPetRepository.deleteById(id);

@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
         String uid = tokenProvider.getUserId(accessToken);
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(CommentNotFoundException::new);
 
-        if (!uid.equals(comment.getUser().getId())) {
+        if (Long.parseLong(uid) != comment.getUser().getId()) {
             throw new AccessDeniedException();
         }
         comment.updateComment(commentUpdateDto);
@@ -94,7 +94,7 @@ public class CommentServiceImpl implements CommentService {
         String uid = tokenProvider.getUserId(accessToken);
         Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
 
-        if (!uid.equals(comment.getUser().getId())) {
+        if (Long.parseLong(uid) != comment.getUser().getId()) {
             throw new AccessDeniedException();
         }
         commentRepository.deleteById(id);

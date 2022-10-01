@@ -35,7 +35,6 @@ const ShowpetCreate = () => {
 
   const submitShowpet = (e) => {
     e.preventDefault();
-    // sendShowpet();
     if (titleRef.current.value.trim() === "") {
       alert("제목을 입력해주세요.");
       titleRef.current.focus();

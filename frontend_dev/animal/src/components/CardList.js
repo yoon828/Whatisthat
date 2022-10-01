@@ -8,8 +8,8 @@ const CardList = ({ cards }) => {
   return (
     <div id="card-list">
       <div>
-        {cards.map((card) => (
-          <div className="col">
+        {cards.map((card, idx) => (
+          <div className="col" key={idx}>
             <Card card={card} key={card.id} />
           </div>
         ))}

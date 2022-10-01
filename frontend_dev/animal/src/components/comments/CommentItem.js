@@ -1,50 +1,88 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./CommentItem.css";
-import CommentInput from "../../components/comments/CommentInput";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import { transform } from "../../function/functions";
+import { deleteShowpetComment, putShowpetComment } from "../../api/community";
 
-function CommentsItem({ item, isAuthor }) {
+function CommentsItem({ item, isAuthor, getComments }) {
+  const [text, setText] = useState("");
   const [editInput, setEditInput] = useState(false);
+  const commentRef = useRef(null);
+
   const user = useSelector((state) => state.user.value);
 
-  useEffect(() => {
-    // console.log(item);
-  }, []);
-
   const deleteComment = async () => {
-    axios
-      .delete(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment/${item.id}`)
-      .then((res) => {
-        console.log(res);
-        alert("댓글이 삭제 되었습니다.");
-      })
-      .catch((err) => console.log(err));
+    if (window.confirm("삭제하시겠습니까?")) {
+      try {
+        const { data } = await deleteShowpetComment(item.id);
+        if (data.success) {
+          getComments();
+        }
+      } catch (error) {}
+    }
+  };
+
+  const commentEdit = async () => {
+    try {
+      const { data } = await putShowpetComment({
+        content: text,
+        id: item.id,
+      });
+      if (data.success) {
+        alert("수정되었습니다.");
+        getComments();
+        setEditInput(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const setEditMode = async () => {
+    setText(item.content);
+    setEditInput(true);
   };
 
   return (
     <div id="comments">
-      {editInput ? (
-        <CommentInput item={item} />
-      ) : (
-        <div className="comments-content">
-          <div className="comments-item">
-            <div className="comments-item__username">{item.user_nickname}</div>
-          </div>
-          <div className="comments-discription">{item.content}</div>
-          <Button variant="primary" onClick={() => setEditInput(false)}>
-            취소
-          </Button>
-          <Button variant="primary" onClick={() => setEditInput(true)}>
-            수정
-          </Button>
-          <Button variant="danger" onClick={() => deleteComment()}>
-            삭제{" "}
-          </Button>
+      <div className="comments-content">
+        <div className="comments-item">
+          <div className="comments-item__username">{item.user_nickname}</div>
+          <div className="comments-item__username">{transform(item.date)}</div>
         </div>
-      )}
+        {editInput ? (
+          <>
+            <div>
+              <input
+                value={text}
+                type="text"
+                placeholder="댓글을 작성해주세요"
+                required
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
+            </div>
+            <Button variant="primary" onClick={() => setEditInput(false)}>
+              취소
+            </Button>
+            <Button variant="primary" onClick={() => commentEdit()}>
+              수정
+            </Button>
+          </>
+        ) : (
+          <>
+            <div className="comments-discription">{item.content}</div>
+            <Button variant="primary" onClick={() => setEditMode()}>
+              수정
+            </Button>
+            <Button variant="danger" onClick={() => deleteComment()}>
+              삭제
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

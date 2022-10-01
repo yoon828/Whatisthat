@@ -1,63 +1,125 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./CommunityShowpetDetail.css";
 import { useSelector } from "react-redux";
 import Comments from "../../components/comments/Comments";
 import CommentInput from "../../components/comments/CommentInput";
+import {
+  deleteShowpet,
+  getShowListDetail,
+  getShowpetComments,
+} from "../../api/community";
+import { useNavigate, useParams } from "react-router-dom";
+import { transform } from "../../function/functions";
+import Carousel from "react-bootstrap/Carousel";
 
-function CommunityShowpetDetail({ id }) {
+const CommunityShowpetDetail = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
+  const params = useParams();
+  const navigator = useNavigate();
+
   useEffect(() => {
-    axios({
-      url: `http://ssafy.io/api/show-pet/detail/${id}`,
-      method: "get",
-      headers: {
-        Token: "",
-      },
-    })
-      .then((res) => {
-        // setDiagnosisList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+    getShowpetDetail();
+  }, []);
+
+  const getShowpetDetail = async () => {
+    try {
+      const { data } = await getShowListDetail(params.id);
+      console.log(data);
+      setArticle(data.data);
+      setComments(data.data.comments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteArticle = async () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        const { data } = await deleteShowpet(article.id);
+        if (data.success) {
+          alert("삭제되었습니다.");
+          navigator("/show-pet/list");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  //글 수정
+  const editArticle = () => {
+    navigator("/show-pet", {
+      state: article,
+    });
+  };
+
+  //댓글만 불러오기
+  const getComments = async () => {
+    try {
+      const { data } = await getShowpetComments(params.id);
+      setComments(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div id="showpet-detail">
       <div className="article">
+        <h2>{article.title}</h2>
         <div className="title">
-          <p>{article.title}</p>
-          <p>date</p>
+          <p>{transform(article.date, "chat")}</p>
           <p>{article.name}</p>
         </div>
-        <div>
-          <button className="">수정</button>
-          <button className="">삭제</button>
+        <div id="carousel-wrap">
+          <Carousel variant="dark">
+            {article.imgs &&
+              article.imgs.map((img, idx) => {
+                return (
+                  <Carousel.Item key={idx}>
+                    <img
+                      src={img.img_url}
+                      alt="mypet"
+                      className="d-block w-50"
+                    />
+                    <Carousel.Caption></Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })}
+          </Carousel>
         </div>
 
         <div className="content">
           <div className="content-imgwrapper">
-            <img src={article.imgs[0]} alt="img" className="content-img" />
+            {/* <img src={article.imgs[0]} alt="img" className="content-img" /> */}
           </div>
           <div className="content-description">{article.content}</div>
         </div>
       </div>
+      <div>
+        <button className="showpet-edit" onClick={() => editArticle()}>
+          수정
+        </button>
+        <button className="showpet-delete" onClick={() => deleteArticle()}>
+          삭제
+        </button>
+      </div>
+      <hr />
       <div className="comment flex column">
         <div className="comment-head">
-          <p className="notoMid">
-            댓글
-            {/* <span className="">{article.comment}</span> */}
-          </p>
+          <h4 className="notoMid">댓글</h4>
         </div>
         <div className="comment-input flex">
           <div className="input-img-container flex"></div>
-          <CommentInput />
+          <CommentInput getComments={getComments} />
         </div>
-        {comments.length !== 0 ? <Comments comments={comments} /> : null}
+        {comments.length !== 0 ? (
+          <Comments comments={comments} getComments={getComments} />
+        ) : null}
       </div>
     </div>
   );
-}
+};
 
 export default CommunityShowpetDetail;

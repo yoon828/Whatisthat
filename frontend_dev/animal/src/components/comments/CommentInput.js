@@ -1,37 +1,45 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import "./CommentInput.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
+import { postShowpetComment } from "../../api/community";
 
-function CommentInput({ item }) {
+function CommentInput({ item, comments, getComments }) {
+  const [id, setId] = useState(0);
   const commentRef = useRef();
+  const param = useParams();
 
   const token = localStorage.getItem("accessToken");
   useEffect(() => {
-    console.log(item);
+    setId(param.id);
     if (item) {
-      console.log(item);
       commentRef.current.value = item.content;
     }
   }, []);
 
   //댓글 등록하기
   const submit = async () => {
-    const content = commentRef.current.value;
-    console.log(content);
-    axios
-      .post(`http://j7c101.p.ssafy.io:8080/api/show-pet/comment`, {
-        content: content,
-        id: item.id,
-        user_id: "user_id",
-      })
-      .then((res) => {
-        console.log(res);
-        console.log("글 등록");
-      })
-      .catch((err) => console.log(err));
+    if (commentRef.current.value.trim() !== "") {
+      try {
+        const content = commentRef.current.value;
+        const { data } = await postShowpetComment({
+          content: content,
+          id: id,
+        });
+        if (data.success) {
+          alert("댓글이 등록되었습니다.");
+          commentRef.current.value = "";
+          getComments();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("댓글을 작성해주세요");
+    }
   };
 
   //댓글 수정하기
@@ -65,23 +73,13 @@ function CommentInput({ item }) {
           aria-describedby="basic-addon2"
           ref={commentRef}
         />
-        {item ? (
-          <Button
-            variant="outline-secondary"
-            id="button-addon2"
-            onClick={() => edit()}
-          >
-            수정
-          </Button>
-        ) : (
-          <Button
-            variant="outline-secondary"
-            id="button-addon2"
-            onClick={() => submit()}
-          >
-            등록
-          </Button>
-        )}
+        <Button
+          variant="outline-secondary"
+          id="button-addon2"
+          onClick={() => submit()}
+        >
+          등록
+        </Button>
       </InputGroup>
     </div>
   );

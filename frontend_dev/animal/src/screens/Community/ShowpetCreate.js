@@ -1,91 +1,163 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./ShowpetCreate.css";
-import ShowpetEditor from "./ShowpetEditor";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
+import { useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
+import { postShowpet, putShowpet } from "../../api/community";
+import axios from "axios";
 
-function ShowpetCreate() {
-  const titleRef = useRef("");
-  const contentRef = useRef("");
-  const imgsRef = useRef();
-  const navigate = useNavigate();
+const ShowpetCreate = () => {
+  const [isEdit, setIsEdit] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [filenames, setFilenames] = useState([]);
+  const titleRef = useRef(null);
+  const nameRef = useRef(null);
+  const contentRef = useRef(null);
+  const navigator = useNavigate();
+  const location = useLocation();
 
-  const toolbarOptions = [
-    ["link", "image", "video"],
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ color: [] }, { background: [] }],
-    [{ align: [] }],
-  ];
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "align",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "background",
-    "color",
-    "link",
-    "image",
-    "video",
-    "width",
-  ];
-  const modules = {
-    toolbar: {
-      container: toolbarOptions,
-    },
+  const imgServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL;
+
+  let serverName = [];
+
+  useEffect(() => {
+    if (location.state) {
+      setIsEdit(true);
+      setting();
+    }
+  }, []);
+
+  const setting = () => {
+    const article = location.state;
+    titleRef.current.value = article.title;
+    contentRef.current.value = article.content;
+    nameRef.current.value = article.name;
   };
 
-  const [result, setResult] = useState("");
-  function onSubmit(e) {
+  const submitShowpet = (e) => {
     e.preventDefault();
-    const accessToken = localStorage.getItem("accessToken");
-    axios({
-      url: "http://j7c101.p.ssafy.io:8080/api/show-pet",
-      method: "post",
-      headers: {
-        Content_Type: "application/json",
-        Token: accessToken,
-        data: JSON.stringify({
-          title: titleRef.current.value,
-          content: contentRef.current.value,
-          // imgs: imgsRef.current.value,
-        }),
-      },
-    })
-      .then((res) => {
-        alert("글이 작성");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+    if (titleRef.current.value.trim() === "") {
+      alert("제목을 입력해주세요.");
+      titleRef.current.focus();
+    } else if (nameRef.current.value.trim() === "") {
+      alert("이름을 입력해주세요.");
+      nameRef.current.focus();
+    } else if (contentRef.current.value.trim() === "") {
+      alert("내용을 입력해주세요.");
+      contentRef.current.focus();
+    } else if (files.length === 0) {
+      alert("사진을 1개 이상 선택해주세요");
+    } else {
+      sendImage();
+    }
+  };
+  //이미지 서버에 이미지 전송 (여러장)
+  const sendImage = async () => {
+    try {
+      let formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("photos", files[i], filenames[i]);
+      }
+      const { data } = await axios({
+        url: `${imgServerUrl}/upload-multi`,
+        method: "post",
+        headers: {
+          processData: false,
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
       });
-    navigate(`/show-pet/list`);
-  }
+      if (data.status) {
+        serverName = [];
+        data.data.map((img, idx) => {
+          return serverName.push(`${imgServerUrl}/${img.name}`);
+        });
+        sendShowpet();
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  // 백엔드에 자랑하기 글 등록
+  const sendShowpet = async () => {
+    try {
+      if (isEdit) {
+        //수정인 경우
+        const { data } = await putShowpet({
+          content: contentRef.current.value,
+          imgs: serverName, //이미지 서버 주소
+          name: nameRef.current.value,
+          title: titleRef.current.value,
+          id: location.state.id,
+        });
+        let id = data.data.id;
+        alert("수정 되었습니다!");
+        navigator(`/show-pet/detail/${id}`);
+      } else {
+        const { data } = await postShowpet({
+          content: contentRef.current.value,
+          imgs: serverName, //이미지 서버 주소
+          name: nameRef.current.value,
+          title: titleRef.current.value,
+        });
+        let id = data.data.id;
+        alert("등록 되었습니다!");
+        navigator(`/show-pet/detail/${id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeFiles = (e) => {
+    e.preventDefault();
+    setFiles(e.target.files);
+    let today = new Date();
+    const fileName = `img_${today.getFullYear()}${
+      today.getMonth() + 1
+    }${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
+    let length = e.target.files.length;
+    let filenames = [];
+    for (let i = 0; i < length; i++) {
+      filenames.push(`${fileName}_${i}.png`);
+    }
+    setFilenames(filenames);
+  };
 
   return (
-    <form id="showpet-create" onSubmit={onSubmit}>
+    <form id="showpet-create" onSubmit={(e) => submitShowpet(e)}>
       <input
         ref={titleRef}
         className="show-title"
         type="text"
         placeholder="제목을 입력하세요"
       />
-
+      <input
+        ref={nameRef}
+        className="show-name"
+        type="text"
+        placeholder="이름을 입력하세요"
+      />
+      <textarea
+        ref={contentRef}
+        className="show-content"
+        type="text"
+        placeholder="내용을 입력하세요"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        id="upload-file"
+        multiple={true}
+        onChange={(e) => {
+          changeFiles(e);
+        }}
+      ></input>
       <button>작성완료</button>
     </form>
   );
-}
+};
 
 export default ShowpetCreate;

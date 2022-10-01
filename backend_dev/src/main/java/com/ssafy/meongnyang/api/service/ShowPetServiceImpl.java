@@ -14,6 +14,7 @@ import com.ssafy.meongnyang.db.repository.ShowPetImgRepository;
 import com.ssafy.meongnyang.db.repository.ShowPetRepository;
 import com.ssafy.meongnyang.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -109,13 +110,14 @@ public class ShowPetServiceImpl implements ShowPetService {
     @Override
     @Transactional(readOnly = true)
     public List<ShowPetListResponseDto> getShowPetList() {
-        return showPetRepository.findAll()
+        return showPetRepository.findAll(Sort.by(Sort.Direction.DESC, "date"))
                 .stream()
                 .map(showPet -> ShowPetListResponseDto.builder()
                         .id(showPet.getId())
                         .title(showPet.getTitle())
                         .user_nickname(showPet.getUser().getNickname())
                         .date(showPet.getDate())
+                        .list_img(showPet.getShowPetImgList().get(0).getImg_url())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -146,6 +148,7 @@ public class ShowPetServiceImpl implements ShowPetService {
                                 .id(comment.getId())
                                 .content(comment.getContent())
                                 .user_nickname(comment.getUser().getNickname())
+                                .user_id(comment.getUser().getId())
                                 .build())
                         .collect(Collectors.toList()))
                 .build();

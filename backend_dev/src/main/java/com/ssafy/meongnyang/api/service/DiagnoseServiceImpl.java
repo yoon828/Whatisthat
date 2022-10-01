@@ -25,22 +25,15 @@ import java.util.stream.Collectors;
 public class DiagnoseServiceImpl implements DiagnoseService {
     private final DiagnoseRepository diagnoseRepository;
     private final UserRepository userRepository;
-//    private final DiseaseRepository diseaseRepository;
     private final TokenProvider tokenProvider;
 
     @Override
     public DiagnoseResponseDto writeDiagnose(String accessToken, DiagnoseRegisterDto diagnoseRegisterDto) {
         String uid = tokenProvider.getUserId(accessToken);
         User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
-//        Disease disease1 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);
-//        Disease disease2 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name2()).orElseThrow(DiseaseNotFoundException::new);
-//        Disease disease3 = diseaseRepository.findByName(diagnoseRegisterDto.getDisease_name3()).orElseThrow(DiseaseNotFoundException::new);
 
         Diagnose diagnose = Diagnose.builder()
-//                .code(diagnoseRegisterDto.getCode())
                 .name(diagnoseRegisterDto.getName())
-//                .species(diagnoseRegisterDto.getSpecies())
-//                .type(diagnoseRegisterDto.getType())
                 .user(user)
                 .img_url(diagnoseRegisterDto.getImg_url())
                 .disease_name1(diagnoseRegisterDto.getDisease_name1())
@@ -60,13 +53,10 @@ public class DiagnoseServiceImpl implements DiagnoseService {
                 .user_name(diagnoseResponse.getUser().getName())
                 .disease_name1(diagnoseResponse.getDisease_name1())
                 .probability1(diagnoseResponse.getProbability1())
-//                .treat1(disease1.getTreat())
                 .disease_name2(diagnoseResponse.getDisease_name2())
                 .probability2(diagnoseResponse.getProbability2())
-//                .treat2(disease2.getTreat())
                 .disease_name3(diagnoseResponse.getDisease_name3())
                 .probability3(diagnoseResponse.getProbability3())
-//                .treat3(disease3.getTreat())
                 .img_url(diagnoseResponse.getImg_url())
                 .build();
 
@@ -115,9 +105,6 @@ public class DiagnoseServiceImpl implements DiagnoseService {
         if (Long.parseLong(uid) != diagnose.getUser().getId()) {
             throw new AccessDeniedException();
         }
-//        Disease disease1 = diseaseRepository.findByName(diagnose.getDisease_name1()).orElseThrow(DiseaseNotFoundException::new);
-//        Disease disease2 = diseaseRepository.findByName(diagnose.getDisease_name2()).orElseThrow(DiseaseNotFoundException::new);
-//        Disease disease3 = diseaseRepository.findByName(diagnose.getDisease_name3()).orElseThrow(DiseaseNotFoundException::new);
 
         return DiagnoseResponseDto.builder()
                 .id(diagnose.getId())
@@ -126,13 +113,10 @@ public class DiagnoseServiceImpl implements DiagnoseService {
                 .img_url(diagnose.getImg_url())
                 .disease_name1(diagnose.getDisease_name1())
                 .probability1(diagnose.getProbability1())
-//                .treat1(disease1.getTreat())
                 .disease_name2(diagnose.getDisease_name2())
                 .probability2(diagnose.getProbability2())
-//                .treat2(disease2.getTreat())
                 .disease_name3(diagnose.getDisease_name3())
                 .probability3(diagnose.getProbability3())
-//                .treat3(disease3.getTreat())
                 .build();
     }
 }

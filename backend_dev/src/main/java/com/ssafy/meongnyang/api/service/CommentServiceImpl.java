@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,6 +86,7 @@ public class CommentServiceImpl implements CommentService {
                         .user_nickname(comment.getUser().getNickname())
                         .date(comment.getDate()).build())
                 .collect(Collectors.toList());
+        Collections.reverse(list);
 
         return list;
     }

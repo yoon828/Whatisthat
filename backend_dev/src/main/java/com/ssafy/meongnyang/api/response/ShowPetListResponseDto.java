@@ -15,5 +15,6 @@ public class ShowPetListResponseDto {
     private Long id;
     private String title;
     private String user_nickname;
+    private String list_img;
     private Timestamp date;
 }

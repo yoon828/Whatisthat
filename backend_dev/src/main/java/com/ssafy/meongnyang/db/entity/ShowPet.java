@@ -42,6 +42,7 @@ public class ShowPet {
     private List<ShowPetImg> showPetImgList = new ArrayList<>();
 
     @OneToMany(mappedBy = "showpet", cascade = CascadeType.ALL)
+    @OrderBy("date desc")
     private List<Comment> commentList = new ArrayList<>();
 
     public void updateShowPet(ShowPetUpdateDto showPetUpdateDto) {

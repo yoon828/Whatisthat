@@ -86,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
                         .user_nickname(comment.getUser().getNickname())
                         .date(comment.getDate()).build())
                 .collect(Collectors.toList());
-        Collections.reverse(list);
+//        Collections.reverse(list);
 
         return list;
     }

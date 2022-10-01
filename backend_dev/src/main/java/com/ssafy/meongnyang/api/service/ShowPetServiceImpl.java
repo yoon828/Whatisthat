@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 @Transactional
@@ -126,6 +127,17 @@ public class ShowPetServiceImpl implements ShowPetService {
     @Transactional(readOnly = true)
     public ShowPetDetailResponseDto getShowPet(Long id) {
         ShowPet showPet = showPetRepository.findById(id).orElseThrow(ShowPetNotFoundException::new);
+        List<CommentResponseDto> commentList = showPet.getCommentList()
+                .stream()
+                .map(comment -> CommentResponseDto.builder()
+                        .date(comment.getDate())
+                        .id(comment.getId())
+                        .content(comment.getContent())
+                        .user_nickname(comment.getUser().getNickname())
+                        .user_id(comment.getUser().getId())
+                        .build())
+                .collect(Collectors.toList());
+        Collections.reverse(commentList);
         ShowPetDetailResponseDto showPetDetailResponseDto = ShowPetDetailResponseDto.builder()
                 .id(showPet.getId())
                 .title(showPet.getTitle())
@@ -141,16 +153,7 @@ public class ShowPetServiceImpl implements ShowPetService {
                                 .img_url(showPetImg.getImg_url())
                                 .build())
                         .collect(Collectors.toList()))
-                .comments(showPet.getCommentList()
-                        .stream()
-                        .map(comment -> CommentResponseDto.builder()
-                                .date(comment.getDate())
-                                .id(comment.getId())
-                                .content(comment.getContent())
-                                .user_nickname(comment.getUser().getNickname())
-                                .user_id(comment.getUser().getId())
-                                .build())
-                        .collect(Collectors.toList()))
+                .comments(commentList)
                 .build();
         return showPetDetailResponseDto;
     }

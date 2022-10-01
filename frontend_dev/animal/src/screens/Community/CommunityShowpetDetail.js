@@ -25,6 +25,7 @@ const CommunityShowpetDetail = () => {
   const getShowpetDetail = async () => {
     try {
       const { data } = await getShowListDetail(params.id);
+      console.log(data);
       setArticle(data.data);
       setComments(data.data.comments);
     } catch (error) {
@@ -67,28 +68,26 @@ const CommunityShowpetDetail = () => {
     <div id="showpet-detail">
       <div className="article">
         <h2>{article.title}</h2>
-        <Carousel>
-          {article.imgs &&
-            article.imgs.map((img, idx) => {
-              return (
-                <Carousel.Item key={idx}>
-                  <img src={img} alt="mypet" />
-                </Carousel.Item>
-              );
-            })}
-        </Carousel>
-
         <div className="title">
           <p>{transform(article.date, "chat")}</p>
           <p>{article.name}</p>
         </div>
-        <div>
-          <button className="showpet-edit" onClick={() => editArticle()}>
-            수정
-          </button>
-          <button className="showpet-delete" onClick={() => deleteArticle()}>
-            삭제
-          </button>
+        <div id="carousel-wrap">
+          <Carousel variant="dark">
+            {article.imgs &&
+              article.imgs.map((img, idx) => {
+                return (
+                  <Carousel.Item key={idx}>
+                    <img
+                      src={img.img_url}
+                      alt="mypet"
+                      className="d-block w-50"
+                    />
+                    <Carousel.Caption></Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })}
+          </Carousel>
         </div>
 
         <div className="content">
@@ -97,6 +96,14 @@ const CommunityShowpetDetail = () => {
           </div>
           <div className="content-description">{article.content}</div>
         </div>
+      </div>
+      <div>
+        <button className="showpet-edit" onClick={() => editArticle()}>
+          수정
+        </button>
+        <button className="showpet-delete" onClick={() => deleteArticle()}>
+          삭제
+        </button>
       </div>
       <hr />
       <div className="comment flex column">

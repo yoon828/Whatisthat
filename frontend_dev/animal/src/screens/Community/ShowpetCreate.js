@@ -3,6 +3,7 @@ import "./ShowpetCreate.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { postShowpet, putShowpet } from "../../api/community";
+import axios from "axios";
 
 const ShowpetCreate = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -13,6 +14,10 @@ const ShowpetCreate = () => {
   const contentRef = useRef(null);
   const navigator = useNavigate();
   const location = useLocation();
+
+  const imgServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL;
+
+  let serverName = [];
 
   useEffect(() => {
     if (location.state) {
@@ -30,46 +35,50 @@ const ShowpetCreate = () => {
 
   const submitShowpet = (e) => {
     e.preventDefault();
-    sendShowpet();
-    // if (titleRef.current.value.trim() === "") {
-    //   alert("제목을 입력해주세요.");
-    //   titleRef.current.focus();
-    // } else if (nameRef.current.value.trim() === "") {
-    //   alert("이름을 입력해주세요.");
-    //   nameRef.current.focus();
-    // } else if (contentRef.current.value.trim() === "") {
-    //   alert("내용을 입력해주세요.");
-    //   contentRef.current.focus();
-    // } else {
-    //   if (sendImage()) {
-    //     sendShowpet();
-    //   } else {
-    //     alert("문제 발생");
-    //   }
-    // }
+    // sendShowpet();
+    if (titleRef.current.value.trim() === "") {
+      alert("제목을 입력해주세요.");
+      titleRef.current.focus();
+    } else if (nameRef.current.value.trim() === "") {
+      alert("이름을 입력해주세요.");
+      nameRef.current.focus();
+    } else if (contentRef.current.value.trim() === "") {
+      alert("내용을 입력해주세요.");
+      contentRef.current.focus();
+    } else if (files.length === 0) {
+      alert("사진을 1개 이상 선택해주세요");
+    } else {
+      sendImage();
+    }
   };
   //이미지 서버에 이미지 전송 (여러장)
   const sendImage = async () => {
-    let formData = new FormData();
-    formData.append("uploadFile", files, filenames);
-    // axios({
-    //   url: "http://j7c101.p.ssafy.io:3003/upload",
-    //   method: "post",
-    //   headers: {
-    //     processData: false,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   data: formData,
-    // })
-    //   .then((res) => {
-    //  //이미지 경로들 받아서 setState `http://j7c101.p.ssafy.io:3003/${filenames}
-    //     console.log(res);
-    // return true;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    // return false;
-    //   });
+    try {
+      let formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("photos", files[i], filenames[i]);
+      }
+      const { data } = await axios({
+        url: `${imgServerUrl}/upload-multi`,
+        method: "post",
+        headers: {
+          processData: false,
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+      });
+      if (data.status) {
+        serverName = [];
+        data.data.map((img, idx) => {
+          return serverName.push(`${imgServerUrl}/${img.name}`);
+        });
+        sendShowpet();
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   };
 
   // 백엔드에 자랑하기 글 등록
@@ -79,7 +88,7 @@ const ShowpetCreate = () => {
         //수정인 경우
         const { data } = await putShowpet({
           content: contentRef.current.value,
-          imgs: [""], //이미지 서버 주소
+          imgs: serverName, //이미지 서버 주소
           name: nameRef.current.value,
           title: titleRef.current.value,
           id: location.state.id,
@@ -90,7 +99,7 @@ const ShowpetCreate = () => {
       } else {
         const { data } = await postShowpet({
           content: contentRef.current.value,
-          imgs: [""], //이미지 서버 주소
+          imgs: serverName, //이미지 서버 주소
           name: nameRef.current.value,
           title: titleRef.current.value,
         });
@@ -105,14 +114,17 @@ const ShowpetCreate = () => {
 
   const changeFiles = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
     setFiles(e.target.files);
     let today = new Date();
     const fileName = `img_${today.getFullYear()}${
       today.getMonth() + 1
-    }${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}.png`;
-    console.log(fileName);
-    // setImg(fileName);
+    }${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
+    let length = e.target.files.length;
+    let filenames = [];
+    for (let i = 0; i < length; i++) {
+      filenames.push(`${fileName}_${i}.png`);
+    }
+    setFilenames(filenames);
   };
 
   return (

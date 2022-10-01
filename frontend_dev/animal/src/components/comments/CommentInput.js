@@ -22,19 +22,23 @@ function CommentInput({ item, comments, getComments }) {
 
   //댓글 등록하기
   const submit = async () => {
-    try {
-      const content = commentRef.current.value;
-      const { data } = await postShowpetComment({
-        content: content,
-        id: id,
-      });
-      if (data.success) {
-        alert("댓글이 등록되었습니다.");
-        commentRef.current.value = "";
-        getComments();
+    if (commentRef.current.value.trim() !== "") {
+      try {
+        const content = commentRef.current.value;
+        const { data } = await postShowpetComment({
+          content: content,
+          id: id,
+        });
+        if (data.success) {
+          alert("댓글이 등록되었습니다.");
+          commentRef.current.value = "";
+          getComments();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      alert("댓글을 작성해주세요");
     }
   };
 

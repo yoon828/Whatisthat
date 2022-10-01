@@ -1,7 +1,6 @@
 package com.ssafy.meongnyang.api.controller;
 
 import com.ssafy.meongnyang.api.response.TokenResponseDto;
-import com.ssafy.meongnyang.api.response.UserDetailResponseDto;
 import com.ssafy.meongnyang.api.response.UserResponseDto;
 import com.ssafy.meongnyang.api.service.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;

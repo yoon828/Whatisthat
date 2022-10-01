@@ -139,7 +139,7 @@ public class LostServiceImpl implements LostService {
     @Transactional(readOnly = true)
     public List<LostResponseDto> getLostList() {
 
-        return lostRepository.findAll(Sort.by("is_found").descending().and(Sort.by("date").descending()))
+        return lostRepository.findAll(Sort.by("is_found").descending())
                 .stream()
                 .map(LostServiceImpl::apply)
                 .collect(Collectors.toList());

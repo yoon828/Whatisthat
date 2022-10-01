@@ -13,7 +13,6 @@ import java.util.List;
 @Builder
 public class ShowPetUpdateDto {
     private Long id;
-//    private Long user_id;   //토큰 만들면 삭제
     private String title;
     private String name;
     private String content;

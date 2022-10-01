@@ -15,12 +15,9 @@ public class DiagnoseResponseDto {
     private String name;
     private String img_url;
     private String disease_name1;
-//    private String treat1;
     private String probability1;
     private String disease_name2;
-//    private String treat2;
     private String probability2;
     private String disease_name3;
-//    private String treat3;
     private String probability3;
 }

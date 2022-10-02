@@ -4,6 +4,79 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { postShowpet, putShowpet } from "../../api/community";
 import axios from "axios";
+import Lottie from 'lottie-react'
+import proud from './../../lotties/proud.json'
+import styled from 'styled-components';
+
+const StyledBtn = styled.button`
+  text-align: center;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  &:focus {
+    box-shadow: 0px 0px 4px 3px #ffae6d;
+  }
+`;
+
+const StyledInput = styled.input`
+  border-radius: 4px;
+  font-size: 22px;
+  margin-left: 10px;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  width: 80%;
+  height: 40px;
+  border: none;
+  background-color: white;
+  display: flex;
+  outline: none;
+`;
+
+const Styledtextarea = styled.textarea`
+  border-radius: 4px;
+  font-size: 22px;
+  margin-left: 10px;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  width: 80%;
+  height: 380px;
+  border: none;
+  background-color: white;
+  display: flex;
+  outline: none;
+`;
+
+const Innerbox = styled.div`
+  display: flex;
+  font-weight: bold;
+  width: 100%;
+  height: 60px;
+  background: #f8e2cf;
+  border-radius: 5px;
+  margin: 20px;
+  align-items: center;
+  justify-content: center;
+`;
+
+
+const Textareabox = styled.div`
+  display: flex;
+  font-weight: bold;
+  width: 100%;
+  height: 400px;
+  background: #f8e2cf;
+  border-radius: 5px;
+  margin: 20px;
+  align-items: center;
+  justify-content: center;
+`;
 
 const ShowpetCreate = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -127,26 +200,46 @@ const ShowpetCreate = () => {
   };
 
   return (
-    <form id="showpet-create" onSubmit={(e) => submitShowpet(e)}>
-      <input
+    <div id='showpet-create'>
+      <div id='showpet-create-lottie'> 
+        <Lottie animationData={proud} style={{'width':'150px'}}/>
+        <h1 style={{'fontSize':'50px'}}>자랑글 작성하기</h1>
+      </div>
+      <form onSubmit={(e) => submitShowpet(e)}>
+      <Innerbox>
+        제목:
+        <StyledInput
         ref={titleRef}
         className="show-title"
         type="text"
         placeholder="제목을 입력하세요"
-      />
-      <input
+        />
+      </Innerbox>
+
+      <Innerbox>
+        이름:
+        <StyledInput 
         ref={nameRef}
         className="show-name"
         type="text"
         placeholder="이름을 입력하세요"
-      />
-      <textarea
+        />
+      </Innerbox>
+
+      <Textareabox>
+        내용:
+        <Styledtextarea 
         ref={contentRef}
         className="show-content"
         type="text"
         placeholder="내용을 입력하세요"
-      />
-      <input
+        />
+      </Textareabox>
+
+      <Innerbox>
+        사진업로드
+        <input
+        style={{'marginLeft':'20px'}}
         type="file"
         accept="image/*"
         id="upload-file"
@@ -154,9 +247,40 @@ const ShowpetCreate = () => {
         onChange={(e) => {
           changeFiles(e);
         }}
-      ></input>
-      <button>작성완료</button>
-    </form>
+        />
+      </Innerbox>
+      </form>
+    </div>
+    // <form id="showpet-create" onSubmit={(e) => submitShowpet(e)}>
+    //   <input
+    //     ref={titleRef}
+    //     className="show-title"
+    //     type="text"
+    //     placeholder="제목을 입력하세요"
+    //   />
+    //   <input
+    //     ref={nameRef}
+    //     className="show-name"
+    //     type="text"
+    //     placeholder="이름을 입력하세요"
+    //   />
+    //   <textarea
+    //     ref={contentRef}
+    //     className="show-content"
+    //     type="text"
+    //     placeholder="내용을 입력하세요"
+    //   />
+    //   <input
+    //     type="file"
+    //     accept="image/*"
+    //     id="upload-file"
+    //     multiple={true}
+    //     onChange={(e) => {
+    //       changeFiles(e);
+    //     }}
+    //   ></input>
+    //   <button>작성완료</button>
+    // </form>
   );
 };
 

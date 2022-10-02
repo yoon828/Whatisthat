@@ -25,7 +25,41 @@ const FirstAidPage = () => {
                 <Lottie animationData={emergence} style={{'width':'200px'}}></Lottie>
                 <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>위급상황에 아래와 같이 대처하세요</h1>
             </div>
-            <Container>
+            <div className='container' style={{'display':'flex'}}>
+                <div className='container text-center' id='box'>
+                    <br></br>
+                    <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>의식이 없을 때</p>
+                    <img className='animalImg' src='/conciousness.jpg'></img><br></br>
+                    <Button className='mt-4' id='btn'
+                    onClick={()=>{
+                        setShow1(true)
+                    }}
+                    >대처법 보기</Button>
+                </div>
+
+                <div className='container text-center' id='box'>
+                    <br></br>
+                    <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>기도에 이물질이 들어갔을 때</p>
+                    <img className='animalImg1' src='/airway.jpg'></img><br></br>
+                    <Button className='mt-4' id='btn'
+                    onClick={()=>{
+                        setShow2(true)
+                    }}
+                    >대처법 보기</Button>
+                </div>
+
+                <div className='container text-center' id='box'>
+                    <br></br>
+                    <p style={{'fontSize':'35px', 'fontFamily':'Kotra'}}>화상을 입었을 때</p>
+                    <img className='animalImg2' src='/burn.jpg'></img><br></br>
+                    <Button className='mt-4' id='btn'
+                    onClick={()=>{
+                        setShow3(true)
+                    }}
+                    >대처법 보기</Button>
+                </div>
+            </div>
+            {/* <Container id='first-aid-box'>
             <br></br>
             <br></br>
             <Row>
@@ -68,7 +102,7 @@ const FirstAidPage = () => {
                     </div>
                 </Col>
             </Row>
-            </Container>
+            </Container> */}
 
             <Modal className='modal' size='lg' show={show1} onHide={handleClose1}>
                 <Modal.Header closeButton id='modal-header'>

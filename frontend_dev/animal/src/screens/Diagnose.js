@@ -225,7 +225,7 @@ const Diagnose = () => {
                 <StyledBtn
                 id = 'diagnoseBtn'
                 onClick={()=>{
-                    if (info.type && info.part && info.imgUrl && info.name) {
+                    if (name && part && img && type) {
                         let formData = new FormData();
                         formData.append("uploadFile", file, img);
                         setInfo(info.type=type)

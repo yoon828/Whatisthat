@@ -61,12 +61,12 @@ function LostCreate() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      navigate(`/lost/list`);
-    }
+    // if (form.checkValidity() === false) {
+    //   event.stopPropagation();
+    //   navigate(`/lost/list`);
+    // }
     sendImage();
     // sendLost();
     setValidated(true);

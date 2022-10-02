@@ -1,21 +1,105 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./LostCreate.css";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { postLost, putLost } from "../../api/community";
+import { useNavigate } from "react-router-dom";
+import { postLost } from "../../api/community";
 import axios from "axios";
+import Lottie from "lottie-react";
+import lost from "./../../lotties/lost.json";
+import styled from "styled-components";
 
-function LostCreate() {
+const HeaderDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TitleDiv = styled.div`
+  margin-left: 20px;
+`;
+const FlexOneDiv = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+`;
+
+const StyledInput = styled.input`
+  border-radius: 4px;
+  font-size: 22px;
+  margin-left: 10px;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: white;
+  display: flex;
+  outline: none;
+  margin-right: 12px;
+  padding: 0 6px;
+`;
+
+const Innerbox = styled.div`
+  display: flex;
+  font-weight: bold;
+  width: 100%;
+  height: 60px;
+  background: #f8e2cf;
+  border-radius: 5px;
+  margin: 0 0 8px;
+  align-items: center;
+  justify-content: space-between;
+`;
+const Textareabox = styled.div`
+  display: flex;
+  font-weight: bold;
+  width: 100%;
+  height: 160px;
+  background: #f8e2cf;
+  border-radius: 5px;
+  margin: 20px 0;
+  align-items: center;
+`;
+
+const Styledtextarea = styled.textarea`
+  border-radius: 4px;
+  font-size: 22px;
+  margin: 0 10px;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  height: 130px;
+  border: none;
+  background-color: white;
+  display: flex;
+  outline: none;
+`;
+
+const StyledBtn = styled.button`
+  text-align: center;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  &:focus {
+    box-shadow: 0px 0px 4px 3px #ffae6d;
+  }
+`;
+
+const BtnDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+`;
+
+const LostCreate = () => {
   const titleRef = useRef(null);
   const nameRef = useRef(null);
-  const contentRef = useRef(null);
-  const genderRef = useRef(null);
   const ageRef = useRef(null);
   const weightRef = useRef(null);
   const kindRef = useRef(null);
@@ -25,64 +109,22 @@ function LostCreate() {
   const etcRef = useRef(null);
   const lost_dateRef = useRef(null);
 
-  const [isEdit, setIsEdit] = useState(false);
   const [files, setFiles] = useState([]);
   const [filenames, setFilenames] = useState([]);
-  const location = useLocation();
   const [type, setType] = useState(0);
 
   const imgServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL;
   let serverName = [];
 
-  const [validated, setValidated] = useState(false);
-  // const [startDate, setStartDate] = useState(new Date());
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (location.state) {
-      setIsEdit(true);
-      setting();
-    }
-  }, []);
-
-  const setting = () => {
-    const article = location.state;
-    titleRef.current.value = article.title;
-    nameRef.current.value = article.name;
-    contentRef.current.value = article.content;
-    genderRef.current.value = article.gender;
-    ageRef.current.value = article.age;
-    weightRef.current.value = article.weight;
-    kindRef.current.value = article.kind;
-    placeRef.current.value = article.place;
-    phoneRef.current.value = article.phone;
-    etcRef.current.value = article.etc;
-    lost_dateRef.current.value = article.lost_date;
-    payRef.current.value = article.pay;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.stopPropagation();
-    //   // navigate(`/lost/list`);
-    // }
-    sendImage();
-    // sendLost();
-    setValidated(true);
-  };
-
-  const sendImage = async () => {
+  const sendImage = async (e) => {
+    e.preventDefault();
     try {
       let formData = new FormData();
-      console.log(files);
-      console.log(filenames);
       for (let i = 0; i < files.length; i++) {
         formData.append("photos", files[i], filenames[i]);
       }
-      console.log(imgServerUrl);
       const { data } = await axios({
         url: `${imgServerUrl}/upload-multi`,
         method: "post",
@@ -109,47 +151,22 @@ function LostCreate() {
 
   const sendLost = async () => {
     try {
-      console.log(isEdit);
-      if (isEdit) {
-        const { data } = await putLost({
-          title: titleRef.current.value,
-          content: contentRef.current.value,
-          id: location.state.id,
-        });
-        let id = data.data.id;
-        alert("수정 되었습니다!");
-      } else {
-        // let datas = {
-        //   is_found: false,
-        //   title: titleRef.current.value,
-        //   name: nameRef.current.value,
-        //   gender: type,
-        //   age: ageRef.current.value,
-        //   weight: weightRef.current.value,
-        //   kind: kindRef.current.value,
-        //   place: placeRef.current.value,
-        //   phone: phoneRef.current.value,
-        //   etc: etcRef.current.value,
-        //   lost_date: lost_dateRef.current.value,
-        //   pay: payRef.current.value,
-        // };
-        // console.log(datas);
-        const { data } = await postLost({
-          is_found: false,
-          title: titleRef.current.value,
-          name: nameRef.current.value,
-          gender: type,
-          age: ageRef.current.value,
-          weight: weightRef.current.value,
-          kind: kindRef.current.value,
-          place: placeRef.current.value,
-          phone: phoneRef.current.value,
-          etc: etcRef.current.value,
-          lost_date: lost_dateRef.current.value,
-          pay: payRef.current.value,
-          imgs: filenames,
-        });
-        let id = data.data.id;
+      const { data } = await postLost({
+        is_found: false,
+        title: titleRef.current.value,
+        name: nameRef.current.value,
+        gender: type,
+        age: ageRef.current.value,
+        weight: weightRef.current.value,
+        kind: kindRef.current.value,
+        place: placeRef.current.value,
+        phone: phoneRef.current.value,
+        etc: etcRef.current.value,
+        lost_date: lost_dateRef.current.value,
+        pay: payRef.current.value,
+        imgs: filenames,
+      });
+      if (data.success) {
         alert("등록 되었습니다!");
         navigate(`/lost/list`);
       }
@@ -172,179 +189,167 @@ function LostCreate() {
     }
     setFilenames(filenames);
   };
-
   return (
     <div id="lost-create">
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <label>이미지</label>
-        <input
-          type="file"
-          accept="image/*"
-          id="lost-img"
-          multiple={true}
-          onChange={(e) => {
-            changeFiles(e);
-          }}
-        ></input>
-        <Row className="mb-2">
-          <Form.Group as={Col} md="3" controlId="validationCustom04">
-            <Form.Label>제목</Form.Label>
-            <Form.Control
-              type="text"
-              ref={titleRef}
-              placeholder="제목을 입력해 주세요"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>이름</Form.Label>
-            <Form.Control
+      <HeaderDiv id="showpet-lost-lottie">
+        <Lottie animationData={lost} style={{ width: "120px" }} />
+        <h1 style={{ fontSize: "50px" }}>실종 글 작성하기</h1>
+      </HeaderDiv>
+      <form onSubmit={(e) => sendImage(e)}>
+        <Innerbox>
+          <TitleDiv className="f_1">제목</TitleDiv>
+          <StyledInput
+            className="f_8"
+            type="text"
+            ref={titleRef}
+            placeholder="제목을 입력해 주세요"
+            required
+          />
+        </Innerbox>
+        <Innerbox>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">이름</TitleDiv>
+            <StyledInput
+              className="f_6"
               type="text"
               ref={nameRef}
               placeholder="이름을 입력해 주세요"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mb-2">
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form>
-              {["radio"].map((type) => (
-                <div key={`inline-${type}`} className="mb-3">
-                  <Form.Check
-                    inline
-                    onClick={() => {
-                      setType(0);
-                    }}
-                    label="수컷"
-                    name="group1"
-                    type={type}
-                    id={`inline-${type}-1`}
-                  />
-                  <Form.Check
-                    inline
-                    onClick={() => {
-                      setType(1);
-                    }}
-                    label="암컷"
-                    name="group1"
-                    value={1}
-                    type={type}
-                    id={`inline-${type}-2`}
-                  />
-                </div>
-              ))}
-            </Form>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>실종날짜</Form.Label>
-            <Form.Control
+          </FlexOneDiv>
+          <FlexOneDiv className="ai_cen">
+            {["radio"].map((type) => (
+              <div key={`inline-${type}`}>
+                <Form.Check
+                  inline
+                  onClick={() => {
+                    setType(0);
+                  }}
+                  label="수컷"
+                  name="group1"
+                  type={type}
+                  id={`inline-${type}-1`}
+                  checked
+                />
+                <Form.Check
+                  inline
+                  onClick={() => {
+                    setType(1);
+                  }}
+                  label="암컷"
+                  name="group1"
+                  value={1}
+                  type={type}
+                  id={`inline-${type}-2`}
+                />
+              </div>
+            ))}
+          </FlexOneDiv>
+        </Innerbox>
+        <Innerbox>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">실종날짜</TitleDiv>
+            <StyledInput
+              className="f_6"
               ref={lost_dateRef}
               type="text"
               placeholder="실종날짜"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mb-2">
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>나이</Form.Label>
-            <Form.Control
+          </FlexOneDiv>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">나이</TitleDiv>
+            <StyledInput
+              className="f_6"
               ref={ageRef}
               type="text"
               placeholder="나이"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>몸무게</Form.Label>
-            <Form.Control
+          </FlexOneDiv>
+        </Innerbox>
+        <Innerbox>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">몸무게</TitleDiv>
+            <StyledInput
+              className="f_6"
               ref={weightRef}
               type="text"
               placeholder="kg"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mb-2">
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>품종</Form.Label>
-            <Form.Control
+          </FlexOneDiv>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">품종</TitleDiv>
+            <StyledInput
+              className="f_6"
               ref={kindRef}
               type="text"
               placeholder="품종"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>실종장소</Form.Label>
-            <Form.Control
-              ref={placeRef}
-              type="text"
-              placeholder="장소"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className="mb-2">
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>연락처</Form.Label>
-            <Form.Control
+          </FlexOneDiv>
+        </Innerbox>
+        <Innerbox>
+          <TitleDiv className="f_1">실종장소</TitleDiv>
+          <StyledInput
+            className="f_8"
+            ref={placeRef}
+            type="text"
+            placeholder="장소"
+            required
+          />
+        </Innerbox>
+        <Innerbox>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">연락처</TitleDiv>
+            <StyledInput
+              className="f_6"
               ref={phoneRef}
               type="text"
               placeholder="000-0000-0000"
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>사례금</Form.Label>
-            <Form.Control ref={payRef} type="text" placeholder="" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <InputGroup className="text-field">
-          <InputGroup.Text>설명</InputGroup.Text>
-          <Form.Control ref={etcRef} as="textarea" aria-label="With textarea" />
-        </InputGroup>
-        <Form.Group className="mb-3">
-          <Form.Check
-            required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting."
-            feedbackType="invalid"
+          </FlexOneDiv>
+          <FlexOneDiv>
+            <TitleDiv className="f_2">사례금</TitleDiv>
+            <StyledInput
+              className="f_6"
+              ref={payRef}
+              type="text"
+              placeholder="00만원"
+              required
+            />
+          </FlexOneDiv>
+        </Innerbox>
+        <Textareabox>
+          <TitleDiv className="f_1">설명</TitleDiv>
+          <Styledtextarea
+            className="f_8"
+            ref={etcRef}
+            as="textarea"
+            aria-label="With textarea"
           />
-        </Form.Group>
-        <Button className="sub-btn" type="submit">
-          Submit form
-        </Button>
-      </Form>
+        </Textareabox>
+        <Innerbox>
+          <input
+            className="ml-10"
+            type="file"
+            accept="image/*"
+            id="lost-img"
+            multiple={true}
+            onChange={(e) => {
+              changeFiles(e);
+            }}
+          />
+        </Innerbox>
+        <BtnDiv>
+          <StyledBtn className="sub-btn" type="submit">
+            등록
+          </StyledBtn>
+        </BtnDiv>
+      </form>
     </div>
   );
-}
+};
 export default LostCreate;

@@ -61,3 +61,7 @@ export const putLost = (data) => {
 export const deleteLost = (id) => {
   return http.delete(`/lost/${id}`);
 };
+
+export const putIsFound = (data) => {
+  return http.put(`/lost/found`, data);
+};

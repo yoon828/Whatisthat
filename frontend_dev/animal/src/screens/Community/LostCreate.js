@@ -29,6 +29,7 @@ function LostCreate() {
   const [files, setFiles] = useState([]);
   const [filenames, setFilenames] = useState([]);
   const location = useLocation();
+  const [type, setType] = useState(0);
 
   const imgServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL;
   let serverName = [];
@@ -108,6 +109,7 @@ function LostCreate() {
 
   const sendLost = async () => {
     try {
+      console.log(isEdit);
       if (isEdit) {
         const { data } = await putLost({
           title: titleRef.current.value,
@@ -117,12 +119,26 @@ function LostCreate() {
         let id = data.data.id;
         alert("수정 되었습니다!");
       } else {
+        // let datas = {
+        //   is_found: false,
+        //   title: titleRef.current.value,
+        //   name: nameRef.current.value,
+        //   gender: type,
+        //   age: ageRef.current.value,
+        //   weight: weightRef.current.value,
+        //   kind: kindRef.current.value,
+        //   place: placeRef.current.value,
+        //   phone: phoneRef.current.value,
+        //   etc: etcRef.current.value,
+        //   lost_date: lost_dateRef.current.value,
+        //   pay: payRef.current.value,
+        // };
+        // console.log(datas);
         const { data } = await postLost({
           is_found: false,
           title: titleRef.current.value,
           name: nameRef.current.value,
-          content: contentRef.current.value,
-          gender: genderRef.current.value,
+          gender: type,
           age: ageRef.current.value,
           weight: weightRef.current.value,
           kind: kindRef.current.value,
@@ -131,9 +147,11 @@ function LostCreate() {
           etc: etcRef.current.value,
           lost_date: lost_dateRef.current.value,
           pay: payRef.current.value,
+          imgs: filenames,
         });
         let id = data.data.id;
         alert("등록 되었습니다!");
+        navigate(`/lost/list`);
       }
     } catch (error) {
       console.log(error);
@@ -201,14 +219,19 @@ function LostCreate() {
                 <div key={`inline-${type}`} className="mb-3">
                   <Form.Check
                     inline
+                    onClick={() => {
+                      setType(0);
+                    }}
                     label="수컷"
                     name="group1"
-                    value={0}
                     type={type}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
                     inline
+                    onClick={() => {
+                      setType(1);
+                    }}
                     label="암컷"
                     name="group1"
                     value={1}
@@ -307,11 +330,7 @@ function LostCreate() {
         </Row>
         <InputGroup className="text-field">
           <InputGroup.Text>설명</InputGroup.Text>
-          <Form.Control
-            ref={contentRef}
-            as="textarea"
-            aria-label="With textarea"
-          />
+          <Form.Control ref={etcRef} as="textarea" aria-label="With textarea" />
         </InputGroup>
         <Form.Group className="mb-3">
           <Form.Check

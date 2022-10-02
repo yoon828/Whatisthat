@@ -1,5 +1,6 @@
 package com.ssafy.meongnyang.db.entity;
 
+import com.ssafy.meongnyang.api.request.IsFoundUpdateDto;
 import com.ssafy.meongnyang.api.request.LostUpdateDto;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.*;
@@ -82,5 +83,9 @@ public class Lost {
         this.etc = lostUpdateDto.getEtc();
         this.is_found = lostUpdateDto.getIs_found();
         this.name = lostUpdateDto.getName();
+    }
+
+    public void updateIsFound(Boolean is_found) {
+        this.is_found = is_found;
     }
 }

@@ -3,9 +3,9 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.DiagnoseRegisterDto;
 import com.ssafy.meongnyang.api.response.DiagnoseListResponseDto;
 import com.ssafy.meongnyang.api.response.DiagnoseResponseDto;
-import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
-import com.ssafy.meongnyang.common.exception.handler.DiagnoseNotFoundException;
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.AccessDeniedException;
+import com.ssafy.meongnyang.common.exception.DiagnoseNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.Diagnose;
 import com.ssafy.meongnyang.db.entity.User;
@@ -98,7 +98,6 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     @Override
     @Transactional(readOnly = true)
     public DiagnoseResponseDto getDiagnose(String accessToken, long id) {
-        log.info("iddddddddddd  " + id);
         String uid = tokenProvider.getUserId(accessToken);
         Diagnose diagnose = diagnoseRepository.findById(id).orElseThrow(DiagnoseNotFoundException::new);
 

@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.RedisService;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.User;

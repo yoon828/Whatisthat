@@ -1,6 +1,6 @@
 package com.ssafy.meongnyang.common.util;
 
-import com.ssafy.meongnyang.common.exception.handler.TokenNotFoundException;
+import com.ssafy.meongnyang.common.exception.TokenNotFoundException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

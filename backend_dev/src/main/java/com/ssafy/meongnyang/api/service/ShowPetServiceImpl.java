@@ -3,9 +3,9 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.ShowPetRegisterDto;
 import com.ssafy.meongnyang.api.request.ShowPetUpdateDto;
 import com.ssafy.meongnyang.api.response.*;
-import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
-import com.ssafy.meongnyang.common.exception.handler.ShowPetNotFoundException;
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.AccessDeniedException;
+import com.ssafy.meongnyang.common.exception.ShowPetNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.ShowPet;
 import com.ssafy.meongnyang.db.entity.ShowPetImg;
@@ -171,8 +171,8 @@ public class ShowPetServiceImpl implements ShowPetService {
     @Override
     @Transactional(readOnly = true)
     public List<ShowPetListResponseDto> getUserShowPetList(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
-        return showPetRepository.findAllByUserId(Long.parseLong(id))
+        String uid = tokenProvider.getUserId(accessToken);
+        return showPetRepository.findAllByUserId(Long.parseLong(uid))
                 .stream()
                 .map(showPet -> ShowPetListResponseDto.builder()
                         .id(showPet.getId())

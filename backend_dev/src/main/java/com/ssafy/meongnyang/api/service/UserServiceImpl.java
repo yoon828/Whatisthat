@@ -2,7 +2,7 @@ package com.ssafy.meongnyang.api.service;
 
 import com.ssafy.meongnyang.api.request.UserUpdateDto;
 import com.ssafy.meongnyang.api.response.*;
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.RedisService;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.User;
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetailResponseDto getUserDetail(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
-        User user = userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
         List<LostResponseDto> lostList = user.getLostList()
                 .stream()
                 .map(lost -> LostResponseDto.builder()
@@ -111,10 +111,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
-        redisService.deleteValues(id);
-        userRepository.findById(Long.parseLong(id)).orElseThrow(UserNotFoundException::new);
-        userRepository.deleteById(Long.parseLong(id));
+        String uid = tokenProvider.getUserId(accessToken);
+        userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
+        userRepository.deleteById(Long.parseLong(uid));
+        redisService.deleteValues(uid);
         return true;
     }
 
@@ -122,14 +122,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public TokenResponseDto reIssue(String accessToken, String refreshToken) {
         tokenProvider.validateToken(refreshToken);
-        String id = tokenProvider.getUserId(refreshToken);
-        String findRefreshToken = redisService.getValue(id);
+        String uid = tokenProvider.getUserId(refreshToken);
+        String findRefreshToken = redisService.getValue(uid);
 
         if (findRefreshToken == null || !findRefreshToken.equals(refreshToken)) {
             throw new UserNotFoundException("refreshToken을 찾을 수 없습니다.");
         } else {
             return TokenResponseDto.builder()
-                    .accessToken(tokenProvider.createAccessToken(id))
+                    .accessToken(tokenProvider.createAccessToken(uid))
                     .build();
         }
     }
@@ -137,13 +137,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserResponseDto userInfoByToken(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
+        String uid = tokenProvider.getUserId(accessToken);
 
-        User user = userRepository.findById(Long.parseLong(id))
+        User user = userRepository.findById(Long.parseLong(uid))
                 .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
 
         return UserResponseDto.builder()
-                .id(Long.parseLong(id))
+                .id(Long.parseLong(uid))
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
@@ -154,10 +154,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
+        String uid = tokenProvider.getUserId(accessToken);
 
-        userRepository.findById(Long.parseLong(id))
+        userRepository.findById(Long.parseLong(uid))
                 .orElseThrow(() -> new UserNotFoundException("회원 정보를 찾을 수 없습니다."));
-        redisService.deleteValues(id);
+        redisService.deleteValues(uid);
     }
 }

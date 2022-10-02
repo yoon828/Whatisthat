@@ -1,4 +1,4 @@
-package com.ssafy.meongnyang.common.exception.handler;
+package com.ssafy.meongnyang.common.exception;
 
 public class LostNotFoundException extends RuntimeException {
     public LostNotFoundException() {super("해당 실종 글을 찾을 수 없습니다.");}

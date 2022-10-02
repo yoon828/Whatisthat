@@ -1,4 +1,4 @@
-package com.ssafy.meongnyang.common.exception.handler;
+package com.ssafy.meongnyang.common.exception;
 
 public class DiagnoseNotFoundException extends RuntimeException {
     public DiagnoseNotFoundException() {super("해당 진단 내역을 찾을 수 없습니다.");}

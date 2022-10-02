@@ -1,4 +1,4 @@
-package com.ssafy.meongnyang.common.exception.handler;
+package com.ssafy.meongnyang.common.exception;
 
 public class TokenNotFoundException extends IllegalArgumentException {
     public TokenNotFoundException() {

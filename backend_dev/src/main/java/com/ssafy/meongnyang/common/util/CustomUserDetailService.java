@@ -1,6 +1,6 @@
 package com.ssafy.meongnyang.common.util;
 
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.model.CustomUserDetails;
 import com.ssafy.meongnyang.db.entity.User;
 import com.ssafy.meongnyang.db.repository.UserRepository;

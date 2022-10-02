@@ -1,12 +1,13 @@
 package com.ssafy.meongnyang.api.service;
 
+import com.ssafy.meongnyang.api.request.IsFoundUpdateDto;
 import com.ssafy.meongnyang.api.request.LostRegisterDto;
 import com.ssafy.meongnyang.api.request.LostUpdateDto;
 import com.ssafy.meongnyang.api.response.LostImgResponseDto;
 import com.ssafy.meongnyang.api.response.LostResponseDto;
-import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
-import com.ssafy.meongnyang.common.exception.handler.LostNotFoundException;
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.AccessDeniedException;
+import com.ssafy.meongnyang.common.exception.LostNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.Lost;
 import com.ssafy.meongnyang.db.entity.LostImg;
@@ -136,6 +137,45 @@ public class LostServiceImpl implements LostService {
     }
 
     @Override
+    public LostResponseDto updateIsFound(String accessToken, IsFoundUpdateDto isFoundUpdateDto) {
+        String uid = tokenProvider.getUserId(accessToken);
+        Lost lost = lostRepository.findById(isFoundUpdateDto.getId()).orElseThrow(LostNotFoundException::new);
+
+        if (Long.parseLong(uid) != lost.getUser().getId()) {
+            throw new AccessDeniedException();
+        }
+
+        lost.updateIsFound(isFoundUpdateDto.getIs_found());
+
+        LostResponseDto lostResponseDto = LostResponseDto.builder()
+                .id(lost.getId())
+                .title(lost.getTitle())
+                .user_nickname(lost.getUser().getNickname())
+                .gender(lost.getGender())
+                .lost_date(lost.getLost_date())
+                .age(lost.getAge())
+                .weight(lost.getWeight())
+                .kind(lost.getKind())
+                .place(lost.getPlace())
+                .phone(lost.getPhone())
+                .pay(lost.getPay())
+                .etc(lost.getEtc())
+                .is_found(lost.getIs_found())
+                .name(lost.getName())
+                .date(lost.getDate())
+                .imgs(lost.getLostImgList()
+                        .stream()
+                        .map(lostImg -> LostImgResponseDto.builder()
+                                .id(lostImg.getId())
+                                .lost_id(lostImg.getLost().getId())
+                                .img_url(lostImg.getImg_url())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+        return lostResponseDto;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<LostResponseDto> getLostList() {
 
@@ -185,8 +225,8 @@ public class LostServiceImpl implements LostService {
     @Override
     @Transactional(readOnly = true)
     public List<LostResponseDto> getUserLostList(String accessToken) {
-        String id = tokenProvider.getUserId(accessToken);
-        return lostRepository.findAllByUserId(Long.parseLong(id))
+        String uid = tokenProvider.getUserId(accessToken);
+        return lostRepository.findAllByUserId(Long.parseLong(uid))
                 .stream()
                 .map(LostServiceImpl::apply)
                 .collect(Collectors.toList());

@@ -3,10 +3,10 @@ package com.ssafy.meongnyang.api.service;
 import com.ssafy.meongnyang.api.request.CommentRegisterDto;
 import com.ssafy.meongnyang.api.request.CommentUpdateDto;
 import com.ssafy.meongnyang.api.response.CommentResponseDto;
-import com.ssafy.meongnyang.common.exception.handler.AccessDeniedException;
-import com.ssafy.meongnyang.common.exception.handler.CommentNotFoundException;
-import com.ssafy.meongnyang.common.exception.handler.ShowPetNotFoundException;
-import com.ssafy.meongnyang.common.exception.handler.UserNotFoundException;
+import com.ssafy.meongnyang.common.exception.AccessDeniedException;
+import com.ssafy.meongnyang.common.exception.CommentNotFoundException;
+import com.ssafy.meongnyang.common.exception.ShowPetNotFoundException;
+import com.ssafy.meongnyang.common.exception.UserNotFoundException;
 import com.ssafy.meongnyang.common.util.TokenProvider;
 import com.ssafy.meongnyang.db.entity.Comment;
 import com.ssafy.meongnyang.db.entity.ShowPet;
@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,7 +85,6 @@ public class CommentServiceImpl implements CommentService {
                         .user_nickname(comment.getUser().getNickname())
                         .date(comment.getDate()).build())
                 .collect(Collectors.toList());
-//        Collections.reverse(list);
 
         return list;
     }

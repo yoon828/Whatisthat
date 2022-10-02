@@ -61,12 +61,12 @@ function LostCreate() {
   };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      navigate(`/lost/list`);
-    }
+    event.preventDefault();
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.stopPropagation();
+    //   // navigate(`/lost/list`);
+    // }
     sendImage();
     // sendLost();
     setValidated(true);
@@ -75,9 +75,12 @@ function LostCreate() {
   const sendImage = async () => {
     try {
       let formData = new FormData();
+      console.log(files);
+      console.log(filenames);
       for (let i = 0; i < files.length; i++) {
         formData.append("photos", files[i], filenames[i]);
       }
+      console.log(imgServerUrl);
       const { data } = await axios({
         url: `${imgServerUrl}/upload-multi`,
         method: "post",
@@ -87,6 +90,7 @@ function LostCreate() {
         },
         data: formData,
       });
+      console.log(data);
       if (data.status) {
         serverName = [];
         data.data.map((img, idx) => {
@@ -158,6 +162,7 @@ function LostCreate() {
           type="file"
           accept="image/*"
           id="lost-img"
+          multiple={true}
           onChange={(e) => {
             changeFiles(e);
           }}

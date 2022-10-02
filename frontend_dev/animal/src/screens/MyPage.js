@@ -56,15 +56,18 @@ const MyPage = () => {
             {
                 loading ? <Loading /> :
             
-            <div>
+            <div id='mypage-inner'>
             <div id='mypage-lottie'>
                 <Lottie animationData={profile} style={{'width':'80px'}}></Lottie>
                 <h1 style={{'fontFamily':'Kotra', 'fontSize':'60px'}}>{userInfo.name}님의 프로필</h1>
             </div>
+            <div>
+
+            </div>
             <Container>
                 <Row id='mypage'>
-                    <Col md={4}>
-                    <Card style={{ width: '22rem' }}>
+                    <Col>
+                    <Card id='mypage-card' style={{ width: '22rem' }}>
                     <Card.Img variant="top" src={userInfo.profile_img} />
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item id='mypage-text'>이름 : {userInfo.name}</ListGroup.Item>

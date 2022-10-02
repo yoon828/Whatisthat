@@ -47,21 +47,52 @@ const DiagnosisList = () => {
                     diagnosisList.length === 0 ? <Empty /> :
                     <div>
                         <ListGroup variant="flush">
-                <ListGroup.Item id='header'>
-                <Container>
-                <Row>
-                    <Col className='text-center'>반려동물 이름</Col>
-                    <Col className='text-center'>병명</Col>
-                    <Col className='text-center'>진단일시</Col>
-                    <Col className='text-center'>상세정보/삭제</Col>
-                </Row>
-                </Container>
-                </ListGroup.Item>
+                            <ListGroup.Item id='header'>
+                                <div id='fix'>
+                                    <div className='text-center'>반려동물 이름</div>
+                                    <div className='text-center'>병명</div>
+                                    <div className='text-center'>진단일시</div>
+                                    <div className='text-center'>상세정보/삭제</div>
+                                </div>
+                            {/* <Container>
+                            <Row>
+                                <Col className='text-center'>반려동물 이름</Col>
+                                <Col className='text-center'>병명</Col>
+                                <Col className='text-center'>진단일시</Col>
+                                <Col className='text-center'>상세정보/삭제</Col>
+                            </Row>
+                            </Container> */}
+                            </ListGroup.Item>
                 {diagnosisList.map((item)=>
                     (
                     <div>
                         <ListGroup.Item id='list-body'>
-                        <Container>
+                            <div id='fix'>
+                                <div className='text-center'>{item.name}</div>
+                                <div className='text-center'>{item.disease_name}</div>
+                                <div className='text-center'>{Date(item.date).substring(0, 15)}</div>
+                                <div className='text-center'>
+                                <button id='detailBtn' onClick={()=>{
+                                document.location.href=`/diagnosedetail/${item.id}`
+                                }}>상세정보</button>
+                                <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                axios({
+                                    url : `http://j7c101.p.ssafy.io:8080/api/diagnose/${item.id}`,
+                                    method: 'delete',
+                                    headers : {
+                                        authorization : `Bearer ${accessToken}`
+                                    }
+                                })
+                                .then(()=>{
+                                    alert('해당 내역이 삭제되었습니다.')
+                                })
+                                .catch((err)=>{
+                                    console.log(err)
+                                })
+                            }}>삭제</button>
+                                </div>
+                            </div>
+                        {/* <Container>
                         <Row>
                             <Col className='text-center'>{item.name}</Col>
                             <Col className='text-center'>{item.disease_name}</Col>
@@ -86,7 +117,7 @@ const DiagnosisList = () => {
                             }}>삭제</button>
                             </Col>
                         </Row>
-                        </Container>
+                        </Container> */}
                         </ListGroup.Item>
                     </div>
                 ))}

@@ -10,4 +10,14 @@
     margin-bottom: 40px;
 }
 
+/* #header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
 
+#fix {
+    display: flex;
+    justify-content: space-around;
+}

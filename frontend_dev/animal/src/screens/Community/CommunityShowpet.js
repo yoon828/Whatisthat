@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./CommunityShowpetDetail.css";
-import { useSelector } from "react-redux";
 import Comments from "../../components/comments/Comments";
 import CommentInput from "../../components/comments/CommentInput";
 import { getShowList } from "../../api/community";

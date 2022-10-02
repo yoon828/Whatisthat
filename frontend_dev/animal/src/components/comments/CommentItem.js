@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import "./CommentItem.css";
 import Button from "react-bootstrap/Button";
 import { transform } from "../../function/functions";
@@ -9,9 +8,6 @@ import { deleteShowpetComment, putShowpetComment } from "../../api/community";
 function CommentsItem({ item, isAuthor, getComments }) {
   const [text, setText] = useState("");
   const [editInput, setEditInput] = useState(false);
-  const commentRef = useRef(null);
-
-  const user = useSelector((state) => state.user.value);
 
   const deleteComment = async () => {
     if (window.confirm("삭제하시겠습니까?")) {

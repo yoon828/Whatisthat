@@ -45,3 +45,23 @@ export const putShowpetComment = (data) => {
 export const deleteShowpetComment = (id) => {
   return http.delete(`/show-pet/comment/${id}`);
 };
+
+export const getLostList = () => {
+  return http.get(`/lost/list`);
+};
+
+export const postLost = (data) => {
+  return http.post(`/lost`, data);
+};
+
+export const putLost = (data) => {
+  return http.put(`/lost`, data);
+};
+
+export const deleteLost = (id) => {
+  return http.delete(`/lost/${id}`);
+};
+
+export const putIsFound = (data) => {
+  return http.put(`/lost/found`, data);
+};

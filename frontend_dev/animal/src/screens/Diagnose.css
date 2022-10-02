@@ -1,8 +1,3 @@
-@font-face {
-    font-family: 'Kotra';
-    src: url("./../fonts/KOTRA\ HOPE.ttf");
-    font-weight: 50px;
-  }
 
 #lottie-text {
     display: flex;
@@ -15,7 +10,6 @@
     width: 300px;
     border-radius: 5%;
     margin: auto;
-    font-family: 'Kotra';
     margin-top: 50px;
 }
 
@@ -45,7 +39,6 @@
 }
 
 #loading-style {
-    font-family: 'Kotra';
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,7 +53,6 @@
 }
 
 #diagnose-result {
-    font-family: 'Kotra';
     font-size: 25px;
     display: flex;
     flex-direction: column;

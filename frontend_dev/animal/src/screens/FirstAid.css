@@ -1,8 +1,4 @@
-@font-face {
-    font-family: 'Kotra';
-    src: url("./../fonts/KOTRA\ HOPE.ttf");
-    font-weight: 50px;
-  }
+
 
 .animalImg {
     width: 250px;
@@ -33,7 +29,6 @@
     color: black;
     border-color: white;
     border-width: 2px;
-    font-family: 'Kotra';
     font-size: 20px;
 }
 

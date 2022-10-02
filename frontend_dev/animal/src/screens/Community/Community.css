@@ -23,10 +23,14 @@ button {
   font-size: 40px;
 }
 
-.banner__showpet {
+.banner-item {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
 }
 
-.banner__lost {
+.active {
+  border-bottom: 2px solid #f5c6aa !important;
 }
 
 .sort-list {

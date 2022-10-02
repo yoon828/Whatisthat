@@ -1,5 +1,4 @@
 import "./App.css";
-import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import MainNavBar from "./components/MainNavBar";
 import CommunityPage from "./screens/Community/Community";
@@ -17,33 +16,8 @@ import ArticleList from "./screens/ArticleList";
 import DiagnoseDetail from "./screens/DiagnoseDetail";
 import ProfileUpdate from "./screens/ProfileUpdate";
 import LoginCallback from "./screens/LoginCallback";
-import axios from "axios";
 
 function App() {
-  const token = localStorage.getItem("accessToken");
-
-  useEffect(() => {
-    // localStorage.setItem(
-    //   "accessToken",
-    //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjY0NjI0MDU3LCJleHAiOjE2NjQ2MjU4NTd9.K93v3p4xXRo6sQhTqC4z9b9SYjqqaKAN3FSuXe0onFGeVVpq3T1JNmQWEAsUW3EzVtj9-s79oX1I_y7atsyK1g"
-    // );
-    if (token) {
-      // axios({
-      //   url: "http://j7c101.p.ssafy.io:8080/api/user", // 회원정보 조회 api 주소
-      //   method: "get",
-      //   headers: {
-      //     Token: token, // 사용자의 토큰값
-      //   },
-      // })
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-    }
-  }, []);
-
   return (
     <>
       <MainNavBar />

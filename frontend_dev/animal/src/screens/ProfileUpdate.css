@@ -1,7 +1,3 @@
-@font-face {
-    font-family: 'Kotra';
-    src: url("./../fonts/KOTRA\ HOPE.ttf");
-  }
 
 #update-box {
   display: flex;
@@ -31,7 +27,6 @@
 
 #update {
   display: flex;
-  font-family: 'Kotra';
 }
 
 #updateBtn {

@@ -63,8 +63,7 @@ function CommunityLostDetail({ lost }) {
     <div className="lost">
       <img
         className="lost-img"
-        // src={`${imgServerUrl}/${lost.imgs[0].img_url}`}
-        src="https://img.khan.co.kr/news/2019/11/29/l_2019112901003607500286631.jpg"
+        src={`${imgServerUrl}/${lost.imgs[0].img_url}`}
         alt="dummy"
       />
       <div className="lost-content">

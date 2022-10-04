@@ -25,3 +25,8 @@
     align-items: center;
     margin-bottom: 40px;
 }
+
+#article-fix {
+    display: flex;
+    justify-content: space-around;
+}

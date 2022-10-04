@@ -238,7 +238,7 @@ const ShowpetCreate = () => {
           />
         </Textareabox>
         <Innerbox>
-          사진업로드
+          사진업로드:
           <input
             style={{ marginLeft: "20px" }}
             type="file"

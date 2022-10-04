@@ -27,7 +27,6 @@ const StyledBtn = styled.button`
     box-shadow: 0px 0px 4px 3px #ffae6d;
   }
   margin-top: 10px;
-  margin-left: 80px;
 `;
 
 const StyledInput = styled.input`
@@ -43,17 +42,6 @@ const StyledInput = styled.input`
   outline: none;
 `;
 
-const Innerbox = styled.div`
-  display: flex;
-  font-weight: bold;
-  width: 100%;
-  height: 60px;
-  background: #f8e2cf;
-  border-radius: 5px;
-  margin: 20px;
-  align-items: center;
-  justify-content: center;
-`;
 
 const ProfileUpdate = () => {
   const accessToken = localStorage.getItem("accessToken");
@@ -98,8 +86,8 @@ const ProfileUpdate = () => {
           </div>
           <Container>
             <Row id="update">
-              <Col md={4}>
-                <Card id="update-card" style={{ width: "22rem" }}>
+              <Col>
+                <Card id="update-card" style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={userInfo.profile_img} />
                   <ListGroup className="list-group-flush">
                     <ListGroup.Item id="mypage-text">
@@ -119,7 +107,7 @@ const ProfileUpdate = () => {
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>
-                <div>
+                <div id='updateBtns'>
                   <label id="updateBtn" for="input-file">
                     프로필 이미지 업로드
                   </label>

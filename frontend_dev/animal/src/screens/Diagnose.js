@@ -104,7 +104,7 @@ const Diagnose = () => {
 
             <Innerbox id="text">
               종:
-              <Form className="m-4">
+              <Form style={{'marginLeft':'20px'}}>
                 {["radio"].map((type) => (
                   <div key={`inline-${type}`}>
                     <Form.Check
@@ -134,7 +134,7 @@ const Diagnose = () => {
 
             <Innerbox id="text">
               아픈부위:
-              <Form className="m-4">
+              <Form style={{'marginLeft':'20px'}}>
                 {["radio"].map((type) => (
                   <div key={`inline-${type}`}>
                     <Form.Check

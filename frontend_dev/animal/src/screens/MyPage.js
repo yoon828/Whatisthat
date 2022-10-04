@@ -64,7 +64,7 @@ const MyPage = () => {
           <Container>
             <Row id="mypage">
               <Col>
-                <Card id="mypage-card" style={{ width: "22rem" }}>
+                <Card id="mypage-card" style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={userInfo.profile_img} />
                   <ListGroup className="list-group-flush">
                     <ListGroup.Item id="mypage-text">

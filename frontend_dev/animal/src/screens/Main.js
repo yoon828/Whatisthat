@@ -32,7 +32,7 @@ function Main() {
     <div id='main-box1'>
       <div id='main-lottie'>
         <Lottie animationData={pet} style={{'width':'200px'}}></Lottie>
-        <h1 style={{'fontSize':'40px', 'textAlign':'center'}}><p>반려동물 인공지능 진단 서비스</p><p>이게멍냥</p></h1>
+        <h1 style={{'fontSize':'60px', 'textAlign':'center'}}><p>반려동물 인공지능 진단 서비스</p><p>이게멍냥</p></h1>
       </div>
       <Horizontal />
       <div id='description-1'>
@@ -59,7 +59,7 @@ function Main() {
                 alt="First slide"
               />
               <Carousel.Caption>
-                <h3 style={{'fontSize':'35px'}}>반려동물의 정보와 아픈부위 사진을 업로드해주세요</h3>
+                <h3 style={{'fontSize':'30px'}}>반려동물의 정보와 아픈부위 사진을 업로드해주세요</h3>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={4000}>
@@ -69,7 +69,7 @@ function Main() {
                 alt="Second slide"
               />
               <Carousel.Caption>
-                <h3 style={{'fontSize':'35px'}}>인공지능이 질병을 분석해 결과를 보여줄거에요</h3>
+                <h3 style={{'fontSize':'30px'}}>인공지능이 질병을 분석해 결과를 보여줄거에요</h3>
               </Carousel.Caption>
             </Carousel.Item >
             <Carousel.Item interval={4000}>
@@ -79,7 +79,7 @@ function Main() {
                 alt="Third slide"
               />
               <Carousel.Caption>
-                <h3 style={{'fontSize':'35px'}}>진단결과를 저장할 수도 있어요</h3>
+                <h3 style={{'fontSize':'30px'}}>진단결과를 저장할 수도 있어요</h3>
               </Carousel.Caption>
             </Carousel.Item>
 
@@ -90,7 +90,7 @@ function Main() {
                 alt="Third slide"
               />
               <Carousel.Caption>
-                <h3 style={{'fontSize':'35px'}}>커뮤니티에서 반려동물을 자랑하고 실종신고도 할 수 있어요</h3>
+                <h3 style={{'fontSize':'30px'}}>커뮤니티에서 반려동물을 자랑하고 실종신고도 할 수 있어요</h3>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>

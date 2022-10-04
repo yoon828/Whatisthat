@@ -44,7 +44,7 @@ spring:
 
 jwt:
   secret: cb3b8f5a853df90748cfcf5e2980c28db0c932e0dbf7d0686bc211e155324f6f85926583b183a57e7e91939666a2242b7c776c1420d2a28b073cae39c7373508
-  access-token-validity-in-seconds: 1800
+  access-token-validity-in-seconds: 43200
   refresh-token-validity-in-seconds: 86400
 
 front:

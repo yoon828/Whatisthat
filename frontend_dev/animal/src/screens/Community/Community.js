@@ -3,6 +3,8 @@ import "./Community.css";
 import LostDetailList from "./LostDetailList";
 import { Link, useLocation } from "react-router-dom";
 import CommunityShowpet from "./CommunityShowpet";
+import Lottie from 'lottie-react'
+import comm from '../../lotties/comm.json'
 
 function Community() {
   const [comType, setComType] = useState("showpet");
@@ -18,11 +20,13 @@ function Community() {
   return (
     <div id="community">
       <div className="background__banner">
-        <img
+        <Lottie animationData={comm} style={{'width': '250px'}}/>
+        <h1 style={{'fontSize':'100px', 'marginLeft':'40px'}}>커뮤니티</h1>
+        {/* <img
           className="banner-img"
-          src=".././CombannerImg.jpg"
+          src="/ComBannerimg.jpg"
           alt="combannerimg"
-        />
+        /> */}
       </div>
       <div className="item-content">
         <div className="banners">

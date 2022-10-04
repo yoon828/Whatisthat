@@ -6,8 +6,8 @@ import axios from "axios";
 
 const CardList = ({ cards }) => {
   return (
-    <div id="card-list">
-      <div>
+    <div>
+      <div id="card-list">
         {cards.map((card, idx) => (
           <div className="col" key={idx}>
             <Card card={card} key={card.id} />

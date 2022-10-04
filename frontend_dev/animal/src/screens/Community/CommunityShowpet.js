@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./CommunityShowpetDetail.css";
 import { getShowList } from "../../api/community";
-import CardList from "../../components/CardList";
+import CardList from '../../components/CardList'
+// import ShowpetDetail from './CommunityShowpetDetail'
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -42,11 +43,11 @@ function CommunityShowpet() {
     }
   };
   return (
-    <div id="showpet">
+    <div id='showpet'>
       <StyledBtn className="notoReg" type="button" onClick={goEdit}>
         자랑하기 글 작성
       </StyledBtn>
-      <CardList cards={list} />
+      <CardList cards={list}/>
     </div>
   );
 }

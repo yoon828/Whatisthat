@@ -98,7 +98,32 @@ const ShowpetList = () => {
                 {info.map((item)=>(
                     <div>
                         <ListGroup.Item id='list-body'>
-                        <Container>
+                            <div id='article-fix'>
+                                <div className='text-center'>{item.title}</div>
+                                <div className='text-center'>{Date(item.date).substring(0,15)}</div>
+                                <div>
+                                <button id='detailBtn' onClick={()=>{
+                                // showpet 상세정보로 이동하는 코드 삽입
+                                }}>상세정보</button>
+                                <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                    axios({
+                                        url : `http://j7c101.p.ssafy.io/api/show-pet/${item.id}`,
+                                        method: 'delete',
+                                        headers : {
+                                            authorization : `Bearer ${accessToken}`
+                                        }
+                                    })
+                                    .then(()=>{
+                                        alert('해당 글이 삭제되었습니다.')
+                                    })
+                                    .catch((err)=>{
+                                        console.log(err)
+                                    })
+                                }}>삭제</button>
+                                </div>
+                                </div>
+                            
+                        {/* <Container>
                         <Row>
                             <Col className='text-center'>{item.title}</Col>
                             <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
@@ -122,7 +147,7 @@ const ShowpetList = () => {
                             }}>삭제</button>
                             </Col>
                         </Row>
-                        </Container>
+                        </Container> */}
                         </ListGroup.Item>
                     </div>
                 ))}
@@ -207,7 +232,9 @@ const LostList = () =>{
                                 <div className='text-center'>{item.lost_date}</div>
                                 <div className='text-center'>{Date(item.date).substring(0,15)}</div>
                                 <div className='text-center'>
-                                <button id='detailBtn'>상세정보</button>
+                                <button id='detailBtn' onClick={()=>{
+                                    
+                                }}>상세정보</button>
                                 <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                     axios({
                                         url : `http://ssafy.io/api/lost/${item.id}`,

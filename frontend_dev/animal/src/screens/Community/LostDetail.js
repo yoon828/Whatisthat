@@ -3,6 +3,7 @@ import "./LostDetail.css";
 import { putIsFound, deleteLost } from "../../api/community";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Carousel from "react-bootstrap/Carousel";
 
 const StyledBtn = styled.button`
   text-align: center;
@@ -61,11 +62,26 @@ function CommunityLostDetail({ lost }) {
 
   return (
     <div className="lost">
-      <img
+      <Carousel variant="dark" style={{'width': '400px'}}>
+        {lost.imgs &&
+          lost.imgs.map((img, idx) => {
+            return (
+              <Carousel.Item key={idx} >
+                <img
+                  src={`${imgServerUrl}/${img.img_url}`}
+                  alt="mypet"
+                  className="d-block w-100"
+                />
+                <Carousel.Caption></Carousel.Caption>
+              </Carousel.Item>
+            );
+          })}
+      </Carousel>
+      {/* <img
         className="lost-img"
         src={`${imgServerUrl}/${lost.imgs[0].img_url}`}
         alt="dummy"
-      />
+      /> */}
       <div className="lost-content">
         <h5>{lost.title}</h5>
         <p className="content-item">

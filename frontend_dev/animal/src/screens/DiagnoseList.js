@@ -50,7 +50,7 @@ const DiagnosisList = () => {
                   <ListGroup.Item id="header">
                     <div id="fix">
                       <div className="text-center">반려동물 이름</div>
-                      <div className="text-center">병명</div>
+                      <div claaName='text-center'>병명</div>
                       <div className="text-center">진단일시</div>
                       <div className="text-center">상세정보/삭제</div>
                     </div>
@@ -66,9 +66,9 @@ const DiagnosisList = () => {
                   {diagnosisList.map((item) => (
                     <div>
                       <ListGroup.Item id="list-body">
-                        <div id="fix">
+                        <div id="article-fix">
                           <div className="text-center">{item.name}</div>
-                          <div className="text-center">{item.disease_name}</div>
+                          <div className="text-center">{item.disease_name.substring(2)}</div>
                           <div className="text-center">
                             {Date(item.date).substring(0, 15)}
                           </div>

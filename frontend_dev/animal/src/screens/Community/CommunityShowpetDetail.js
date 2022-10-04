@@ -10,8 +10,25 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { transform } from "../../function/functions";
 import Carousel from "react-bootstrap/Carousel";
+import styled from 'styled-components';
 
-const CommunityShowpetDetail = () => {
+const StyledBtn = styled.button`
+    text-align: center;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    font-size: 23px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    color: black;
+    background: #F5C6AA;
+    margin: 20px;
+    font-family: 'Kotra';
+    `;
+
+const CommunityShowpetDetail = ({show}) => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const params = useParams();
@@ -66,21 +83,21 @@ const CommunityShowpetDetail = () => {
   return (
     <div id="showpet-detail">
       <div className="article">
-        <h2>{article.title}</h2>
+        <h2>제목 : {article.title}</h2>
         <div className="title">
-          <p>{transform(article.date, "chat")}</p>
-          <p>{article.name}</p>
+          <p>작성일 : {transform(article.date, "chat")}</p>
+          <p>작성자 : {article.name}</p>
         </div>
         <div id="carousel-wrap">
-          <Carousel variant="dark">
+          <Carousel variant="dark" style={{'width': '400px'}}>
             {article.imgs &&
               article.imgs.map((img, idx) => {
                 return (
-                  <Carousel.Item key={idx}>
+                  <Carousel.Item key={idx} >
                     <img
                       src={img.img_url}
                       alt="mypet"
-                      className="d-block w-50"
+                      className="d-block w-100"
                     />
                     <Carousel.Caption></Carousel.Caption>
                   </Carousel.Item>
@@ -93,25 +110,25 @@ const CommunityShowpetDetail = () => {
           <div className="content-imgwrapper">
             {/* <img src={article.imgs[0]} alt="img" className="content-img" /> */}
           </div>
-          <div className="content-description">{article.content}</div>
+          <div className="content-description">내용 : {article.content}</div>
         </div>
       </div>
       <div>
-        <button className="showpet-edit" onClick={() => editArticle()}>
+        <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
           수정
-        </button>
-        <button className="showpet-delete" onClick={() => deleteArticle()}>
+        </StyledBtn>
+        <StyledBtn className="showpet-delete" onClick={() => deleteArticle()}>
           삭제
-        </button>
+        </StyledBtn>
       </div>
       <hr />
-      <div className="comment flex column">
+      <div className="comment flex column" style={{'width': '700px'}}>
         <div className="comment-head">
           <h4 className="notoMid">댓글</h4>
         </div>
         <div className="comment-input flex">
           <div className="input-img-container flex"></div>
-          <CommentInput getComments={getComments} />
+          <CommentInput getComments={getComments}/>
         </div>
         {comments.length !== 0 ? (
           <Comments comments={comments} getComments={getComments} />

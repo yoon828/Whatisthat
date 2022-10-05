@@ -27,9 +27,9 @@ function Login() {
           <img src='/kakao_login.png' id='loginBtn' onClick={()=>{
             document.location.href='http://j7c101.p.ssafy.io:8080/oauth2/authorization/kakao'
           }}></img><br></br>
-          <img src='/naver_login.png' id='loginBtn' onClick={()=>{
+          {/* <img src='/naver_login.png' id='loginBtn' onClick={()=>{
             // 네이버 로그인 연결
-          }}></img>
+          }}></img> */}
         </div>
       </div>
     </div>

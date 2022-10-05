@@ -342,7 +342,7 @@ const DiagnoseResult = (props) => {
           ></img>
           <div>
             <div id="result-item">
-              {result[0][0]}일 확률{" "}
+              {result[0][0].substr(2)}일 확률{" "}
               <ProgressBar
                 style={{ height: "30px", fontSize: "30px" }}
                 striped
@@ -353,7 +353,7 @@ const DiagnoseResult = (props) => {
               />
             </div>
             <div id="result-item">
-              {result[1][0]}일 확률{" "}
+              {result[1][0].substr(2)}일 확률{" "}
               <ProgressBar
                 style={{ height: "30px", fontSize: "30px" }}
                 striped
@@ -364,7 +364,7 @@ const DiagnoseResult = (props) => {
               />
             </div>
             <div id="result-item">
-              {result[2][0]}일 확률{" "}
+              {result[2][0].substr(2)}일 확률{" "}
               <ProgressBar
                 style={{ height: "30px", fontSize: "30px" }}
                 striped

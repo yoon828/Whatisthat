@@ -4,6 +4,23 @@ import "./CommentItem.css";
 import Button from "react-bootstrap/Button";
 import { transform } from "../../function/functions";
 import { deleteShowpetComment, putShowpetComment } from "../../api/community";
+import styled from "styled-components";
+
+const StyledBtn = styled.button`
+  text-align: center;
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  margin: 20px;
+  font-family: "Kotra";
+`;
 
 function CommentsItem({ item, isAuthor, getComments }) {
   const [text, setText] = useState("");

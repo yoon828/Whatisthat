@@ -27,6 +27,7 @@
 }
 
 #article-fix {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    /* display: flex;
+    justify-content: space-around; */
 }

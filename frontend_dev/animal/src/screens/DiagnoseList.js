@@ -48,25 +48,25 @@ const DiagnosisList = () => {
               <div>
                 <ListGroup variant="flush">
                   <ListGroup.Item id="header">
-                    <div id="fix">
+                    {/* <div id="fix">
                       <div className="text-center">반려동물 이름</div>
                       <div claaName='text-center'>병명</div>
                       <div className="text-center">진단일시</div>
                       <div className="text-center">상세정보/삭제</div>
-                    </div>
-                    {/* <Container>
+                    </div> */}
+                    <Container>
                             <Row>
                                 <Col className='text-center'>반려동물 이름</Col>
                                 <Col className='text-center'>병명</Col>
                                 <Col className='text-center'>진단일시</Col>
                                 <Col className='text-center'>상세정보/삭제</Col>
                             </Row>
-                            </Container> */}
+                            </Container>
                   </ListGroup.Item>
                   {diagnosisList.map((item) => (
                     <div>
                       <ListGroup.Item id="list-body">
-                        <div id="article-fix">
+                        {/* <div id="article-fix">
                           <div className="text-center">{item.name}</div>
                           <div className="text-center">{item.disease_name.substring(2)}</div>
                           <div className="text-center">
@@ -103,11 +103,11 @@ const DiagnosisList = () => {
                               삭제
                             </button>
                           </div>
-                        </div>
-                        {/* <Container>
+                        </div> */}
+                        <Container>
                         <Row>
                             <Col className='text-center'>{item.name}</Col>
-                            <Col className='text-center'>{item.disease_name}</Col>
+                            <Col className='text-center'>{item.disease_name.substring(2)}</Col>
                             <Col className='text-center'>{Date(item.date).substring(0, 15)}</Col>
                             <Col className='text-center'><button id='detailBtn' onClick={()=>{
                                 document.location.href=`/diagnosedetail/${item.id}`
@@ -129,7 +129,7 @@ const DiagnosisList = () => {
                             }}>삭제</button>
                             </Col>
                         </Row>
-                        </Container> */}
+                        </Container>
                       </ListGroup.Item>
                     </div>
                   ))}
@@ -162,7 +162,7 @@ const Empty = () => {
       }}
     >
       <Lottie animationData={write} style={{ width: "200px" }}></Lottie>
-      <h1>아직 작성한 글이 없네요 글을 작성해보세요</h1>
+      <h1>아직 진단내역이 없네요 진단을 시작해보세요</h1>
     </div>
   );
 };

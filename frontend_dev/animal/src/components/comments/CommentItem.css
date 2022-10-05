@@ -1,8 +1,15 @@
 .comments-content {
-  border-bottom: 1px solid lightgray;
-  padding: 20px;
+  border: 1px solid grey;
+  padding: 12px;
+  border-radius: 12px;
 }
 
-.btn-wrap {
+.comments-item {
   display: flex;
+  justify-content: space-between;
+}
+
+.comments-btn {
+  display: flex;
+  justify-content: flex-end;
 }

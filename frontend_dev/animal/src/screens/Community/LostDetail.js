@@ -61,7 +61,7 @@ function CommunityLostDetail({ lost, isAuthor }) {
         {lost.imgs &&
           lost.imgs.map((img, idx) => {
             return (
-              <Carousel.Item key={idx} >
+              <Carousel.Item key={idx}>
                 <img
                   src={`${imgServerUrl}/${img.img_url}`}
                   alt="mypet"
@@ -96,9 +96,9 @@ function CommunityLostDetail({ lost, isAuthor }) {
                 onChange={toggleFound}
               />
             </div>
-            <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
+            {/* <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
               삭제
-            </StyledBtn>
+            </StyledBtn> */}
           </div>
         }
       </div>

@@ -14,22 +14,22 @@ import styled from 'styled-components';
 import { getUserInfo } from "../../api/user";
 
 const StyledBtn = styled.button`
-    text-align: center;
-    width: 140px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    font-size: 23px;
-    font-weight: bold;
-    outline: none;
-    cursor: pointer;
-    color: black;
-    background: #F5C6AA;
-    margin: 20px;
-    font-family: 'Kotra';
-    `;
+  text-align: center;
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  margin: 20px;
+  font-family: "Kotra";
+`;
 
-const CommunityShowpetDetail = () => {
+const CommunityShowpetDetail = ({show}) => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [nickname, setNickname] = useState("");
@@ -105,7 +105,7 @@ const CommunityShowpetDetail = () => {
             {article.imgs &&
               article.imgs.map((img, idx) => {
                 return (
-                  <Carousel.Item key={idx} >
+                  <Carousel.Item key={idx}>
                     <img
                       src={img.img_url}
                       alt="mypet"

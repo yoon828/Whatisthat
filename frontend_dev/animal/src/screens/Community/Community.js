@@ -9,7 +9,7 @@ import { getUserInfo } from "../../api/user";
 
 function Community() {
   const [comType, setComType] = useState("showpet");
-  const [nickname, setNickname] = useState("");
+  const [id, setId] = useState("");
 
   const location = useLocation();
   useEffect(() => {
@@ -22,7 +22,8 @@ function Community() {
   const getUserNickname = async () => {
     try {
       const { data } = await getUserInfo();
-      setNickname(data.data.nickname);
+      console.log(data.data);
+      setId(data.data.id);
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +60,7 @@ function Community() {
             </button>
           </Link>
         </div>
-        {comType === "showpet" ? <CommunityShowpet /> : <LostDetailList nickname={nickname} />}
+        {comType === "showpet" ? <CommunityShowpet /> : <LostDetailList id={id} />}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const StyledBtn = styled.button`
   text-align: center;
-  width: 140px;
+  width: 100px;
   height: 40px;
   border: none;
   border-radius: 15px;
@@ -18,8 +18,7 @@ const StyledBtn = styled.button`
   cursor: pointer;
   color: black;
   background: #f5c6aa;
-  margin: 20px;
-  font-family: "Kotra";
+  margin: 0 8px;
 `;
 
 function CommentsItem({ item, isAuthor, getComments }) {
@@ -60,8 +59,12 @@ function CommentsItem({ item, isAuthor, getComments }) {
   return (
     <div className="comments-content">
       <div className="comments-item">
-        <div className="comments-item__username">{item.user_nickname}</div>
-        <div className="comments-item__username">{transform(item.date)}</div>
+        <div className="comments-item__username" style={{ fontSize: "15px" }}>
+          {item.user_nickname}
+        </div>
+        <div className="comments-item__username" style={{ fontSize: "15px" }}>
+          {transform(item.date)}
+        </div>
       </div>
       {editInput ? (
         <>
@@ -76,27 +79,29 @@ function CommentsItem({ item, isAuthor, getComments }) {
               }}
             />
           </div>
-          <Button variant="primary" onClick={() => setEditInput(false)}>
-            취소
-          </Button>
-          <Button variant="primary" onClick={() => commentEdit()}>
-            수정
-          </Button>
+          <div className="comments-btn">
+            <StyledBtn variant="primary" onClick={() => setEditInput(false)}>
+              취소
+            </StyledBtn>
+            <StyledBtn variant="primary" onClick={() => commentEdit()}>
+              수정
+            </StyledBtn>
+          </div>
         </>
       ) : (
         <div>
           <div className="comments-discription">{item.content}</div>
-          {isAuthor &&
-            <div className="btn-wrap">
-              <Button variant="primary" onClick={() => setEditMode()}>
+          {isAuthor ?
+            <div className="comments-btn">
+              <StyledBtn variant="primary" onClick={() => setEditMode()}>
                 수정
-              </Button>
-              <Button variant="danger" onClick={() => deleteComment()}>
+              </StyledBtn>
+              <StyledBtn variant="danger" onClick={() => deleteComment()}>
                 삭제
-              </Button>
+              </StyledBtn>
+            </div> : <div className="comments-btn">
             </div>}
         </div>
-
       )}
     </div>
   );

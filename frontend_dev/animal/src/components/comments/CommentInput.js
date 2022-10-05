@@ -32,6 +32,7 @@ function CommentInput({ item, comments, getComments }) {
         if (data.success) {
           alert("댓글이 등록되었습니다.");
           commentRef.current.value = "";
+          console.log("");
           getComments();
         }
       } catch (error) {

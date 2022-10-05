@@ -56,7 +56,7 @@ function CommunityLostDetail({ lost, isAuthor }) {
   };
 
   return (
-    <div className="lost">
+    <div className={isFound ? 'find' : 'lost'}>
       <Carousel variant="dark" style={{ 'width': '400px' }}>
         {lost.imgs &&
           lost.imgs.map((img, idx) => {
@@ -94,11 +94,12 @@ function CommunityLostDetail({ lost, isAuthor }) {
                 className="lost-isfound"
                 type="checkbox"
                 onChange={toggleFound}
+                checked={isFound ? true : false}
               />
             </div>
-            {/* <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
+            <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
               삭제
-            </StyledBtn> */}
+            </StyledBtn>
           </div>
         }
       </div>

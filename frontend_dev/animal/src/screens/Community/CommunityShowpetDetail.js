@@ -29,23 +29,23 @@ const StyledBtn = styled.button`
   font-family: "Kotra";
 `;
 
-const CommunityShowpetDetail = ({show}) => {
+const CommunityShowpetDetail = ({ show }) => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
-  const [nickname, setNickname] = useState("");
+  const [id, setId] = useState("");
 
   const params = useParams();
   const navigator = useNavigate();
 
   useEffect(() => {
-    getUserNickname()
+    getUserid()
     getShowpetDetail();
   }, []);
 
-  const getUserNickname = async () => {
+  const getUserid = async () => {
     try {
       const { data } = await getUserInfo();
-      setNickname(data.data.nickname);
+      setId(data.data.id);
     } catch (error) {
       console.log(error);
     }
@@ -54,6 +54,7 @@ const CommunityShowpetDetail = ({show}) => {
   const getShowpetDetail = async () => {
     try {
       const { data } = await getShowListDetail(params.id);
+      console.log(data.data);
       setArticle(data.data);
       setComments(data.data.comments);
     } catch (error) {
@@ -85,7 +86,9 @@ const CommunityShowpetDetail = ({show}) => {
   //댓글만 불러오기
   const getComments = async () => {
     try {
+      console.log("object");
       const { data } = await getShowpetComments(params.id);
+      console.log(data.data);
       setComments(data.data);
     } catch (error) {
       console.log(error);
@@ -124,7 +127,7 @@ const CommunityShowpetDetail = ({show}) => {
           <div className="content-description">내용 : {article.content}</div>
         </div>
       </div>
-      {nickname === article.user_nickname &&
+      {id === article.user_id &&
         <div>
           <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
             수정
@@ -144,7 +147,7 @@ const CommunityShowpetDetail = ({show}) => {
           <CommentInput getComments={getComments} />
         </div>
         {comments.length !== 0 ? (
-          <Comments comments={comments} getComments={getComments} nickname={nickname} />
+          <Comments comments={comments} getComments={getComments} id={id} />
         ) : null}
       </div>
     </div>

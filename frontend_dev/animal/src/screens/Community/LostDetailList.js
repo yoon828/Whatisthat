@@ -22,7 +22,7 @@ const StyledBtn = styled.button`
   }
 `;
 
-function LostDetailList({ nickname }) {
+function LostDetailList({ id }) {
   const [lostList, setLostList] = useState([]);
 
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ function LostDetailList({ nickname }) {
         실종동물 글 작성
       </StyledBtn>
       {lostList.map((lost) => (
-        <LostDetail lost={lost} key={lost.id} isAuthor={lost.user_nickname === nickname ? true : false} />
+        <LostDetail lost={lost} key={lost.id} isAuthor={lost.user_id === id ? true : false} />
       ))}
     </div>
   );

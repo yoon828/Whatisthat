@@ -23,19 +23,25 @@
 ## 🐶🐱 기술 스택
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>  
+<img src="https://img.shields.io/badge/redux-blueviolet?style=flat-square&logo=redux&logoColor=white"/>  
+<img src="https://img.shields.io/badge/bootstrap-blueviolet?style=flat-square&logo=bootstrap&logoColor=white"/>  
+<img src="https://img.shields.io/badge/node.js-brightgreen?style=flat-square&logo=node.js&logoColor=white"/>  
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/>
 <img src="https://img.shields.io/badge/InteliJ-000000?style=flat-square&logo=InteliJ&logoColor=white"/><br/>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=white"/>
 <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/flask-black?style=flat-square&logo=flask&logoColor=white"/>  
+<img src="https://img.shields.io/badge/tensorflow-orange?style=flat-square&logo=tensorflow&logoColor=white"/>
 
 [ 기술 스택 ](https://www.notion.so/394c6ecfd7db44fd92337e5c5b937dd1)<br>
 
 ## 🐶🐱 기획배경
 
 - 2020년 통계청의 인구총조사에 따르면 반려동물을 기르고 있는 가구는 총 312만 가구로 전체 가구수의 약 15퍼센트를 차지하고 있으며 코로나19를 거치며 반려동물을 기르는 가구의 수는 점차 증가하고 있습니다.
-- 또한 농식품부 교육문화정보원의 조사에 따르면 TV, 동영상플랫폼, SNS 등 여러 매체들의 영향으로 반려동물에 대한 건강과 복지에 대한 관심은 과거보다 훨씬 크게 높아져 펫셔리(펫+럭셔리), 펫캉스(펫+바캉스), 반려동물케어서비스 등에 대한 인식도 긍정적으로 변화하고 있습니다.
-- 이에 따라 반려동물관련 산업은 매해 꾸준히 증가하여 약 4조원의 다다르며 동물병원에 대한 수요도 증가하여 2019년 대비 2022년에는 약 2배가량 동물병원 방문횟수가 늘어났습니다.
+- 또한 농식품부 교육문화정보원의 조사에 따르면 TV, 동영상플랫폼, SNS 등 여러 매체들의 영향으로 반려동물에 대한 건강과 복지에 대한 관심은 과거보다 훨씬 크게 높아져 펫셔리(펫+럭셔리), 펫캉스(펫+바캉스) 등 반려동물케어서비스에 대한 인식도 긍정적으로 변화하며 이용률도 증가하고 있습니다.
+  이에 따라 반려동물관련 산업은 매해 꾸준히 증가하여 현재 약 4조원에 다다르며 동물병원에 대한 수요도 증가하여 2019년 대비 2022년에는 약 2배 가량 동물병원 방문 횟수가 늘어났습니다.
+- 우리 서비스는 이러한 수요헤 반응하여 Ai진단을 통한 빠르고 간편하게 반려동물들의 질병에 대해 도움을 제공하며 그 밖의 다른 기능들을 통해서 반려인들과 반려동물들의 건강과 복지의 질이 더 나아질 수 있도록 지원하고자 합니다.
 
 [ 기획 배경 자료 ](https://www.notion.so/77447be27ed74646acf1833e5a2565d7)<br>
 
@@ -100,7 +106,7 @@
 
 ## 🐶🐱 산출물
 
-- [ 디렉토리 구조 ](https://www.notion.so/Directory-6c65189a251444d2b5cdbd9dd6754967)<br><Br>
+- [ 디렉토리 구조 ](https://www.notion.so/Directory-6c65189a251444d2b5cdbd9dd6754967)<br>
 - [ 요구사항 명세서 ](https://www.notion.so/14b90b56db24489791e349874720ffbb)<br>
 - [ API 명세서 ](https://www.notion.so/API-9802824865354a09858dbba9f85de7ee) | [ SWAGGER ](j7c101.p.ssafy.io:8080/swagger-ui/index.html)<br>
 - [ ERD ](https://www.erdcloud.com/d/YvMvFZgWLRJNAaGnp) <br>
@@ -183,5 +189,3 @@
 | 서은지 | 내용   |
 
 [ 팀 노션 ](https://www.notion.so/45ecfc3f612b42eaa3c644a1bef4cda3)
-
--

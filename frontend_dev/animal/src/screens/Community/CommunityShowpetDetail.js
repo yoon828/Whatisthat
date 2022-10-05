@@ -7,7 +7,7 @@ import {
   getShowListDetail,
   getShowpetComments,
 } from "../../api/community";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { transform } from "../../function/functions";
 import Carousel from "react-bootstrap/Carousel";
 import styled from 'styled-components';
@@ -29,7 +29,7 @@ const StyledBtn = styled.button`
     font-family: 'Kotra';
     `;
 
-const CommunityShowpetDetail = ({ show }) => {
+const CommunityShowpetDetail = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [nickname, setNickname] = useState("");
@@ -38,8 +38,8 @@ const CommunityShowpetDetail = ({ show }) => {
   const navigator = useNavigate();
 
   useEffect(() => {
+    getUserNickname()
     getShowpetDetail();
-    getUserNickname();
   }, []);
 
   const getUserNickname = async () => {
@@ -124,8 +124,7 @@ const CommunityShowpetDetail = ({ show }) => {
           <div className="content-description">내용 : {article.content}</div>
         </div>
       </div>
-      {article.user_nickname === nickname
-        ?
+      {nickname === article.user_nickname &&
         <div>
           <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
             수정
@@ -134,7 +133,6 @@ const CommunityShowpetDetail = ({ show }) => {
             삭제
           </StyledBtn>
         </div>
-        : null
       }
       <hr />
       <div className="comment flex column" style={{ 'width': '700px' }}>
@@ -146,7 +144,7 @@ const CommunityShowpetDetail = ({ show }) => {
           <CommentInput getComments={getComments} />
         </div>
         {comments.length !== 0 ? (
-          <Comments comments={comments} getComments={getComments} />
+          <Comments comments={comments} getComments={getComments} nickname={nickname} />
         ) : null}
       </div>
     </div>

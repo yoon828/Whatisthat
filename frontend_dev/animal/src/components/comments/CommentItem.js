@@ -41,44 +41,46 @@ function CommentsItem({ item, isAuthor, getComments }) {
   };
 
   return (
-    <div id="comments">
-      <div className="comments-content">
-        <div className="comments-item">
-          <div className="comments-item__username">{item.user_nickname}</div>
-          <div className="comments-item__username">{transform(item.date)}</div>
-        </div>
-        {editInput ? (
-          <>
-            <div>
-              <input
-                value={text}
-                type="text"
-                placeholder="댓글을 작성해주세요"
-                required
-                onChange={(e) => {
-                  setText(e.target.value);
-                }}
-              />
-            </div>
-            <Button variant="primary" onClick={() => setEditInput(false)}>
-              취소
-            </Button>
-            <Button variant="primary" onClick={() => commentEdit()}>
-              수정
-            </Button>
-          </>
-        ) : (isAuthor &&
-          <div>
-            <div className="comments-discription">{item.content}</div>
-            <Button variant="primary" onClick={() => setEditMode()}>
-              수정
-            </Button>
-            <Button variant="danger" onClick={() => deleteComment()}>
-              삭제
-            </Button>
-          </div>
-        )}
+    <div className="comments-content">
+      <div className="comments-item">
+        <div className="comments-item__username">{item.user_nickname}</div>
+        <div className="comments-item__username">{transform(item.date)}</div>
       </div>
+      {editInput ? (
+        <>
+          <div>
+            <input
+              value={text}
+              type="text"
+              placeholder="댓글을 작성해주세요"
+              required
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            />
+          </div>
+          <Button variant="primary" onClick={() => setEditInput(false)}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={() => commentEdit()}>
+            수정
+          </Button>
+        </>
+      ) : (
+        <div>
+          <div className="comments-discription">{item.content}</div>
+          {isAuthor &&
+            <div className="btn-wrap">
+              <Button variant="primary" onClick={() => setEditMode()}>
+                수정
+              </Button>
+              <Button variant="danger" onClick={() => deleteComment()}>
+                삭제
+              </Button>
+            </div>}
+        </div>
+
+      )}
     </div>
   );
 }

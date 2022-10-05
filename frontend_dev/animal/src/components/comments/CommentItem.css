@@ -1,3 +1,8 @@
 .comments-content {
-  border: 1px solid black;
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
+}
+
+.btn-wrap {
+  display: flex;
 }

@@ -6,9 +6,10 @@ import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import LoginCallback from "../screens/LoginCallback";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function MainNavbar() {
+  const navigate = useNavigate();
   let [accessToken, setAccesToken] = useState("");
   let [refreshToken, setRefreshToken] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(
@@ -36,7 +37,7 @@ function MainNavbar() {
             <Nav.Link
               onClick={() => {
                 if (isLoggedIn) {
-                  document.location.href = "/diagnose";
+                  navigate("/diagnose");
                 } else {
                   alert("로그인이 필요합니다.");
                 }
@@ -47,7 +48,7 @@ function MainNavbar() {
             <Nav.Link
               onClick={() => {
                 if (isLoggedIn) {
-                  document.location.href = "/show-pet/list";
+                  navigate("/show-pet/list");
                 } else {
                   alert("로그인이 필요합니다.");
                 }
@@ -75,7 +76,7 @@ function MainNavbar() {
                   localStorage.removeItem("refreshToken");
                   setAccesToken("");
                   setRefreshToken("");
-                  document.location.href = "/";
+                  navigate("/");
                 }}
               >
                 Logout

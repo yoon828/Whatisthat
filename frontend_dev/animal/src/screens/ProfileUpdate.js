@@ -97,9 +97,9 @@ const ProfileUpdate = () => {
                       이메일 : {userInfo.email}
                     </ListGroup.Item>
                     <ListGroup.Item id="profileupdate-input">
-                      닉네임 :{" "}
+                      닉네임 :
                       <StyledInput
-                        onInput={(e) => {
+                        onChange={(e) => {
                           setNickname(e.target.value);
                         }}
                         placeholder="수정할 닉네임을 입력해주세요"
@@ -133,7 +133,8 @@ const ProfileUpdate = () => {
                   <StyledBtn
                     style={{ fontSize: "23px" }}
                     onClick={() => {
-                      if (file) {
+
+                      if (file && nickname) {
                         let formData = new FormData();
                         formData.append("uploadFile", file, profileImg);
                         setInfo((info.name = userInfo.name));
@@ -177,7 +178,7 @@ const ProfileUpdate = () => {
                           .then(() => {
                             document.location.href = "/mypage";
                           });
-                      } else {
+                      } else if (!file && nickname) {
                         setInfo((info.name = userInfo.name));
                         setInfo((info.email = userInfo.email));
                         setInfo((info.nickname = nickname));
@@ -202,6 +203,53 @@ const ProfileUpdate = () => {
                             console.log(err);
                             console.log(info);
                           });
+                      }
+                      else if (!nickname && file) {
+                        let formData = new FormData();
+                        formData.append("uploadFile", file, profileImg);
+                        setInfo((info.name = userInfo.name));
+                        setInfo((info.email = userInfo.email));
+                        setInfo((info.nickname = userInfo.nickname));
+                        setInfo(
+                          (info.profile_img = `http://j7c101.p.ssafy.io:3003/${profileImg}`)
+                        );
+                        axios
+                          .all([
+                            axios({
+                              url: "http://j7c101.p.ssafy.io:3003/upload",
+                              method: "post",
+                              headers: {
+                                processData: false,
+                                "Content-Type": "multipart/form-data",
+                              },
+                              data: formData,
+                            })
+                              .then((res) => {
+                                console.log(res.data);
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              }),
+                            axios({
+                              url: "http://j7c101.p.ssafy.io:8080/api/user",
+                              method: "put",
+                              headers: {
+                                authorization: `Bearer ${accessToken}`,
+                              },
+                              data: info,
+                            })
+                              .then((res) => {
+                                console.log(res.data);
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              }),
+                          ])
+                          .then(() => {
+                            document.location.href = "/mypage";
+                          });
+                      } else {
+                        alert('변경된 정보가 없습니다.')
                       }
                     }}
                   >

@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import success from "./../lotties/success.json";
 import "./LoginCallback.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 const LoginCallback = () => {
   const params = new URLSearchParams(window.location.search);
@@ -9,6 +10,11 @@ const LoginCallback = () => {
   let refreshToken = params.get("refreshToken");
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("refreshToken", refreshToken);
+  const navigate = useNavigate();
+  setTimeout(()=>{
+    navigate('/')
+  }, 500)
+  
   return (
     <div id="login-lottie">
       <Lottie

@@ -27,13 +27,13 @@ const FirstAidPage = () => {
       <div className="container" style={{ display: "flex" }}>
         <div className="container text-center" id="box">
           <br></br>
-          <p style={{ fontSize: "35px", fontFamily: "Kotra" }}>
+          <p style={{ fontSize: "30px", fontFamily: "Kotra" }}>
             의식이 없을 때
           </p>
           <img className="animalImg" src="/conciousness.jpg"></img>
           <br></br>
           <Button
-            className="mt-4"
+            className="mt-2"
             id="btn"
             onClick={() => {
               setShow1(true);
@@ -45,13 +45,13 @@ const FirstAidPage = () => {
 
         <div className="container text-center" id="box">
           <br></br>
-          <p style={{ fontSize: "35px", fontFamily: "Kotra" }}>
+          <p style={{ fontSize: "30px", fontFamily: "Kotra" }}>
             기도에 이물질이 들어갔을 때
           </p>
           <img className="animalImg1" src="/airway.jpg"></img>
           <br></br>
           <Button
-            className="mt-4"
+            className="mt-2"
             id="btn"
             onClick={() => {
               setShow2(true);
@@ -63,13 +63,13 @@ const FirstAidPage = () => {
 
         <div className="container text-center" id="box">
           <br></br>
-          <p style={{ fontSize: "35px", fontFamily: "Kotra" }}>
+          <p style={{ fontSize: "30px", fontFamily: "Kotra" }}>
             화상을 입었을 때
           </p>
           <img className="animalImg2" src="/burn.jpg"></img>
           <br></br>
           <Button
-            className="mt-4"
+            className="mt-2"
             id="btn"
             onClick={() => {
               setShow3(true);

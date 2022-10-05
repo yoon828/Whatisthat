@@ -57,6 +57,7 @@ const ShowpetList = () => {
     let [info, setInfo] = useState(null)
     const navigate = useNavigate();
     let [loading, setLoading] = useState(true)
+    let [article, setArticle] = useState({})
     useEffect(()=>{
         axios({
             url : 'http://j7c101.p.ssafy.io:8080/api/show-pet/articles',
@@ -91,7 +92,7 @@ const ShowpetList = () => {
                 <Row>
                     <Col className='text-center'>제목</Col>
                     <Col className='text-center'>작성일</Col>
-                    <Col className='text-center'>상세정보/삭제</Col>
+                    <Col className='text-center'>상세정보/수정/삭제</Col>
                 </Row>
                 </Container>
                 </ListGroup.Item>
@@ -130,6 +131,22 @@ const ShowpetList = () => {
                             <Col className='text-center'><button id='detailBtn' onClick={()=>{
                                 navigate(`/show-pet/detail/${item.id}`)
                             }}>상세정보</button>
+                            <button id='detailBtn' onClick={()=>{
+                                axios({
+                                    url: `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,
+                                    method: 'get',
+                                    headers : {
+                                        authorization : `Bearer ${accessToken}`
+                                    }
+                                })
+                                .then((res)=>{
+                                    navigate('/show-pet', {state:res.data.data})
+                                })
+                                .catch((err)=>{
+                                    console.log(err)
+                                })
+                                
+                            }}>수정</button>
                             <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                 axios({
                                     url : `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,

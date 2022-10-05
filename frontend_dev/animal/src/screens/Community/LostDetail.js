@@ -61,7 +61,7 @@ function CommunityLostDetail({ lost }) {
   };
 
   return (
-    <div className="lost">
+    <div className={isFound ? 'find' : 'lost'}>
       <Carousel variant="dark" style={{ width: "400px" }}>
         {lost.imgs &&
           lost.imgs.map((img, idx) => {

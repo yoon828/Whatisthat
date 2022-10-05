@@ -7,6 +7,17 @@
   margin: 10px 0;
 }
 
+.find {
+  display: flex;
+  background-color: #e2e2e2;
+  opacity: 40%;
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  align-content: center;
+  padding: 10px;
+  margin: 10px 0;
+}
+
 .lost-imgwrapper {
 }
 

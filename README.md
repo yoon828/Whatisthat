@@ -22,11 +22,9 @@
 
 ## 🐶🐱 기술 스택
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/> <img src="https://img.shields.io/badge/Cypress-17202C?style=flat-square&logo=Cypress&logoColor=white"/>
-<img src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=Jest&logoColor=whilte"/>
-<img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=whilte"/> <br/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>  
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/>
-<img src="https://img.shields.io/badge/InteliJ-000000?style=flat-square&logo=InteliJ&logoColor=white"/>
+<img src="https://img.shields.io/badge/InteliJ-000000?style=flat-square&logo=InteliJ&logoColor=white"/><br/>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=white"/>
 <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
@@ -57,8 +55,6 @@
 - 시연영상
 
 ## 🐶🐱 주요기능 및 페이지 구성
-
-<div align="center">
 
 ### **메인페이지**
 
@@ -165,7 +161,7 @@
 
 ## 🐶🐱 프로젝트 회고
 
-## Front-End
+## AI
 
 | 팀원   | 느낀점 |
 | ------ | ------ |

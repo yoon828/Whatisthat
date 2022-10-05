@@ -130,6 +130,7 @@ public class ShowPetServiceImpl implements ShowPetService {
         ShowPetDetailResponseDto showPetDetailResponseDto = ShowPetDetailResponseDto.builder()
                 .id(showPet.getId())
                 .title(showPet.getTitle())
+                .user_id(showPet.getUser().getId())
                 .user_nickname(showPet.getUser().getNickname())
                 .name(showPet.getName())
                 .content(showPet.getContent())

@@ -162,7 +162,7 @@ const Empty = () => {
       }}
     >
       <Lottie animationData={write} style={{ width: "200px" }}></Lottie>
-      <h1>아직 작성한 글이 없네요 글을 작성해보세요</h1>
+      <h1>아직 진단내역이 없네요 진단을 시작해보세요</h1>
     </div>
   );
 };

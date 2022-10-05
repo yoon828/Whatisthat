@@ -11,6 +11,7 @@ import Lottie from 'lottie-react'
 import article from './../lotties/article.json'
 import write from './../lotties/write.json'
 import loadLottie from './../lotties/loading.json'
+import { useNavigate } from 'react-router-dom'
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -30,7 +31,6 @@ const StyledBtn = styled.button`
 
 const ArticleList = () => {
     const [type, setType] = useState("showpet");
-
     return (
         <div>
             <div id='article-lottie'>
@@ -55,6 +55,7 @@ const ArticleList = () => {
 const ShowpetList = () => {
     let accessToken = localStorage.getItem('accessToken')
     let [info, setInfo] = useState(null)
+    const navigate = useNavigate();
     let [loading, setLoading] = useState(true)
     useEffect(()=>{
         axios({
@@ -65,7 +66,6 @@ const ShowpetList = () => {
             }
         })
         .then((res)=>{
-            console.log(res.data.data)
             setInfo(res.data.data)
             setLoading(false)
         })
@@ -82,23 +82,23 @@ const ShowpetList = () => {
             <div>
             <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
-                    <div id='article-fix'>
+                    {/* <div id='article-fix'>
                         <div className='text-center'>제목</div>
                         <div className='text-center'>작성일</div>
                         <div className='text-center'>상세정보/삭제</div>
-                    </div>
-                {/* <Container>
+                    </div> */}
+                <Container>
                 <Row>
                     <Col className='text-center'>제목</Col>
                     <Col className='text-center'>작성일</Col>
                     <Col className='text-center'>상세정보/삭제</Col>
                 </Row>
-                </Container> */}
+                </Container>
                 </ListGroup.Item>
                 {info.map((item)=>(
                     <div>
                         <ListGroup.Item id='list-body'>
-                            <div id='article-fix'>
+                            {/* <div id='article-fix'>
                                 <div className='text-center'>{item.title}</div>
                                 <div className='text-center'>{Date(item.date).substring(0,15)}</div>
                                 <div>
@@ -121,14 +121,14 @@ const ShowpetList = () => {
                                     })
                                 }}>삭제</button>
                                 </div>
-                                </div>
+                                </div> */}
                             
-                        {/* <Container>
+                        <Container>
                         <Row>
                             <Col className='text-center'>{item.title}</Col>
                             <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
                             <Col className='text-center'><button id='detailBtn' onClick={()=>{
-                                // showpet 상세정보로 이동하는 코드 삽입
+                                navigate(`/show-pet/detail/${item.id}`)
                             }}>상세정보</button>
                             <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                 axios({
@@ -147,7 +147,7 @@ const ShowpetList = () => {
                             }}>삭제</button>
                             </Col>
                         </Row>
-                        </Container> */}
+                        </Container>
                         </ListGroup.Item>
                     </div>
                 ))}
@@ -182,6 +182,7 @@ const LostList = () =>{
     let accessToken = localStorage.getItem('accessToken')
     let [loading, setLoading] = useState(true)
     let [lost, setLost] = useState()
+    const navigate = useNavigate();
     useEffect(()=>{
         axios({
             url : 'http://j7c101.p.ssafy.io:8080/api/lost/articles',
@@ -209,31 +210,29 @@ const LostList = () =>{
                     <div>
                         <ListGroup variant="flush">
                 <ListGroup.Item id='header'>
-                    <div id='article-fix'>
+                    {/* <div id='article-fix'>
                         <div className='text-center'>제목</div>
-                        <div className='text-center'>실종일</div>
                         <div className='text-center'>작성일</div>
                         <div className='text-center'>상세정보/삭제</div>
-                    </div>
-                {/* <Container>
+                    </div> */}
+                <Container>
                 <Row>
                     <Col className='text-center'>제목</Col>
                     <Col className='text-center'>실종일</Col>
                     <Col className='text-center'>작성일</Col>
-                    <Col className='text-center'>상세정보/삭제</Col>
+                    <Col className='text-center'>삭제</Col>
                 </Row>
-                </Container> */}
+                </Container>
                 </ListGroup.Item>
                 {lost.map((item)=>(
                     <div>
                         <ListGroup.Item id='list-body'>
-                            <div id='article-fix'>
+                            {/* <div id='article-fix'>
                                 <div className='text-center'>{item.title}</div>
-                                <div className='text-center'>{item.lost_date}</div>
                                 <div className='text-center'>{Date(item.date).substring(0,15)}</div>
                                 <div className='text-center'>
                                 <button id='detailBtn' onClick={()=>{
-                                    
+                                    // 상세정보로 이동
                                 }}>상세정보</button>
                                 <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                     axios({
@@ -252,15 +251,13 @@ const LostList = () =>{
                                 }}>삭제</button>
                                 </div>
                                 
-                            </div>
-                            {/* <Container>
+                            </div> */}
+                            <Container>
                             <Row>
                                 <Col className='text-center'>{item.title}</Col>
                                 <Col className='text-center'>{item.lost_date}</Col>
                                 <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
-                                <Col className='text-center'><button id='detailBtn' onClick={()=>{
-                                    // lost 글 상세정보로 이동하는 코드 삽입
-                                }}>상세정보</button>
+                                <Col className='text-center'>
                                 <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
                                     axios({
                                         url : `http://ssafy.io/api/lost/${item.id}`,
@@ -278,7 +275,7 @@ const LostList = () =>{
                                 }}>삭제</button>
                                 </Col>
                             </Row>
-                            </Container> */}
+                            </Container>
                             </ListGroup.Item>
                         </div>
                         ))}

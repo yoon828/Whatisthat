@@ -48,25 +48,25 @@ const DiagnosisList = () => {
               <div>
                 <ListGroup variant="flush">
                   <ListGroup.Item id="header">
-                    <div id="fix">
+                    {/* <div id="fix">
                       <div className="text-center">반려동물 이름</div>
                       <div claaName='text-center'>병명</div>
                       <div className="text-center">진단일시</div>
                       <div className="text-center">상세정보/삭제</div>
-                    </div>
-                    {/* <Container>
+                    </div> */}
+                    <Container>
                             <Row>
                                 <Col className='text-center'>반려동물 이름</Col>
                                 <Col className='text-center'>병명</Col>
                                 <Col className='text-center'>진단일시</Col>
                                 <Col className='text-center'>상세정보/삭제</Col>
                             </Row>
-                            </Container> */}
+                            </Container>
                   </ListGroup.Item>
                   {diagnosisList.map((item) => (
                     <div>
                       <ListGroup.Item id="list-body">
-                        <div id="article-fix">
+                        {/* <div id="article-fix">
                           <div className="text-center">{item.name}</div>
                           <div className="text-center">{item.disease_name.substring(2)}</div>
                           <div className="text-center">
@@ -103,8 +103,8 @@ const DiagnosisList = () => {
                               삭제
                             </button>
                           </div>
-                        </div>
-                        {/* <Container>
+                        </div> */}
+                        <Container>
                         <Row>
                             <Col className='text-center'>{item.name}</Col>
                             <Col className='text-center'>{item.disease_name}</Col>
@@ -129,7 +129,7 @@ const DiagnosisList = () => {
                             }}>삭제</button>
                             </Col>
                         </Row>
-                        </Container> */}
+                        </Container>
                       </ListGroup.Item>
                     </div>
                   ))}

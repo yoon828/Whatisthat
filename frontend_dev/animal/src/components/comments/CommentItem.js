@@ -8,17 +8,17 @@ import styled from "styled-components";
 
 const StyledBtn = styled.button`
   text-align: center;
-  width: 140px;
-  height: 40px;
+  width: 70px;
+  height: 30px;
   border: none;
   border-radius: 15px;
-  font-size: 23px;
+  font-size: 12px;
   font-weight: bold;
   outline: none;
   cursor: pointer;
   color: black;
   background: #f5c6aa;
-  margin: 20px;
+  margin: 10px;
   font-family: "Kotra";
 `;
 
@@ -81,7 +81,7 @@ function CommentsItem({ item, isAuthor, getComments }) {
                 }}
               />
             </div>
-            <div>
+            <div className="comments-btn">
               <StyledBtn variant="primary" onClick={() => setEditInput(false)}>
                 취소
               </StyledBtn>
@@ -93,7 +93,7 @@ function CommentsItem({ item, isAuthor, getComments }) {
         ) : (
           <>
             <div className="comments-discription">{item.content}</div>
-            <div>
+            <div className="comments-btn">
               <StyledBtn variant="primary" onClick={() => setEditMode()}>
                 수정
               </StyledBtn>

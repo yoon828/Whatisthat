@@ -128,40 +128,41 @@ const ShowpetList = () => {
                         <Row>
                             <Col className='text-center'>{item.title}</Col>
                             <Col className='text-center'>{Date(item.date).substring(0,15)}</Col>
-                            <Col className='text-center'><button id='detailBtn' onClick={()=>{
+                            <Col className='text-center'>
+                                <button id='detailBtn' onClick={()=>{
                                 navigate(`/show-pet/detail/${item.id}`)
-                            }}>상세정보</button>
-                            <button id='detailBtn' onClick={()=>{
-                                axios({
-                                    url: `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,
-                                    method: 'get',
-                                    headers : {
-                                        authorization : `Bearer ${accessToken}`
-                                    }
-                                })
-                                .then((res)=>{
-                                    navigate('/show-pet', {state:res.data.data})
-                                })
-                                .catch((err)=>{
-                                    console.log(err)
-                                })
-                                
-                            }}>수정</button>
-                            <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
-                                axios({
-                                    url : `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,
-                                    method: 'delete',
-                                    headers : {
-                                        authorization : `Bearer ${accessToken}`
-                                    }
-                                })
-                                .then(()=>{
-                                    alert('해당 글이 삭제되었습니다.')
-                                })
-                                .catch((err)=>{
-                                    console.log(err)
-                                })
-                            }}>삭제</button>
+                                }}>상세정보</button>
+                                <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                    axios({
+                                        url: `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,
+                                        method: 'get',
+                                        headers : {
+                                            authorization : `Bearer ${accessToken}`
+                                        }
+                                    })
+                                    .then((res)=>{
+                                        navigate('/show-pet', {state:res.data.data})
+                                    })
+                                    .catch((err)=>{
+                                        console.log(err)
+                                    })
+                                    
+                                }}>수정</button>
+                                <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
+                                    axios({
+                                        url : `http://j7c101.p.ssafy.io:8080/api/show-pet/${item.id}`,
+                                        method: 'delete',
+                                        headers : {
+                                            authorization : `Bearer ${accessToken}`
+                                        }
+                                    })
+                                    .then(()=>{
+                                        alert('해당 글이 삭제되었습니다.')
+                                    })
+                                    .catch((err)=>{
+                                        console.log(err)
+                                    })
+                                }}>삭제</button>
                             </Col>
                         </Row>
                         </Container>

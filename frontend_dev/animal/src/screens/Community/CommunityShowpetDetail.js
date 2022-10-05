@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { transform } from "../../function/functions";
 import Carousel from "react-bootstrap/Carousel";
 import styled from 'styled-components';
+import { getUserInfo } from "../../api/user";
 
 const StyledBtn = styled.button`
     text-align: center;
@@ -28,20 +29,31 @@ const StyledBtn = styled.button`
     font-family: 'Kotra';
     `;
 
-const CommunityShowpetDetail = ({show}) => {
+const CommunityShowpetDetail = ({ show }) => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
+  const [nickname, setNickname] = useState("");
+
   const params = useParams();
   const navigator = useNavigate();
 
   useEffect(() => {
     getShowpetDetail();
+    getUserNickname();
   }, []);
+
+  const getUserNickname = async () => {
+    try {
+      const { data } = await getUserInfo();
+      setNickname(data.data.nickname);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getShowpetDetail = async () => {
     try {
       const { data } = await getShowListDetail(params.id);
-      console.log(data);
       setArticle(data.data);
       setComments(data.data.comments);
     } catch (error) {
@@ -89,7 +101,7 @@ const CommunityShowpetDetail = ({show}) => {
           <p>작성자 : {article.name}</p>
         </div>
         <div id="carousel-wrap">
-          <Carousel variant="dark" style={{'width': '400px'}}>
+          <Carousel variant="dark" style={{ 'width': '400px' }}>
             {article.imgs &&
               article.imgs.map((img, idx) => {
                 return (
@@ -108,27 +120,30 @@ const CommunityShowpetDetail = ({show}) => {
 
         <div className="content">
           <div className="content-imgwrapper">
-            {/* <img src={article.imgs[0]} alt="img" className="content-img" /> */}
           </div>
           <div className="content-description">내용 : {article.content}</div>
         </div>
       </div>
-      <div>
-        <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
-          수정
-        </StyledBtn>
-        <StyledBtn className="showpet-delete" onClick={() => deleteArticle()}>
-          삭제
-        </StyledBtn>
-      </div>
+      {article.user_nickname === nickname
+        ?
+        <div>
+          <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
+            수정
+          </StyledBtn>
+          <StyledBtn className="showpet-delete" onClick={() => deleteArticle()}>
+            삭제
+          </StyledBtn>
+        </div>
+        : null
+      }
       <hr />
-      <div className="comment flex column" style={{'width': '700px'}}>
+      <div className="comment flex column" style={{ 'width': '700px' }}>
         <div className="comment-head">
           <h4 className="notoMid">댓글</h4>
         </div>
         <div className="comment-input flex">
           <div className="input-img-container flex"></div>
-          <CommentInput getComments={getComments}/>
+          <CommentInput getComments={getComments} />
         </div>
         {comments.length !== 0 ? (
           <Comments comments={comments} getComments={getComments} />

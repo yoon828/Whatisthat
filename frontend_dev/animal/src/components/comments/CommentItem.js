@@ -16,7 +16,7 @@ function CommentsItem({ item, isAuthor, getComments }) {
         if (data.success) {
           getComments();
         }
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -67,8 +67,8 @@ function CommentsItem({ item, isAuthor, getComments }) {
               수정
             </Button>
           </>
-        ) : (
-          <>
+        ) : (isAuthor &&
+          <div>
             <div className="comments-discription">{item.content}</div>
             <Button variant="primary" onClick={() => setEditMode()}>
               수정
@@ -76,7 +76,7 @@ function CommentsItem({ item, isAuthor, getComments }) {
             <Button variant="danger" onClick={() => deleteComment()}>
               삭제
             </Button>
-          </>
+          </div>
         )}
       </div>
     </div>

@@ -107,7 +107,7 @@ const DiagnosisList = () => {
                         <Container>
                         <Row>
                             <Col className='text-center'>{item.name}</Col>
-                            <Col className='text-center'>{item.disease_name}</Col>
+                            <Col className='text-center'>{item.disease_name.substring(2)}</Col>
                             <Col className='text-center'>{Date(item.date).substring(0, 15)}</Col>
                             <Col className='text-center'><button id='detailBtn' onClick={()=>{
                                 document.location.href=`/diagnosedetail/${item.id}`

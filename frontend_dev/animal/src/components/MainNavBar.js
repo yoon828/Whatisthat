@@ -39,7 +39,9 @@ function MainNavbar() {
                 if (isLoggedIn) {
                   navigate("/diagnose");
                 } else {
-                  alert("로그인이 필요합니다.");
+                  if (window.confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+                    navigate('/login')
+                  }
                 }
               }}
             >
@@ -50,7 +52,9 @@ function MainNavbar() {
                 if (isLoggedIn) {
                   navigate("/show-pet/list");
                 } else {
-                  alert("로그인이 필요합니다.");
+                  if (window.confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
+                    navigate('/login')
+                  }
                 }
               }}
             >

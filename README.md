@@ -1,16 +1,13 @@
-\*# 🐶 이게멍냥 🐱
+# 🐶 이게멍냥 🐱
 
 - 진행 기간 : 2022.08.29 ~ 2022.10.07 (6주간) <br/>
 - 서비스 명 : 이게멍냥
 
 ## 🐶🐱 팀원 소개
 
-[ 팀원소개 ](https://www.notion.so/a6ae1807780d4a46b1eb408f3a3ddb07)
-
-## 🐶🐱 팀원 소개
-
 ```
   SSAFY 7기_특화프로젝트 광주1반(C101) 광주 이게멍냥 팀
+[ 팀원소개 ](https://www.notion.so/a6ae1807780d4a46b1eb408f3a3ddb07)
 ```
 
 | AI                                                                                                                                          | AI                                                                                                                                          | AI                                                                                                                                          | Front-End                                                                                                                                   | Front-End                                                                                                                                   | Back-End                                                                                                                                    |
@@ -26,8 +23,8 @@
 <img src="https://img.shields.io/badge/redux-blueviolet?style=flat-square&logo=redux&logoColor=white"/>  
 <img src="https://img.shields.io/badge/bootstrap-blueviolet?style=flat-square&logo=bootstrap&logoColor=white"/>  
 <img src="https://img.shields.io/badge/node.js-brightgreen?style=flat-square&logo=node.js&logoColor=white"/>  
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/>
-<img src="https://img.shields.io/badge/InteliJ-000000?style=flat-square&logo=InteliJ&logoColor=white"/><br/>
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/><br/>
+<img src="https://img.shields.io/badge/InteliJ-000000?style=flat-square&logo=InteliJ&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=white"/>
 <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
@@ -47,14 +44,14 @@
 
 ## 🐶🐱 프로젝트 소개
 
-- 이게 멍냥은 반려동물의 피부질환과 안구질환을 AI를 활용한 사진 분석으로 진단하는 서비스를 메인 기능으로 갖는 웹 서비스입니다. <br>
-- 반려 동물의 여러 병들에 대한 증상 별 응급 처치 정보를 제공합니다 <br>
-- 반려 동물 자랑과 잃어버린 반려동물을 찾는 커뮤니티 서비스를 제공합니다 <br>
-- 사용자 주변의 반려동물 관련 병원과 애완용품상점 등의 정보를 제공합니다 <br>
+- 이게멍냥은 반려동물의 피부질환과 안구질환을 AI를 활용하여 사진분석으로 진단하는 서비스를 메인 기능으로 갖는 웹 서비스입니다. <br>
+- 반려 동물의 여러 질병들에 대한 증상 별 응급 처치 케어가이드를 동영상 등을 통해 보다 자세히 제공합니다 <br>
+- 이용자의 반려동물들을 자랑할 수 있으며 잃어버린 반려동물을 찾는 커뮤니티 서비스를 제공합니다 <br>
+- 사용자 주변의 반려동물 관련 병원과 애완용품상점 등 반려동물 관련 시설의 위치 등 관련 정보들을 제공합니다 <br>
 
 ## 🐶🐱 UCC
 
-- ucc
+- UCC 영상 주소
 
 ## 🐶🐱 시연영상
 
@@ -167,7 +164,7 @@
 
 ## 🐶🐱 프로젝트 회고
 
-## AI
+### AI
 
 | 팀원   | 느낀점 |
 | ------ | ------ |
@@ -175,14 +172,14 @@
 | 김대현 | 내용   |
 | 김윤민 | 내용   |
 
-## Front-End
+### Front-End
 
 | 팀원   | 느낀점 |
 | ------ | ------ |
 | 이동주 | 내용   |
 | 고요한 | 내용   |
 
-## Back-End
+### Back-End
 
 | 팀원   | 느낀점 |
 | ------ | ------ |

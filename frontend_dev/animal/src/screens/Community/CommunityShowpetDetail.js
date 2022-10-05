@@ -10,25 +10,25 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { transform } from "../../function/functions";
 import Carousel from "react-bootstrap/Carousel";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledBtn = styled.button`
-    text-align: center;
-    width: 140px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    font-size: 23px;
-    font-weight: bold;
-    outline: none;
-    cursor: pointer;
-    color: black;
-    background: #F5C6AA;
-    margin: 20px;
-    font-family: 'Kotra';
-    `;
+  text-align: center;
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  margin: 20px;
+  font-family: "Kotra";
+`;
 
-const CommunityShowpetDetail = ({show}) => {
+const CommunityShowpetDetail = ({ show }) => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const params = useParams();
@@ -89,11 +89,11 @@ const CommunityShowpetDetail = ({show}) => {
           <p>작성자 : {article.name}</p>
         </div>
         <div id="carousel-wrap">
-          <Carousel variant="dark" style={{'width': '400px'}}>
+          <Carousel variant="dark" style={{ width: "400px" }}>
             {article.imgs &&
               article.imgs.map((img, idx) => {
                 return (
-                  <Carousel.Item key={idx} >
+                  <Carousel.Item key={idx}>
                     <img
                       src={img.img_url}
                       alt="mypet"
@@ -113,22 +113,22 @@ const CommunityShowpetDetail = ({show}) => {
           <div className="content-description">내용 : {article.content}</div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <StyledBtn className="showpet-edit" onClick={() => editArticle()}>
           수정
         </StyledBtn>
         <StyledBtn className="showpet-delete" onClick={() => deleteArticle()}>
           삭제
         </StyledBtn>
-      </div>
+      </div> */}
       <hr />
-      <div className="comment flex column" style={{'width': '700px'}}>
+      <div className="comment flex column" style={{ width: "700px" }}>
         <div className="comment-head">
           <h4 className="notoMid">댓글</h4>
         </div>
         <div className="comment-input flex">
           <div className="input-img-container flex"></div>
-          <CommentInput getComments={getComments}/>
+          <CommentInput getComments={getComments} />
         </div>
         {comments.length !== 0 ? (
           <Comments comments={comments} getComments={getComments} />

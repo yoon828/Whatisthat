@@ -126,7 +126,8 @@ const ProfileUpdate = () => {
                         new Date().getDate() +
                         new Date().getHours() +
                         new Date().getMinutes() +
-                        new Date().getSeconds();
+                        new Date().getSeconds()+
+                        '.png';
                       setProfileImg(fileName);
                     }}
                   ></input>

@@ -101,7 +101,7 @@ const CommunityShowpetDetail = ({ show }) => {
         <h2>제목 : {article.title}</h2>
         <div className="title">
           <p>작성일 : {transform(article.date, "chat")}</p>
-          <p>작성자 : {article.name}</p>
+          <p>반려동물 이름 : {article.name}</p>
         </div>
         <div id="carousel-wrap">
           <Carousel variant="dark" style={{ 'width': '400px' }}>

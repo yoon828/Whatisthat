@@ -4,6 +4,23 @@ import "./CommentItem.css";
 import Button from "react-bootstrap/Button";
 import { transform } from "../../function/functions";
 import { deleteShowpetComment, putShowpetComment } from "../../api/community";
+import styled from "styled-components";
+
+const StyledBtn = styled.button`
+  text-align: center;
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  background: #f5c6aa;
+  margin: 20px;
+  font-family: "Kotra";
+`;
 
 function CommentsItem({ item, isAuthor, getComments }) {
   const [text, setText] = useState("");
@@ -44,8 +61,12 @@ function CommentsItem({ item, isAuthor, getComments }) {
     <div id="comments">
       <div className="comments-content">
         <div className="comments-item">
-          <div className="comments-item__username">{item.user_nickname}</div>
-          <div className="comments-item__username">{transform(item.date)}</div>
+          <div className="comments-item__username" style={{ fontSize: "15px" }}>
+            {item.user_nickname}
+          </div>
+          <div className="comments-item__username" style={{ fontSize: "15px" }}>
+            {transform(item.date)}
+          </div>
         </div>
         {editInput ? (
           <>
@@ -60,22 +81,26 @@ function CommentsItem({ item, isAuthor, getComments }) {
                 }}
               />
             </div>
-            <Button variant="primary" onClick={() => setEditInput(false)}>
-              취소
-            </Button>
-            <Button variant="primary" onClick={() => commentEdit()}>
-              수정
-            </Button>
+            <div>
+              <StyledBtn variant="primary" onClick={() => setEditInput(false)}>
+                취소
+              </StyledBtn>
+              <StyledBtn variant="primary" onClick={() => commentEdit()}>
+                수정
+              </StyledBtn>
+            </div>
           </>
         ) : (
           <>
             <div className="comments-discription">{item.content}</div>
-            <Button variant="primary" onClick={() => setEditMode()}>
-              수정
-            </Button>
-            <Button variant="danger" onClick={() => deleteComment()}>
-              삭제
-            </Button>
+            <div>
+              <StyledBtn variant="primary" onClick={() => setEditMode()}>
+                수정
+              </StyledBtn>
+              <StyledBtn variant="danger" onClick={() => deleteComment()}>
+                삭제
+              </StyledBtn>
+            </div>
           </>
         )}
       </div>

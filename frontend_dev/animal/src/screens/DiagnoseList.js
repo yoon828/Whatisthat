@@ -55,13 +55,13 @@ const DiagnosisList = () => {
                       <div className="text-center">상세정보/삭제</div>
                     </div> */}
                     <Container>
-                            <Row>
-                                <Col className='text-center'>반려동물 이름</Col>
-                                <Col className='text-center'>병명</Col>
-                                <Col className='text-center'>진단일시</Col>
-                                <Col className='text-center'>상세정보/삭제</Col>
-                            </Row>
-                            </Container>
+                      <Row>
+                        <Col className="text-center">반려동물 이름</Col>
+                        <Col className="text-center">병명</Col>
+                        <Col className="text-center">진단일시</Col>
+                        <Col className="text-center">상세정보/삭제</Col>
+                      </Row>
+                    </Container>
                   </ListGroup.Item>
                   {diagnosisList.map((item) => (
                     <div>
@@ -105,30 +105,46 @@ const DiagnosisList = () => {
                           </div>
                         </div> */}
                         <Container>
-                        <Row>
-                            <Col className='text-center'>{item.name}</Col>
-                            <Col className='text-center'>{item.disease_name.substring(2)}</Col>
-                            <Col className='text-center'>{Date(item.date).substring(0, 15)}</Col>
-                            <Col className='text-center'><button id='detailBtn' onClick={()=>{
-                                document.location.href=`/diagnosedetail/${item.id}`
-                            }}>상세정보</button>
-                            <button id='detailBtn' style={{'marginLeft':'10px'}} onClick={()=>{
-                                axios({
-                                    url : `http://j7c101.p.ssafy.io:8080/api/diagnose/${item.id}`,
-                                    method: 'delete',
-                                    headers : {
-                                        authorization : `Bearer ${accessToken}`
-                                    }
-                                })
-                                .then(()=>{
-                                    alert('해당 내역이 삭제되었습니다.')
-                                })
-                                .catch((err)=>{
-                                    console.log(err)
-                                })
-                            }}>삭제</button>
+                          <Row>
+                            <Col className="text-center">{item.name}</Col>
+                            <Col className="text-center">
+                              {item.disease_name.substring(2)}
                             </Col>
-                        </Row>
+                            <Col className="text-center">
+                              {Date(item.date).substring(0, 15)}
+                            </Col>
+                            <Col className="text-center">
+                              <button
+                                id="detailBtn"
+                                onClick={() => {
+                                  document.location.href = `/diagnosedetail/${item.id}`;
+                                }}
+                              >
+                                상세정보
+                              </button>
+                              <button
+                                id="detailBtn"
+                                style={{ marginLeft: "10px" }}
+                                onClick={() => {
+                                  axios({
+                                    url: `http://j7c101.p.ssafy.io:8080/api/diagnose/${item.id}`,
+                                    method: "delete",
+                                    headers: {
+                                      authorization: `Bearer ${accessToken}`,
+                                    },
+                                  })
+                                    .then(() => {
+                                      alert("해당 내역이 삭제되었습니다.");
+                                    })
+                                    .catch((err) => {
+                                      console.log(err);
+                                    });
+                                }}
+                              >
+                                삭제
+                              </button>
+                            </Col>
+                          </Row>
                         </Container>
                       </ListGroup.Item>
                     </div>

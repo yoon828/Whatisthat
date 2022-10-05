@@ -5,28 +5,35 @@ import { Link, useLocation } from "react-router-dom";
 import CommunityShowpet from "./CommunityShowpet";
 import Lottie from 'lottie-react'
 import comm from '../../lotties/comm.json'
+import { getUserInfo } from "../../api/user";
 
 function Community() {
   const [comType, setComType] = useState("showpet");
+  const [id, setId] = useState("");
 
   const location = useLocation();
   useEffect(() => {
-    console.log(location);
+    getUserNickname()
     if (location.pathname === "/lost/list") {
       setComType("lost");
     }
   }, []);
 
+  const getUserNickname = async () => {
+    try {
+      const { data } = await getUserInfo();
+      console.log(data.data);
+      setId(data.data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div id="community">
       <div className="background__banner">
-        <Lottie animationData={comm} style={{'width': '250px'}}/>
-        <h1 style={{'fontSize':'100px', 'marginLeft':'40px'}}>커뮤니티</h1>
-        {/* <img
-          className="banner-img"
-          src="/ComBannerimg.jpg"
-          alt="combannerimg"
-        /> */}
+        <Lottie animationData={comm} style={{ 'width': '250px' }} />
+        <h1 style={{ 'fontSize': '100px', 'marginLeft': '40px' }}>커뮤니티</h1>
       </div>
       <div className="item-content">
         <div className="banners">
@@ -53,7 +60,7 @@ function Community() {
             </button>
           </Link>
         </div>
-        {comType === "showpet" ? <CommunityShowpet /> : <LostDetailList />}
+        {comType === "showpet" ? <CommunityShowpet /> : <LostDetailList id={id} />}
       </div>
     </div>
   );

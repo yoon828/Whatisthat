@@ -47,7 +47,7 @@ function CommunityShowpet() {
       <StyledBtn className="notoReg" type="button" onClick={goEdit}>
         자랑하기 글 작성
       </StyledBtn>
-      <CardList cards={list}/>
+      <CardList cards={list} />
     </div>
   );
 }

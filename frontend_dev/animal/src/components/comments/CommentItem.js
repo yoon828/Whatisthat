@@ -8,8 +8,8 @@ import styled from "styled-components";
 
 const StyledBtn = styled.button`
   text-align: center;
-  width: 70px;
-  height: 30px;
+  width: 100px;
+  height: 40px;
   border: none;
   border-radius: 15px;
   font-size: 15px;
@@ -18,8 +18,7 @@ const StyledBtn = styled.button`
   cursor: pointer;
   color: black;
   background: #f5c6aa;
-  margin: 10px;
-  font-family: "Kotra";
+  margin: 0 8px;
 `;
 
 function CommentsItem({ item, isAuthor, getComments }) {
@@ -33,7 +32,7 @@ function CommentsItem({ item, isAuthor, getComments }) {
         if (data.success) {
           getComments();
         }
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -58,41 +57,41 @@ function CommentsItem({ item, isAuthor, getComments }) {
   };
 
   return (
-    <div id="comments">
-      <div className="comments-content">
-        <div className="comments-item">
-          <div className="comments-item__username" style={{ fontSize: "15px" }}>
-            {item.user_nickname}
-          </div>
-          <div className="comments-item__username" style={{ fontSize: "15px" }}>
-            {transform(item.date)}
-          </div>
+    <div className="comments-content">
+      <div className="comments-item">
+        <div className="comments-item__username" style={{ fontSize: "15px" }}>
+          {item.user_nickname}
         </div>
-        {editInput ? (
-          <>
-            <div>
-              <input
-                value={text}
-                type="text"
-                placeholder="댓글을 작성해주세요"
-                required
-                onChange={(e) => {
-                  setText(e.target.value);
-                }}
-              />
-            </div>
-            <div className="comments-btn">
-              <StyledBtn variant="primary" onClick={() => setEditInput(false)}>
-                취소
-              </StyledBtn>
-              <StyledBtn variant="primary" onClick={() => commentEdit()}>
-                수정
-              </StyledBtn>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="comments-discription">{item.content}</div>
+        <div className="comments-item__username" style={{ fontSize: "15px" }}>
+          {transform(item.date)}
+        </div>
+      </div>
+      {editInput ? (
+        <>
+          <div>
+            <input
+              value={text}
+              type="text"
+              placeholder="댓글을 작성해주세요"
+              required
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            />
+          </div>
+          <div className="comments-btn">
+            <StyledBtn variant="primary" onClick={() => setEditInput(false)}>
+              취소
+            </StyledBtn>
+            <StyledBtn variant="primary" onClick={() => commentEdit()}>
+              수정
+            </StyledBtn>
+          </div>
+        </>
+      ) : (
+        <div>
+          <div className="comments-discription">{item.content}</div>
+          {isAuthor ?
             <div className="comments-btn">
               <StyledBtn variant="primary" onClick={() => setEditMode()}>
                 수정
@@ -100,10 +99,10 @@ function CommentsItem({ item, isAuthor, getComments }) {
               <StyledBtn variant="danger" onClick={() => deleteComment()}>
                 삭제
               </StyledBtn>
-            </div>
-          </>
-        )}
-      </div>
+            </div> : <div className="comments-btn">
+            </div>}
+        </div>
+      )}
     </div>
   );
 }

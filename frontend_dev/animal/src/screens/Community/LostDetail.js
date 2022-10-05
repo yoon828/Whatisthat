@@ -23,23 +23,19 @@ const StyledBtn = styled.button`
   }
 `;
 
-function CommunityLostDetail({ lost }) {
+function CommunityLostDetail({ lost, isAuthor }) {
   const imgServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL;
 
   const [isFound, setIsFound] = useState(lost.is_found);
-  const [article, setArticle] = useState({});
   const navigate = useNavigate();
 
   const toggleFound = async () => {
-    console.log(isFound);
     setIsFound(!isFound);
-    console.log(isFound);
     try {
       const { data } = await putIsFound({
         id: lost.id,
         is_found: !isFound,
       });
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +45,6 @@ function CommunityLostDetail({ lost }) {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
         const { data } = await deleteLost(lost.id);
-        console.log(data);
         if (data.success) {
           alert("삭제되었습니다.");
           navigate("/lost/list");
@@ -62,7 +57,7 @@ function CommunityLostDetail({ lost }) {
 
   return (
     <div className={isFound ? 'find' : 'lost'}>
-      <Carousel variant="dark" style={{ width: "400px" }}>
+      <Carousel variant="dark" style={{ 'width': '400px' }}>
         {lost.imgs &&
           lost.imgs.map((img, idx) => {
             return (
@@ -77,11 +72,6 @@ function CommunityLostDetail({ lost }) {
             );
           })}
       </Carousel>
-      {/* <img
-        className="lost-img"
-        src={`${imgServerUrl}/${lost.imgs[0].img_url}`}
-        alt="dummy"
-      /> */}
       <div className="lost-content">
         <h5>{lost.title}</h5>
         <p className="content-item">
@@ -96,7 +86,7 @@ function CommunityLostDetail({ lost }) {
         <p className="content-item">연락처 : {lost.phone}</p>
         <p className="content-item">포상금 : {lost.pay}</p>
         <p className="content-item">{lost.etc}</p>
-        <div>
+        {isAuthor &&
           <div className="btns">
             <div>
               찾았나요?
@@ -104,13 +94,14 @@ function CommunityLostDetail({ lost }) {
                 className="lost-isfound"
                 type="checkbox"
                 onChange={toggleFound}
+                checked={isFound ? true : false}
               />
             </div>
-            {/* <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
+            <StyledBtn className="lost-delete" onClick={() => deleteArticle()}>
               삭제
-            </StyledBtn> */}
+            </StyledBtn>
           </div>
-        </div>
+        }
       </div>
     </div>
   );

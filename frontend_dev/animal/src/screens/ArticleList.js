@@ -77,11 +77,12 @@ const ShowpetList = () => {
       .then((res) => {
         setInfo(res.data.data);
         setLoading(false);
+        console.log('호출성공')
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [info]);
+  }, []);
   return (
     <div
       className="container"
@@ -252,11 +253,12 @@ const LostList = () => {
       .then((res) => {
         setLost(res.data.data);
         setLoading(false);
+        console.log('호출 성공')
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [lost]);
+  }, []);
   return (
     <div
       className="container"

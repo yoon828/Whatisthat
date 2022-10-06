@@ -26,11 +26,12 @@ const DiagnosisList = () => {
       .then((res) => {
         setDiagnosisList(res.data.data);
         setLoading(false);
+        console.log('호출성공')
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [diagnosisList]);
+  }, []);
   return (
     <div className="container" style={{ marginTop: "50px", fontSize: "25px" }}>
       <div id="list-lottie">

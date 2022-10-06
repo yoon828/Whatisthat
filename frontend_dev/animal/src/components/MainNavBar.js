@@ -4,8 +4,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import LoginCallback from "../screens/LoginCallback";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function MainNavbar() {
@@ -29,7 +27,7 @@ function MainNavbar() {
     <Navbar bg="light" expand="lg" id="navfont">
       <Container className="container">
         <Navbar.Brand href="/">
-          <img src="/MainDog.svg" alt="maindog"></img>
+          <img src="/main/pets.png" alt="maindog" className="main_img" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -39,8 +37,12 @@ function MainNavbar() {
                 if (isLoggedIn) {
                   navigate("/diagnose");
                 } else {
-                  if (window.confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
-                    navigate('/login')
+                  if (
+                    window.confirm(
+                      "로그인이 필요합니다. 로그인 페이지로 이동할까요?"
+                    )
+                  ) {
+                    navigate("/login");
                   }
                 }
               }}
@@ -52,8 +54,12 @@ function MainNavbar() {
                 if (isLoggedIn) {
                   navigate("/show-pet/list");
                 } else {
-                  if (window.confirm('로그인이 필요합니다. 로그인 페이지로 이동할까요?')) {
-                    navigate('/login')
+                  if (
+                    window.confirm(
+                      "로그인이 필요합니다. 로그인 페이지로 이동할까요?"
+                    )
+                  ) {
+                    navigate("/login");
                   }
                 }
               }}

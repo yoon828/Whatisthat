@@ -323,8 +323,9 @@ const DiagnoseResult = (props) => {
       setResult(res.data);
       setTreats(treatMethod[res.data[0][0]]);
       setLoading(false);
+      console.log('호출성공')
     });
-  }, [result]);
+  }, []);
 
   return (
     <div id="result-box">

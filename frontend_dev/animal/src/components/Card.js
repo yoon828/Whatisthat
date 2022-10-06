@@ -5,7 +5,7 @@ import "./CardList.css";
 
 function BasicExample({ card }) {
   return (
-    <ListGroup.Item>
+    <ListGroup.Item className="card-list-grop-item">
       <div className="img-wrap">
         <Link
           to={`/show-pet/detail/${card.id}`}
@@ -16,6 +16,7 @@ function BasicExample({ card }) {
       </div>
       <div className="content-wrap">
         <Link
+          className="img-link"
           to={`/show-pet/detail/${card.id}`}
           state={{ isAuthor: card.isAuthor }}
         >

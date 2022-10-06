@@ -17,7 +17,6 @@ const DiagnoseDetail = () => {
     useEffect(()=>{
         let accessToken = localStorage.getItem('accessToken')
         const id = location.pathname.substring(16)
-        console.log(id)
         axios({
             url : `http://j7c101.p.ssafy.io:8080/api/diagnose/${id}`,
             method: 'get',

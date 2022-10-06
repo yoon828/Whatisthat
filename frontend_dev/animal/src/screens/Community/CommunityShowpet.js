@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./CommunityShowpetDetail.css";
 import { getShowList } from "../../api/community";
-import CardList from '../../components/CardList'
-// import ShowpetDetail from './CommunityShowpetDetail'
+import CardList from "../../components/CardList";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledBtn = styled.button`
+  margin-left: 10px;
   text-align: center;
   width: 120px;
   height: 40px;
@@ -43,7 +43,7 @@ function CommunityShowpet() {
     }
   };
   return (
-    <div id='showpet'>
+    <div id="showpet">
       <StyledBtn className="notoReg" type="button" onClick={goEdit}>
         자랑하기 글 작성
       </StyledBtn>

@@ -32,7 +32,6 @@ function CommentInput({ item, comments, getComments }) {
         if (data.success) {
           alert("댓글이 등록되었습니다.");
           commentRef.current.value = "";
-          console.log("");
           getComments();
         }
       } catch (error) {
@@ -43,29 +42,6 @@ function CommentInput({ item, comments, getComments }) {
     }
   };
 
-  //댓글 수정하기
-  const edit = async () => {
-    const content = commentRef.current.value;
-    console.log(content);
-    axios
-      .put(
-        `http://j7c101.p.ssafy.io:8080/api/show-pet/comment`,
-        {
-          content: content,
-          id: item.id,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log("글 수정");
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <div id="comments-input">
       <InputGroup className="mb-3">

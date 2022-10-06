@@ -156,7 +156,7 @@ const ProfileUpdate = () => {
                               data: formData,
                             })
                               .then((res) => {
-                                console.log(res.data);
+                                // console.log(res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -170,7 +170,7 @@ const ProfileUpdate = () => {
                               data: info,
                             })
                               .then((res) => {
-                                console.log(res.data);
+                                // console.log(res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -202,7 +202,6 @@ const ProfileUpdate = () => {
                           })
                           .catch((err) => {
                             console.log(err);
-                            console.log(info);
                           });
                       }
                       else if (!nickname && file) {
@@ -226,7 +225,7 @@ const ProfileUpdate = () => {
                               data: formData,
                             })
                               .then((res) => {
-                                console.log(res.data);
+                                // console.log(res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -240,7 +239,7 @@ const ProfileUpdate = () => {
                               data: info,
                             })
                               .then((res) => {
-                                console.log(res.data);
+                                // console.log(res.data);
                               })
                               .catch((err) => {
                                 console.log(err);

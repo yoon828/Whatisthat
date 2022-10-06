@@ -34,11 +34,9 @@ function LostDetailList({ id }) {
     getLostListApi();
   }, []);
 
-
   const getLostListApi = async () => {
     try {
       const { data } = await getLostList();
-      console.log(data);
       setLostList(data.data);
     } catch (error) {
       console.log(error);
@@ -51,7 +49,11 @@ function LostDetailList({ id }) {
         실종동물 글 작성
       </StyledBtn>
       {lostList.map((lost) => (
-        <LostDetail lost={lost} key={lost.id} isAuthor={lost.user_id === id ? true : false} />
+        <LostDetail
+          lost={lost}
+          key={lost.id}
+          isAuthor={lost.user_id === id ? true : false}
+        />
       ))}
     </div>
   );

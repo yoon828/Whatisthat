@@ -134,7 +134,6 @@ const LostCreate = () => {
         },
         data: formData,
       });
-      console.log(data);
       if (data.status) {
         serverName = [];
         data.data.map((img, idx) => {

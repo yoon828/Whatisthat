@@ -31,6 +31,7 @@
 
 
 ## 🐶🐱 AI 진행 상황
+### 초기 모델
 ### 피부
 #### 모델1_피부분류
 * accuracy <br>
@@ -61,6 +62,35 @@
 
 * loss<br>
 ![loss](./readmeimg/eye_resnet/loss.png)
+
+### 최종 모델
+
+#### 깅아지 피부 진단 모델
+* accuracy <br>
+![accuracy](./readmeimg/final_model/dog_skin_accuracy.png)
+
+
+* loss<br>
+![loss](./readmeimg/final_model/dog_skin_loss.png)
+
+
+#### 깅아지 눈 진단 모델
+* accuracy <br>
+![accuracy](./readmeimg/final_model/dog_eye_accuracy.png)
+
+
+* loss<br>
+![loss](./readmeimg/final_model/dog_eye_loss.png)
+
+
+#### 고양이 눈 진단 모델
+* accuracy <br>
+![accuracy](./readmeimg/final_model/cat_eye_acc.png)
+
+
+* loss<br>
+![loss](./readmeimg/final_model/cat_eye_loss.png)
+
 
 
 ---

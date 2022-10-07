@@ -1,6 +1,8 @@
 package com.ssafy.meongnyang.api.request;
 
 import com.ssafy.meongnyang.api.response.LostImgResponseDto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class LostRegisterDto {
-    private Long user_id;   //토큰 만들면 삭제
     private String title;
     private Integer gender;
     private String lost_date;

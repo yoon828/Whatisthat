@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public interface LostRepository extends JpaRepository<Lost, Long> {
-    @Query("select l from Lost l where l.user.id =:id order by l.date desc")
+    @Query("select l from Lost l order by l.is_found asc, l.date desc")
+    List<Lost> findAllWithSorting();
+    @Query("select l from Lost l where l.user.id =:id order by l.is_found asc, l.date desc")
     List<Lost> findAllByUserId(Long id);
 }

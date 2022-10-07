@@ -11,10 +11,10 @@ import java.util.List;
 
 @Service
 public interface ShowPetService {
-    ShowPetResponseDto writeShowPet(ShowPetRegisterDto showPetRegisterDto);
-    ShowPetResponseDto updateShowPet(ShowPetUpdateDto showPetUpdateDto);
+    ShowPetResponseDto writeShowPet(String accessToken, ShowPetRegisterDto showPetRegisterDto);
+    ShowPetResponseDto updateShowPet(String accessToken, ShowPetUpdateDto showPetUpdateDto);
     List<ShowPetListResponseDto> getShowPetList();
     ShowPetDetailResponseDto getShowPet(Long id);
-    boolean deleteShowPet(Long id);
-    List<ShowPetListResponseDto> getUserShowPetList(Long id);
+    boolean deleteShowPet(String accessToken, long id);
+    List<ShowPetListResponseDto> getUserShowPetList(String accessToken);
 }

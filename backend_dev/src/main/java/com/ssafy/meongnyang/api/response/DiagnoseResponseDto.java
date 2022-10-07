@@ -14,6 +14,10 @@ public class DiagnoseResponseDto {
     private String user_name;
     private String name;
     private String img_url;
-    private String disease_name;
-    private String treat;
+    private String disease_name1;
+    private String probability1;
+    private String disease_name2;
+    private String probability2;
+    private String disease_name3;
+    private String probability3;
 }

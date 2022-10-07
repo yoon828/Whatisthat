@@ -18,17 +18,35 @@ public class Diagnose {
     @Column(name = "diagnose_id")
     private Long id;
 
-    @Column(nullable = false)
-    private Integer species;
+//    @Column(nullable = false)
+//    private Integer species;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Integer type;
+//    @Column(nullable = false)
+//    private Integer type;
+
+//    @Column(nullable = false)
+//    private String code;
 
     @Column(nullable = false)
-    private String code;
+    private String disease_name1;
+
+    @Column(nullable = false)
+    private String probability1;
+
+    @Column(nullable = false)
+    private String disease_name2;
+
+    @Column(nullable = false)
+    private String probability2;
+
+    @Column(nullable = false)
+    private String disease_name3;
+
+    @Column(nullable = false)
+    private String probability3;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false, columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")

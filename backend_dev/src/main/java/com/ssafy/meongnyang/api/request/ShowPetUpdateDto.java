@@ -1,6 +1,5 @@
 package com.ssafy.meongnyang.api.request;
 
-import com.ssafy.meongnyang.db.entity.ShowPetImg;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ShowPetUpdateDto {
-    private Long user_id;   //토큰 만들면 삭제
     private Long id;
     private String title;
     private String name;

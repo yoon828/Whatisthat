@@ -51,11 +51,11 @@
 
 ## 🐶🐱 UCC
 
-- [ UCC 영상 주소 ](https://www.youtube.com/watch?v=OEJoGWc_sy0)<br>
+-[ UCC 영상 주소 ](https://youtu.be/OEJoGWc_sy0)<br>
 
 ## 🐶🐱 시연영상
 
-- [ 시연 영상 ](https://www.youtube.com/watch?v=qQYymzcSkrY)<br>
+-[ 시연영상 ](https://youtu.be/qQYymzcSkrY)<br>
 
 ## 🐶🐱 주요기능 및 페이지 구성
 
@@ -96,8 +96,8 @@
 ```
 
 <br>
-![이게멍냥 - Chrome 2022-10-07 오전 10_17_44](https://user-images.githubusercontent.com/97574675/194447138-95780c7c-d5eb-463a-838e-8a26b6742419.png)
-![이게멍냥 - Chrome 2022-10-07 오전 10_17_48](https://user-images.githubusercontent.com/97574675/194447147-1c094a5d-68e9-46a4-af38-e3bd6c41b2a1.png)
+![실종1](https://user-images.githubusercontent.com/97574675/194449647-23bad429-6d34-4f03-a453-eea00fea6a06.png)
+![실종2](https://user-images.githubusercontent.com/97574675/194449652-a07d3543-a528-47b6-addd-ffc65bd31127.png)
 
 ### **응급처치페이지**
 
@@ -146,6 +146,8 @@
 
 ## 🐶🐱 AI 진행 상황
 
+### 초기 모델
+
 ### 피부
 
 #### 모델1\_피부분류
@@ -171,6 +173,8 @@
 - accuracy <br>
   ![accuracy](./readmeimg/eye_basic_big/accuracy.png)
 
+<<<<<<< HEAD
+
 - loss <br>
   ![loss](./readmeimg/eye_basic_big/loss.png)
 
@@ -181,6 +185,32 @@
 
 - loss<br>
   ![loss](./readmeimg/eye_resnet/loss.png)
+
+### 최종 모델
+
+#### 깅아지 피부 진단 모델
+
+- accuracy <br>
+  ![accuracy](./readmeimg/final_model/dog_skin_accuracy.png)
+
+- loss<br>
+  ![loss](./readmeimg/final_model/dog_skin_loss.png)
+
+#### 깅아지 눈 진단 모델
+
+- accuracy <br>
+  ![accuracy](./readmeimg/final_model/dog_eye_accuracy.png)
+
+- loss<br>
+  ![loss](./readmeimg/final_model/dog_eye_loss.png)
+
+#### 고양이 눈 진단 모델
+
+- accuracy <br>
+  ![accuracy](./readmeimg/final_model/cat_eye_acc.png)
+
+- loss<br>
+  ![loss](./readmeimg/final_model/cat_eye_loss.png)
 
 ---
 

@@ -96,8 +96,8 @@
 ```
 
 <br>
-![실종1](https://user-images.githubusercontent.com/97574675/194449647-23bad429-6d34-4f03-a453-eea00fea6a06.png)
-![실종2](https://user-images.githubusercontent.com/97574675/194449652-a07d3543-a528-47b6-addd-ffc65bd31127.png)
+<img src="https://user-images.githubusercontent.com/97574675/194449647-23bad429-6d34-4f03-a453-eea00fea6a06.png" width="450" height="350"/>
+<img src="https://user-images.githubusercontent.com/97574675/194449652-a07d3543-a528-47b6-addd-ffc65bd31127.png" width="450" height="350"/>
 
 ### **응급처치페이지**
 

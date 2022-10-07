@@ -51,11 +51,11 @@
 
 ## 🐶🐱 UCC
 
-- UCC 영상 주소
+- [ UCC 영상 주소 ](https://www.youtube.com/watch?v=OEJoGWc_sy0)<br>
 
 ## 🐶🐱 시연영상
 
-- 시연영상
+- [ 시연 영상 ](https://www.youtube.com/watch?v=qQYymzcSkrY)<br>
 
 ## 🐶🐱 주요기능 및 페이지 구성
 

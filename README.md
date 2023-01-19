@@ -67,8 +67,11 @@
 ```
 
 <br>
-![메인](https://user-images.githubusercontent.com/97574675/194446788-321e17bf-f585-4cbe-b6a3-170f63b979aa.gif)
-![메인2](https://user-images.githubusercontent.com/97574675/194446798-c2050f83-342c-4f9d-aa5b-98addc466ab1.gif)
+
+![ 메인 ](https://user-images.githubusercontent.com/97574675/194446788-321e17bf-f585-4cbe-b6a3-170f63b979aa.gif)
+
+
+![ 메인2 ](https://user-images.githubusercontent.com/97574675/194446798-c2050f83-342c-4f9d-aa5b-98addc466ab1.gif)
 
 ### **진단하기페이지**
 
@@ -77,6 +80,7 @@
 ```
 
 <br>
+
 ![진단하기](https://user-images.githubusercontent.com/97574675/194446920-753920af-5143-4258-8dfd-207fd8f0cc93.gif)
 
 ### **커뮤니티페이지(자랑하기)**
@@ -86,7 +90,9 @@
 ```
 
 <br>
+
 ![커뮤 1](https://user-images.githubusercontent.com/97574675/194447008-2a86b0cb-8357-4c83-82e1-e2593650d49d.gif)
+
 ![커뮤 2](https://user-images.githubusercontent.com/97574675/194447019-dbd85bfd-7160-43cd-b225-e8ccf7e4882b.gif)
 
 ### **커뮤니티페이지(실종찾기)**
@@ -96,8 +102,11 @@
 ```
 
 <br>
+
 <img src="https://user-images.githubusercontent.com/97574675/194449647-23bad429-6d34-4f03-a453-eea00fea6a06.png" width="550" height="400"/>
+
 <br>
+
 <img src="https://user-images.githubusercontent.com/97574675/194449652-a07d3543-a528-47b6-addd-ffc65bd31127.png" width="550" height="400"/>
 
 ### **응급처치페이지**
@@ -107,6 +116,7 @@
 ```
 
 <br>
+
 ![응급처치](https://user-images.githubusercontent.com/97574675/194447191-e683df76-b6b4-4c83-9047-8f4f38b2a3ba.gif)
 
 ### **주변시설**
@@ -122,6 +132,7 @@
 ```
 
 <br>
+
 ![마이페이지](https://user-images.githubusercontent.com/97574675/194447244-3ea0aa73-2335-4f29-b5ea-dfe96697f4c0.gif)
 
 ## 🐶🐱 산출물
@@ -217,23 +228,23 @@
 
 ### AI
 
-| 팀원   | 느낀점 |
-| ------ | ------ |
-| 김수빈 | 내용   |
-| 김대현 | 내용   |
-| 김윤민 | 내용   |
+| 팀원   | 
+| ------ |
+| 김수빈 | 
+| 김대현 | 
+| 김윤민 | 
 
 ### Front-End
 
-| 팀원   | 느낀점 |
-| ------ | ------ |
-| 이동주 | 내용   |
-| 고요한 | 내용   |
+| 팀원   |
+| ------ | 
+| 이동주 | 
+| 고요한 | 
 
 ### Back-End
 
-| 팀원   | 느낀점 |
-| ------ | ------ |
-| 서은지 | 내용   |
+| 팀원   |
+| ------ | 
+| 서은지 | 
 
 [ 팀 노션 ](https://www.notion.so/45ecfc3f612b42eaa3c644a1bef4cda3)
